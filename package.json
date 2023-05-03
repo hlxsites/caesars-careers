@@ -2,10 +2,10 @@
   "name": "@adobe/helix-project-boilerplate",
   "private": true,
   "version": "1.0.0",
-  "description": "Starter project for Adobe Helix",
+  "description": "Caesars careers site on Adobe Franklin",
   "scripts": {
     "lint:js": "eslint .",
-    "lint:css": "stylelint blocks/**/*.css styles/*.css",
+    "lint:css": "stylelint careers/blocks/**/*.css careers/styles/*.css",
     "lint": "npm run lint:js && npm run lint:css"
   },
   "repository": {
