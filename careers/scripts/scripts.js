@@ -1,6 +1,5 @@
 import {
   sampleRUM,
-  buildBlock,
   loadHeader,
   loadFooter,
   decorateButtons,
@@ -105,7 +104,7 @@ export function buildEllipsis(text, width, maxVisibleLines, suffix, options = {}
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
-function buildHeroBlock(main) {
+function buildHeroBlock() {
 }
 
 /**

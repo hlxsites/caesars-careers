@@ -296,7 +296,7 @@ function buildSlide(blockState, slide, index) {
 
   slide.classList.add('carousel-slide');
 
-  if(slide.children.length === 3) {
+  if (slide.children.length === 3) {
     // image or video, alt-image and text
     slide.children[0].classList.add('carousel-main-image');
     const slideAltImage = slide.children[1];
