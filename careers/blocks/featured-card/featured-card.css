@@ -44,6 +44,7 @@
 }
 
 .featured-card.block .featured-card-content h4 {
+  text-transform: uppercase;
   padding-top: var(--layout-size-m);
   padding-bottom: var(--layout-size-m);
 }
@@ -84,10 +85,14 @@
   .featured-card.block .featured-card-image > picture {
     position: relative;
     bottom: -32px;
+    left: -32px;
   }
 
   .featured-card.block .featured-card-text {
     flex: 1 0 50%;
+    padding-left: 80px;
+    padding-bottom: 80px;
+    padding-top: 80px;
   }
 
   .featured-card-text > p,
