@@ -1,9 +1,9 @@
 # Your Project's Title...
-Your project's description...
+caesars.com/careers on Adobe AEM Franklin
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--caesars-careers--hlxsites.hlx.page/careers
+- Live: https://main--caesars-careers--hlxsites.hlx.live/careers
 
 ## Installation
 
