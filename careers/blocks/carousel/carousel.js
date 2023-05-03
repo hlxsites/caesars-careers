@@ -297,16 +297,18 @@ function buildSlide(blockState, slide, index) {
   slide.classList.add('carousel-slide');
 
   if(slide.children.length === 3) {
+    // image or video, alt-image and text
     slide.children[0].classList.add('carousel-main-image');
     const slideAltImage = slide.children[1];
     if (!slideAltImage.classList.contains('carousel-alt-video')) {
       slideAltImage.classList.add('carousel-alt-image');
     }
-    if (slide.children && slide.children.length >= 2 && !!slide.children[2]) {
-      slide.children[2].classList.add('carousel-text');
-    }
+    slide.children[2].classList.add('carousel-text');
   } else {
-    slide.children[0].classList.add('carousel-only-image');
+    // image or video and text
+    if (!slide.children[0].classList.contains('carousel-alt-video')) {
+      slide.children[0].classList.add('carousel-only-image');
+    }
     slide.children[1].classList.add('carousel-text');
   }
 
