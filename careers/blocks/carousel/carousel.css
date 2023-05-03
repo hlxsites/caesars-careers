@@ -35,7 +35,7 @@
 
 .carousel.block .carousel-slide img {
   width: 100%;
-  max-height: 670px;
+  height: 670px;
   object-fit: cover;
   object-position: 25% 25%;
 
@@ -56,6 +56,7 @@
   letter-spacing: 1px;
 }
 
+.carousel.block .carousel-only-image,
 .carousel.block .carousel-main-image {
   position: unset;
   visibility: visible;
@@ -89,8 +90,9 @@
   font-size: var(--heading-font-size-xl);
 }
 
-.carousel.block .carousel-text h2 {
-  font-size: 20px;
+.carousel.block .carousel-text h2,
+.carousel.block .carousel-text h3 {
+  font-size: 24px;
 }
 
 .carousel.showcase.block .carousel-text {
@@ -133,7 +135,7 @@
   text-transform: uppercase;
   font-family: var(--text-font-family);
   font-weight: var(--emphasized-font-weight);
-  line-height: 22px;
+  line-height: 24px;
   margin-bottom: var(--layout-size-xs);
   font-display: swap;
 }
@@ -253,6 +255,7 @@
     font-weight: var(--clickable-font-weight);
   }
 
+  .carousel.block .carousel-only-image,
   .carousel.block .carousel-alt-image,
   .carousel.block .carousel-alt-video {
     position: unset;
