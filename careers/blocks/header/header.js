@@ -18,7 +18,7 @@ const CAESARS_DOT_COM = 'https://www.caesars.com';
 const GLOBAL_HEADER_JSON = '/content/empire/en/jcr:content/root/header.model.json';
 const GLOBAL_HEADER_JSON_LOCAL = '/careers/scripts/resources/header.model.json';
 const GLOBAL_HEADER_LOGO_LOCAL = '/careers/icons/caesars-global-logo.svg';
-const GLOBAL_HEADER_SIGN_IN = '/careers/fragments/header/sign-in';
+const GLOBAL_HEADER_SIGN_IN = '/fragments/header/sign-in';
 const DESKTOP_SIGN_IN_TEXT = 'Sign In';
 const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
 
@@ -317,7 +317,7 @@ export default async function decorate(block) {
   createUserMenu(block);
 
   // fetch nav content
-  const navPath = getMetadata('nav') || '/careers/nav';
+  const navPath = getMetadata('nav') || '/nav';
   const resp = await fetch(`${navPath}.plain.html`, window.location.pathname.endsWith('/nav') ? { cache: 'reload' } : {});
 
   if (resp.ok) {
