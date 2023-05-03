@@ -2,8 +2,8 @@
 caesars.com/careers on Adobe AEM Franklin
 
 ## Environments
-- Preview: https://main--caesars-careers--hlxsites.hlx.page/careers
-- Live: https://main--caesars-careers--hlxsites.hlx.live/careers
+- Preview: https://main--caesars-careers--hlxsites.hlx.page/
+- Live: https://main--caesars-careers--hlxsites.hlx.live/
 
 ## Installation
 
