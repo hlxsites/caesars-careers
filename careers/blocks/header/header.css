@@ -52,7 +52,7 @@ header nav {
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 10%), 0 10px 10px -5px rgb(0 0 0 / 6%);
 }
 
-header nav[aria-expanded=true] {
+header nav[aria-expanded="true"] {
   transform: translateX(0);
   transition: transform 250ms cubic-bezier(0.4,0,0.2,1);
   z-index: 10;
@@ -124,7 +124,7 @@ header nav .nav-hamburger button {
   white-space: initial;
 }
 
-header nav[aria-expanded=false] button::before {
+header nav[aria-expanded="false"] button::before {
   content: '';
   position: absolute;
   background: url('../../icons/hamburger.svg') no-repeat;
@@ -134,7 +134,7 @@ header nav[aria-expanded=false] button::before {
   left: 1rem;
 }
 
-header nav[aria-expanded=true] button::before {
+header nav[aria-expanded="true"] button::before {
   content: '';
   position: absolute;
   background: url('../../icons/close.svg') no-repeat;
@@ -152,7 +152,7 @@ header nav .nav-sections {
   visibility: hidden;
 }
 
-header nav[aria-expanded=true] .nav-sections {
+header nav[aria-expanded="true"] .nav-sections {
   visibility: visible;
   align-self: start;
   grid-area: sections;
@@ -169,7 +169,7 @@ header nav[aria-expanded=true] .nav-sections {
   padding-left: 1rem;
 }
 
-header nav[aria-expanded=true]::after {
+header nav[aria-expanded="true"]::after {
   position: absolute;
   top: 0;
   right: 0;
@@ -184,17 +184,17 @@ header nav[aria-expanded=true]::after {
   pointer-events: none;
 }
 
-header nav[aria-expanded=true] .nav-sections > div {
+header nav[aria-expanded="true"] .nav-sections > div {
   margin-left: -1rem;
   padding-left: 1rem;
   border-bottom: 1px solid #bec0c5;
 }
 
-header nav .nav-sections .global-nav[aria-hidden=true] {
+header nav .nav-sections .global-nav[aria-hidden="true"] {
   display: none;
 }
 
-header nav[aria-expanded=true] .nav-sections .user-account-mobile {
+header nav[aria-expanded="true"] .nav-sections .user-account-mobile {
   display: flex;
   min-height: 84px;
   align-items: center;
@@ -202,7 +202,7 @@ header nav[aria-expanded=true] .nav-sections .user-account-mobile {
   cursor: pointer;
 }
 
-header nav[aria-expanded=true] .nav-sections .user-account-mobile::before {
+header nav[aria-expanded="true"] .nav-sections .user-account-mobile::before {
   content: '';
   margin-right: 10px;
   right: 16px;
@@ -211,8 +211,8 @@ header nav[aria-expanded=true] .nav-sections .user-account-mobile::before {
   background: url('../../icons/user-circle.svg') no-repeat;
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav-title,
-header nav[aria-expanded=true] .nav-sections .global-nav-title {
+header nav[aria-expanded="true"] .nav-sections .local-nav-title,
+header nav[aria-expanded="true"] .nav-sections .global-nav-title {
   display: flex;
   position: relative;
   font-size: var(--heading-font-size-xxs);
@@ -225,8 +225,8 @@ header nav[aria-expanded=true] .nav-sections .global-nav-title {
   height: 44px;
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="false"] .local-nav-title::after,
-header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="false"] .global-nav-title::after {
+header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="false"] .local-nav-title::after,
+header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="false"] .global-nav-title::after {
   content: '';
   position: absolute;
   right: 16px;
@@ -235,8 +235,8 @@ header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="false"] 
   background: url('../../icons/chevron-down.svg') no-repeat;
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] .local-nav-title::after,
-header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="true"] .global-nav-title::after {
+header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] .local-nav-title::after,
+header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="true"] .global-nav-title::after {
   content: '';
   position: absolute;
   right: 16px;
@@ -253,15 +253,15 @@ header nav .nav-sections ul  {
   font-weight: 500;
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="false"] ul,
-header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="false"] ul {
+header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="false"] ul,
+header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="false"] ul {
   max-height: 0;
   display: none;
   transition: max-height 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul,
-header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="true"] ul {
+header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul,
+header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="true"] ul {
   max-height: fit-content;
   margin: unset;
   transition: max-height 200ms cubic-bezier(0.4, 0, 1, 1);
@@ -271,22 +271,22 @@ header nav .nav-sections ul > li {
   font-weight: var(--emphasized-font-weight);
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul li,
-header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="true"] ul li {
+header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li,
+header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="true"] ul li {
   margin-left: -1em;
   padding-left: 1em;
   transition: background-color 150ms cubic-bezier(0.4,0,0.2,1);
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul li:hover,
-header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="true"] ul li:hover {
+header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li:hover,
+header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="true"] ul li:hover {
   cursor: pointer;
   transition: background-color 75ms cubic-bezier(0.4,0,0.2,1);
   background-color: var(--static-color-light-gray);
 }
 
-header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul li a,
-header nav[aria-expanded=true] .nav-sections .global-nav[aria-expanded="true"] ul li a {
+header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li a,
+header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="true"] ul li a {
   text-decoration: none;
   color: var(--nav-item-color);
   font-size: var(--body-font-size-s);
@@ -511,7 +511,7 @@ header nav .nav-tools p:first-of-type a:hover {
   }
 
   /* Nav Section */
-  header nav[aria-expanded=true] .nav-sections {
+  header nav[aria-expanded="true"] .nav-sections {
     display: flex;
     position: relative;
     align-self: unset;
@@ -528,15 +528,15 @@ header nav .nav-tools p:first-of-type a:hover {
     border: unset;
   }
 
-  header nav[aria-expanded=true] .nav-sections > div {
+  header nav[aria-expanded="true"] .nav-sections > div {
     border: unset;
   }
 
-  header nav[aria-expanded=true] .nav-sections .local-nav-title {
+  header nav[aria-expanded="true"] .nav-sections .local-nav-title {
     display: none;
   }
 
-  header nav[aria-expanded=true] .nav-sections .user-account-mobile {
+  header nav[aria-expanded="true"] .nav-sections .user-account-mobile {
     display: none;
   }
 
@@ -562,7 +562,7 @@ header nav .nav-tools p:first-of-type a:hover {
     margin: unset;
   }
 
-  header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul li a:not(.menu-item) {
+  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li a:not(.menu-item) {
     color: var(--static-color-white);
     opacity: unset;
     display: inline-block;
@@ -573,12 +573,12 @@ header nav .nav-tools p:first-of-type a:hover {
     line-height: 6;
   }
 
-  header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul li:hover {
+  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li:hover {
     background-color: unset;
     transition: unset;
   }
 
-  header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul li a:not(.more-link, .menu-item)::after {
+  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li a:not(.more-link, .menu-item)::after {
     content: '';
     display: block;
     height: 3px;
@@ -588,7 +588,7 @@ header nav .nav-tools p:first-of-type a:hover {
     background-color: var(--static-color-white);
   }
 
-  header nav[aria-expanded=true] .nav-sections .local-nav[aria-expanded="true"] ul li a:hover::after:not(.more-link) {
+  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li a:hover::after:not(.more-link) {
     transform: scaleX(1);
   }
 
