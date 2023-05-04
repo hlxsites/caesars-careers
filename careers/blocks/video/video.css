@@ -1,4 +1,5 @@
 .video.block .video-content {
+  position: relative;
   text-align: center;
   overflow: hidden;
 }
@@ -13,9 +14,10 @@
   aspect-ratio: 16 / 9;
 }
 
-.video.block .video-static-content {
-  position: relative;
+.video-static-content {
+  position: absolute;
   height: 560px;
+  z-index: -1;
 }
 
 .video.block .video-static-content h4 {

@@ -6,7 +6,7 @@ import { createTag } from '../../scripts/scripts.js';
 const playerMap = {};
 
 const videoTypeMap = Object.freeze({
-  youtube: [/youtube\.com/, /youtu\.be/]
+  youtube: [/youtube\.com/, /youtu\.be/],
 });
 
 /**
@@ -43,9 +43,8 @@ const getYouTubeId = (href) => {
  * @param element iFrame element YouTube player will be attached to.
  * @param videoId The YouTube video id
  */
-const loadYouTubePlayer = (element, videoId, staticPlaceholder) => {
+const loadYouTubePlayer = (element, videoId) => {
   const onPlayerReady = (event) => {
-    staticPlaceholder.classList.add('hidden');
     playerMap[videoId] = event.target;
   };
   // we have to create a new YT Player but then need to wait for its onReady event
@@ -64,7 +63,7 @@ const loadYouTubePlayer = (element, videoId, staticPlaceholder) => {
  * @param href
  * @return {HTMLElement}
  */
-const buildVideoPlayer = (href, staticPlaceholder) => {
+const buildVideoPlayer = (href) => {
   const videoModal = createTag('div', { class: 'video-player', 'aria-modal': 'true', role: 'dialog' });
   const videoContainer = createTag('div', { class: 'video-container' });
 
@@ -75,14 +74,13 @@ const buildVideoPlayer = (href, staticPlaceholder) => {
     videoContent.dataset.ytid = videoId;
     videoContent.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
     if (!window.YT) {
-      //onYouTubeIframeAPIReady will load the video after the script is loaded
+      // onYouTubeIframeAPIReady will load the video after the script is loaded
       window.onYouTubeIframeAPIReady = () => loadYouTubePlayer(
         videoContent.firstElementChild,
         videoId,
-        staticPlaceholder
       );
     } else {
-      loadYouTubePlayer(videoContent.firstElementChild, videoId, staticPlaceholder);
+      loadYouTubePlayer(videoContent.firstElementChild, videoId);
     }
   } else {
     videoContent.innerHTML = `<video controls playsinline loop preload="auto">
@@ -99,13 +97,10 @@ const buildVideoPlayer = (href, staticPlaceholder) => {
 export default function decorate(block) {
   // decorate picture container
   const picture = block.querySelector('picture');
-  let staticPlaceholder, altContainer;
-  if(picture){
+  let altContainer;
+  if (picture) {
     // if there is text and picture
     altContainer = picture.closest('div');
-    staticPlaceholder = altContainer.parentNode;
-    staticPlaceholder.classList.add('video-static-content');
-
     const videoImage = document.createElement('div');
     videoImage.classList.add('video-image');
     videoImage.append(picture);
@@ -114,9 +109,9 @@ export default function decorate(block) {
     // text only
     const altText = block.querySelector('h4');
     altContainer = altText.closest('div');
-    staticPlaceholder = altContainer.parentNode;
-    staticPlaceholder.classList.add('video-static-content');
   }
+  const staticPlaceholder = altContainer.parentNode;
+  staticPlaceholder.classList.add('video-static-content');
 
   // decorate video link
   const videoLink = block.querySelector('a');
@@ -124,7 +119,7 @@ export default function decorate(block) {
   if (videoLink) {
     videoHref = videoLink.href;
     if (getVideoType(videoHref) !== 'external') {
-      const videoModal = buildVideoPlayer(videoHref, staticPlaceholder);
+      const videoModal = buildVideoPlayer(videoHref);
       block.append(videoModal);
     }
     videoLink.remove();
