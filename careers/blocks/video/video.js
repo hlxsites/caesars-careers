@@ -1,10 +1,5 @@
 import { createTag } from '../../scripts/scripts.js';
 
-const selectors = Object.freeze({
-  videoModal: '.video-container',
-  videoContent: '.video-content',
-});
-
 /**
  * Keep track of all the YouTube players for each video on the page
  */
@@ -48,9 +43,10 @@ const getYouTubeId = (href) => {
  * @param element iFrame element YouTube player will be attached to.
  * @param videoId The YouTube video id
  */
-const loadYouTubePlayer = (element, videoId) => {
+const loadYouTubePlayer = (element, videoId, staticPlaceholder) => {
   const onPlayerReady = (event) => {
     playerMap[videoId] = event.target;
+    console.log("Player ready");
   };
   // we have to create a new YT Player but then need to wait for its onReady event
   // before assigning it to the player map
@@ -68,7 +64,7 @@ const loadYouTubePlayer = (element, videoId) => {
  * @param href
  * @return {HTMLElement}
  */
-const buildVideoPlayer = (href) => {
+const buildVideoPlayer = (href, staticPlaceholder) => {
   const videoModal = createTag('div', { class: 'video-player', 'aria-modal': 'true', role: 'dialog' });
   const videoContainer = createTag('div', { class: 'video-container' });
 
@@ -83,9 +79,10 @@ const buildVideoPlayer = (href) => {
       window.onYouTubeIframeAPIReady = () => loadYouTubePlayer(
         videoContent.firstElementChild,
         videoId,
+        staticPlaceholder
       );
     } else {
-      loadYouTubePlayer(videoContent.firstElementChild, videoId);
+      loadYouTubePlayer(videoContent.firstElementChild, videoId, staticPlaceholder);
     }
   } else {
     videoContent.innerHTML = `<video controls playsinline loop preload="auto">
@@ -102,25 +99,24 @@ const buildVideoPlayer = (href) => {
 export default function decorate(block) {
   // decorate picture container
   const picture = block.querySelector('picture');
-  if (picture) {
-    const pictureContainer = picture.closest('div');
-    pictureContainer.classList.add('video-image');
-    const otherContent = pictureContainer.parentNode;
-    otherContent.classList.add('video-static-content');
-    pictureContainer.appendChild(picture);
-  }
+  const altContainer = picture.closest('div');
+  const staticPlaceholder = altContainer.parentNode;
+  staticPlaceholder.classList.add('video-static-content');
+
+  const videoImage = document.createElement('div');
+  videoImage.classList.add('video-image');
+  videoImage.append(picture);
+  altContainer.append(videoImage);
 
   // decorate video link
   const videoLink = block.querySelector('a');
   let videoHref;
   if (videoLink) {
     videoHref = videoLink.href;
-
     if (getVideoType(videoHref) !== 'external') {
-      const videoModal = buildVideoPlayer(videoHref);
+      const videoModal = buildVideoPlayer(videoHref, staticPlaceholder);
       block.append(videoModal);
     }
-
     videoLink.remove();
   }
 }
