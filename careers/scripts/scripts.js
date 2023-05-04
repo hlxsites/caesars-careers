@@ -121,6 +121,30 @@ function buildAutoBlocks(main) {
 }
 
 /**
+ * Helper function to create DOM elements
+ * @param {string} tag DOM element to be created
+ * @param {object} attributes attributes to be added
+ * @param html {HTMLElement | SVGAElement | string} Additional html to be appended to tag
+ */
+
+export function createTag(tag, attributes = {}, html = undefined) {
+  const el = document.createElement(tag);
+  if (html) {
+    if (html instanceof HTMLElement || html instanceof SVGElement) {
+      el.append(html);
+    } else {
+      el.insertAdjacentHTML('beforeend', html);
+    }
+  }
+  if (attributes) {
+    Object.entries(attributes).forEach(([key, val]) => {
+      el.setAttribute(key, val);
+    });
+  }
+  return el;
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -178,8 +202,8 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
+  // loadHeader(doc.querySelector('header'));
+  // loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
