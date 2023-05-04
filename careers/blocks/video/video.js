@@ -45,8 +45,8 @@ const getYouTubeId = (href) => {
  */
 const loadYouTubePlayer = (element, videoId, staticPlaceholder) => {
   const onPlayerReady = (event) => {
+    staticPlaceholder.classList.add('hidden');
     playerMap[videoId] = event.target;
-    console.log("Player ready");
   };
   // we have to create a new YT Player but then need to wait for its onReady event
   // before assigning it to the player map
@@ -75,7 +75,7 @@ const buildVideoPlayer = (href, staticPlaceholder) => {
     videoContent.dataset.ytid = videoId;
     videoContent.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
     if (!window.YT) {
-      // onYouTubeIframeAPIReady will load the video after the script is loaded
+      //onYouTubeIframeAPIReady will load the video after the script is loaded
       window.onYouTubeIframeAPIReady = () => loadYouTubePlayer(
         videoContent.firstElementChild,
         videoId,
@@ -99,14 +99,24 @@ const buildVideoPlayer = (href, staticPlaceholder) => {
 export default function decorate(block) {
   // decorate picture container
   const picture = block.querySelector('picture');
-  const altContainer = picture.closest('div');
-  const staticPlaceholder = altContainer.parentNode;
-  staticPlaceholder.classList.add('video-static-content');
+  let staticPlaceholder, altContainer;
+  if(picture){
+    // if there is text and picture
+    altContainer = picture.closest('div');
+    staticPlaceholder = altContainer.parentNode;
+    staticPlaceholder.classList.add('video-static-content');
 
-  const videoImage = document.createElement('div');
-  videoImage.classList.add('video-image');
-  videoImage.append(picture);
-  altContainer.append(videoImage);
+    const videoImage = document.createElement('div');
+    videoImage.classList.add('video-image');
+    videoImage.append(picture);
+    altContainer.append(videoImage);
+  } else {
+    // text only
+    const altText = block.querySelector('h4');
+    altContainer = altText.closest('div');
+    staticPlaceholder = altContainer.parentNode;
+    staticPlaceholder.classList.add('video-static-content');
+  }
 
   // decorate video link
   const videoLink = block.querySelector('a');

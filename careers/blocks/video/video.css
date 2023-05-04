@@ -3,13 +3,34 @@
   overflow: hidden;
 }
 
+.video.block .hidden {
+  display: none;
+}
+
 .video.block .video-content iframe {
   height: 560px;
   width: 100%;
   aspect-ratio: 16 / 9;
 }
 
+.video.block .video-static-content {
+  position: relative;
+  height: 560px;
+}
+
+.video.block .video-static-content h4 {
+  position: absolute;
+  margin-top: 500px;
+  margin-left: 16px;
+}
+
+.video.block .video-image {
+  position: relative;
+  z-index: -1;
+}
+
 .video.block .video-image img {
+  position: absolute;
   height: 560px;
   width: 100%;
   aspect-ratio: 16 / 9;
