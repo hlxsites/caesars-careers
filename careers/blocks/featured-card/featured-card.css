@@ -23,7 +23,7 @@
 
 .featured-card .featured-card-background > div > picture {
   position: absolute;
-  z-index: -4;
+  z-index: -5;
   top: 0;
   left: 0;
   bottom: 0;
