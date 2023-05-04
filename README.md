@@ -3,7 +3,7 @@
 `caesars.com/careers` on AEM Franklin
 
 ## Environments
-- 
+
 - Preview: https://main--caesars-careers--hlxsites.hlx.page/
 - Live: https://main--caesars-careers--hlxsites.hlx.live/
 
