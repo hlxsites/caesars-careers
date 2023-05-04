@@ -1,6 +1,5 @@
 import {
   sampleRUM,
-  buildBlock,
   loadHeader,
   loadFooter,
   decorateButtons,
@@ -11,23 +10,101 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  readBlockConfig,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
+ * Read and return a configuration object for a block that contains both config
+ * values and content. Config values can be in the first row or multiple
+ * rows. When using multiple rows there must be a blank row between config and content.
+ * Config rows will also be remove from the block to allow further decoration of the
+ * content only.
+ *
+ * @param block A block to extract config from
+ */
+export function readBlockConfigWithContent(block) {
+  const configBlock = document.createElement('div');
+  const allRows = [...block.querySelectorAll(':scope>div')];
+  allRows.every((row) => {
+    if (row.children) {
+      const cols = [...row.children];
+      const isConfigRow = !!cols[1]
+        && cols[0].hasChildNodes()
+        && cols[0].firstChild.nodeType === Node.TEXT_NODE
+        && cols[0].children.length === 0;
+      if (isConfigRow) {
+        configBlock.append(row);
+        return true;
+      }
+    }
+    if (row.children.length === 1 && row.firstElementChild.textContent.trim().length === 0) {
+      block.removeChild(row);
+    }
+    return false;
+  });
+  const configObj = readBlockConfig(configBlock);
+  Object.entries(configObj).forEach(([key, value]) => {
+    const numericValue = Number(value);
+    if (Number.isNaN(numericValue)) {
+      configObj[key] = value;
+    } else {
+      configObj[key] = Number(value);
+    }
+  });
+  return configObj;
+}
+
+/**
+ * Build the preview of a text with ellipsis
+ * @param {String} text Text that will be shortened
+ * @param {Integer} width Width of container
+ * @param {Integer} maxVisibleLines Max visible lines allowed
+ * @param {*} suffix Suffix to use for ellipsis
+ *  (will make sure text+ellipsis fit in `maxVisibleLines`)
+ * @param {*} options Text styling option
+ *
+ * @return The ellipsed text (without ellipsis suffix)
+ */
+export function buildEllipsis(text, width, maxVisibleLines, suffix, options = {}) {
+  const canvas = buildEllipsis.canvas || (buildEllipsis.canvas = document.createElement('canvas'));
+  const context = canvas.getContext('2d');
+
+  Object.entries(options).forEach(([key, value]) => {
+    if (key in context) {
+      context[key] = value;
+    }
+  });
+
+  const words = text.split(' ');
+  let testLine = '';
+  let lineCount = 1;
+  let shortText = '';
+
+  words.forEach((w, index) => {
+    testLine += `${w} `;
+    const { width: testWidth } = context.measureText(`${testLine}${suffix}`);
+    if (testWidth > width && index > 0) {
+      lineCount += 1;
+      testLine = `${w} `;
+    }
+    if (lineCount <= maxVisibleLines) {
+      shortText += `${w} `;
+    }
+  });
+
+  return {
+    lineCount,
+    shortText,
+  };
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
-function buildHeroBlock(main) {
-  const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
-    main.prepend(section);
-  }
+function buildHeroBlock() {
 }
 
 /**
