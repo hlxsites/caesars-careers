@@ -14,12 +14,11 @@ export default function decorate(block) {
   let currentIconNode = null;
   [...allIcons.children].forEach((iconLayoutElement) => {
     // check if current element is an icon or not
-
     const hasIconSvg = iconLayoutElement.querySelector('svg');
     if (hasIconSvg) {
       // new icon node, add previous icon to list, create new icon node
       iconLayoutElement.classList.add('icon-layout-picture');
-      if (!!currentIconNode) {
+      if (currentIconNode !== null) {
         iconNodes.push(currentIconNode);
       }
 
@@ -30,11 +29,10 @@ export default function decorate(block) {
       // if not icon, add content as is to currently built icon node
       currentIconNode.append(iconLayoutElement);
     }
-
   });
 
   // handle last icon node, if any, since we may go out of the loop before adding it
-  if (!!currentIconNode) {
+  if (currentIconNode !== null) {
     iconNodes.push(currentIconNode);
     currentIconNode = null;
   }
