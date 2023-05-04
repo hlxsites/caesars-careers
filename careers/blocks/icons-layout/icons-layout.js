@@ -10,5 +10,18 @@ export default function decorate(block) {
   }
 
   const allIcons = initialIconsDiv.children[0];
-  console.log(allIcons);
+
+  const iconNodes = [];
+  let currentIconNode = null;
+  allIcons.forEach((iconLayoutElement) => {
+    // check if current element is an icon or not
+    // if icon, add previous icon to list, create new node
+
+    // if not icon, add content as is to current icon node
+  });
+
+  // handle last icon node, if any, since we may go out of the loop before adding it
+  if(!!currentIconNode){
+    iconNodes.push(currentIconNode);
+  }
 }
