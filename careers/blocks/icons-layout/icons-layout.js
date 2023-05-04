@@ -26,7 +26,7 @@ export default function decorate(block) {
       currentIconNode = document.createElement('div');
       currentIconNode.classList.add('icon-layout-element');
       currentIconNode.append(iconLayoutElement);
-    } else {
+    } else if (currentIconNode) {
       // if not icon, add content as is to currently built icon node
       currentIconNode.append(iconLayoutElement);
     }
