@@ -6,11 +6,11 @@
 }
 
 .icons-layout.block .icon-layout-picture {
-  margin-bottom: 24px;
+  margin-bottom: var(--layout-size-l);
 }
 
 .icons-layout.block .icon-layout-picture svg {
-  height: 64px;
+  height: var(--layout-size-xxl);
   color: var(--static-color-midnight);
 }
 
@@ -31,7 +31,7 @@
   text-align: center;
   font-size: var(--body-font-size-s);
   font-family: var(--body-font-family);
-  margin-top: 24px;
+  margin-top: var(--layout-size-l);
 }
 
 /* Responsive breakpoints */
@@ -46,6 +46,10 @@
   .icons-layout.block {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .icons-layout.block .icon-layout-element {
+    padding: var(--layout-size-xs);
   }
 
   .icons-layout.block h4 {
