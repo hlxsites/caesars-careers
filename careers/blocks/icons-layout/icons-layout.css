@@ -1,12 +1,16 @@
 .icons-layout.block {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: var(--layout-size-m);
-  column-gap: var(--layout-size-m);
+  row-gap: var(--layout-size-xl);
+  column-gap: var(--layout-size-xl);
+}
+
+.icons-layout.block .icon-layout-picture {
+  margin-bottom: 24px;
 }
 
 .icons-layout.block .icon-layout-picture svg {
-  height: 56px;
+  height: 64px;
   color: var(--static-color-midnight);
 }
 
@@ -27,6 +31,7 @@
   text-align: center;
   font-size: var(--body-font-size-s);
   font-family: var(--body-font-family);
+  margin-top: 24px;
 }
 
 /* Responsive breakpoints */
@@ -41,5 +46,9 @@
   .icons-layout.block {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .icons-layout.block h4 {
+    font-size: var(--heading-font-size-teaser);
   }
 }
