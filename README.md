@@ -1,7 +1,9 @@
-# Your Project's Title...
-caesars.com/careers on Adobe AEM Franklin
+# Caesars Careers
+
+`caesars.com/careers` on AEM Franklin
 
 ## Environments
+- 
 - Preview: https://main--caesars-careers--hlxsites.hlx.page/
 - Live: https://main--caesars-careers--hlxsites.hlx.live/
 
