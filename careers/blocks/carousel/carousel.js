@@ -9,8 +9,6 @@
  * - next and previous navigation buttons
  */
 
-import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
-
 const DEFAULT_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_ID_PREFIX = 'carousel-slide';
 const NAVIGATION_DIRECTION_PREV = 'prev';
@@ -219,19 +217,6 @@ function buildSlide(blockState, slide, index) {
 }
 
 /**
- * Updates load setting for images in a slide
- * @param block block containing slides
- * @param slideId id of the slide to update
- */
-function setImageEagerLoading(block, slideId) {
-  const slide = block.querySelector(`#${slideId}`);
-  if (!slide) return;
-  slide.querySelectorAll('img').forEach((image) => {
-    image.loading = 'eager';
-  });
-}
-
-/**
  * Clone an existing carousel item
  * @param {Element} item carousel item to be cloned
  * @returns the clone of the carousel item
@@ -419,62 +404,15 @@ export default function decorate(block) {
     carousel.scrollLeft = prevScroll - walk;
   }, { passive: true });
 
-  // const imageSizeEventHandler = (targetWidth) => {
-  //   block.querySelectorAll('img').forEach((image) => {
-  //     image.closest('picture').replaceWith(createOptimizedPicture(image.src, image.alt, false, [{ width: targetWidth }]));
-  //   });
-  //   setImageEagerLoading(block, 'carousel-slide0');
-  //   setImageEagerLoading(block, 'carousel-slide1');
-  // };
-  // const mediaSmallWidthQueryMatcher = window.matchMedia('(max-width: 768px)');
-  // const mediaSmallWidthChangeHandler = (event) => {
-  //   if (event.matches) {
-  //     imageSizeEventHandler('768');
-  //   }
-  // };
-  // mediaSmallWidthChangeHandler(mediaSmallWidthQueryMatcher);
-
-  // const mediaMediumWidthQueryMatcher = window.matchMedia('(min-width: 769px) and (max-width: 960px)');
-  // const mediaMediumWidthChangeHandler = (event) => {
-  //   if (event.matches === true) {
-  //     imageSizeEventHandler('960');
-  //   }
-  // };
-  // mediaMediumWidthChangeHandler(mediaMediumWidthQueryMatcher);
-
-  // const mediaLargeWidthQueryMatcher = window.matchMedia('(min-width: 961px) and (max-width: 1170px)');
-  // const mediaLargeWidthChangeHandler = (event) => {
-  //   if (event.matches === true) {
-  //     imageSizeEventHandler('1170');
-  //   }
-  // };
-  // mediaLargeWidthChangeHandler(mediaLargeWidthQueryMatcher);
-
-  // const mediaExtraLargeWidthQueryMatcher = window.matchMedia('(min-width: 1171px) and (max-width: 1440px)');
-  // const mediaExtraLargeWidthChangeHandler = (event) => {
-  //   if (event.matches === true) {
-  //     imageSizeEventHandler('1440');
-  //   }
-  // };
-  // mediaExtraLargeWidthChangeHandler(mediaExtraLargeWidthQueryMatcher);
-
   const observer = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           startAutoScroll(block, blockState);
           mediaVideoWidthQueryMatcher.addEventListener('change', mediaVideoWidthChangeHandler);
-          // mediaExtraLargeWidthQueryMatcher.addEventListener('change', mediaExtraLargeWidthChangeHandler);
-          // mediaLargeWidthQueryMatcher.addEventListener('change', mediaLargeWidthChangeHandler);
-          // mediaMediumWidthQueryMatcher.addEventListener('change', mediaMediumWidthChangeHandler);
-          // mediaSmallWidthQueryMatcher.addEventListener('change', mediaSmallWidthChangeHandler);
         } else {
           stopAutoScroll(blockState);
           mediaVideoWidthQueryMatcher.removeEventListener('change', mediaVideoWidthChangeHandler);
-          // mediaExtraLargeWidthQueryMatcher.removeEventListener('change', mediaExtraLargeWidthChangeHandler);
-          // mediaLargeWidthQueryMatcher.removeEventListener('change', mediaLargeWidthChangeHandler);
-          // mediaMediumWidthQueryMatcher.removeEventListener('change', mediaMediumWidthChangeHandler);
-          // mediaSmallWidthQueryMatcher.removeEventListener('change', mediaSmallWidthChangeHandler);
         }
       });
     }
