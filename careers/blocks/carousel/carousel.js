@@ -15,7 +15,6 @@
  */
 
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
-import { buildEllipsis } from '../../scripts/scripts.js';
 
 const DEFAULT_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_ID_PREFIX = 'carousel-slide';
@@ -440,96 +439,6 @@ export default function decorate(block) {
       block.append(navigationDots);
     }
   }
-
-  const mediaTextWidthQueryMatcher = window.matchMedia('only screen and (min-width: 1170px)');
-  const mediaTextWidthChangeHandler = (event) => {
-    if (!blockState.isShowcase) return;
-
-    if (event.matches === true) {
-      // unwrap clickable slide
-      const slidePanels = block.getElementsByClassName('carousel-slide');
-      [...slidePanels].forEach((panel) => {
-        const wrapper = panel.firstChild;
-        if (wrapper && wrapper.href) {
-          panel.innerHTML = wrapper.innerHTML;
-        }
-      });
-
-      // build "ellipsable" text content
-      const carouselTextElements = block.getElementsByClassName('carousel-text');
-      [...carouselTextElements].forEach((carouselText) => {
-        const textContents = carouselText.querySelectorAll('p');
-        [...textContents].forEach((textContent) => {
-          if (!textContent.classList.contains('button-container')) {
-            const displayBufferPixels = 32;
-            const textContentWidth = textContent.offsetWidth - displayBufferPixels;
-
-            const textStyle = window.getComputedStyle(textContent);
-            const fullTextContent = textContent.innerHTML;
-            const ellipsisBuilder = buildEllipsis(
-              fullTextContent,
-              textContentWidth,
-              DEFAULT_CONFIG.maxlines,
-              DEFAULT_CONFIG.ellipsis,
-              {
-                font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
-                letterSpacing: `${textStyle.letterSpacing}`,
-              },
-            );
-
-            if (ellipsisBuilder.lineCount >= 2) {
-              const clickableCloseButton = document.createElement('span');
-              const clickableEllipsis = document.createElement('span');
-
-              clickableCloseButton.classList.add('hidden-close-button');
-              clickableEllipsis.classList.add('clickable-ellipsis');
-
-              clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
-              textContent.innerHTML = `${ellipsisBuilder.shortText}`;
-
-              textContent.append(clickableEllipsis);
-              carouselText.append(clickableCloseButton);
-
-              clickableEllipsis.addEventListener('click', () => {
-                carouselText.classList.add('extended-text');
-                textContent.innerHTML = `${fullTextContent}`;
-                clickableCloseButton.classList.remove('hidden-close-button');
-                clickableCloseButton.classList.add('active-close-button');
-              });
-              clickableCloseButton.addEventListener('click', () => {
-                carouselText.classList.remove('extended-text');
-                textContent.innerHTML = `${ellipsisBuilder.shortText}`;
-                textContent.append(clickableEllipsis);
-                clickableCloseButton.classList.remove('active-close-button');
-                clickableCloseButton.classList.add('hidden-close-button');
-              });
-            }
-          }
-        });
-      });
-    } else {
-      // make slide clickable
-      const slidePanels = block.getElementsByClassName('carousel-slide');
-      [...slidePanels].forEach((panel) => {
-        let targetLink;
-        let targetTitle;
-        panel.querySelectorAll('a').forEach((link) => {
-          // last link will always be the action button
-          targetLink = link.href;
-          targetTitle = link.title;
-        });
-
-        const link = document.createElement('a');
-        link.classList.add('clickable-slide');
-        link.href = targetLink;
-        link.title = targetTitle;
-
-        link.innerHTML = panel.innerHTML;
-        panel.innerHTML = '';
-        panel.append(link);
-      });
-    }
-  };
 
   const mediaVideoWidthQueryMatcher = window.matchMedia('only screen and (max-width: 1170px)');
   const mediaVideoWidthChangeHandler = (event) => {
