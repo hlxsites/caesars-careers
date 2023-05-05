@@ -14,6 +14,7 @@ import {
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+const ADDITIONAL_SCRIPT_IMPORT_DELAY_MS = 3000;
 
 /**
  * Read and return a configuration object for a block that contains both config
@@ -121,6 +122,30 @@ function buildAutoBlocks(main) {
 }
 
 /**
+ * Helper function to create DOM elements
+ * @param {string} tag DOM element to be created
+ * @param {object} attributes attributes to be added
+ * @param html {HTMLElement | SVGAElement | string} Additional html to be appended to tag
+ */
+
+export function createTag(tag, attributes = {}, html = undefined) {
+  const el = document.createElement(tag);
+  if (html) {
+    if (html instanceof HTMLElement || html instanceof SVGElement) {
+      el.append(html);
+    } else {
+      el.insertAdjacentHTML('beforeend', html);
+    }
+  }
+  if (attributes) {
+    Object.entries(attributes).forEach(([key, val]) => {
+      el.setAttribute(key, val);
+    });
+  }
+  return el;
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -194,7 +219,7 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  window.setTimeout(() => import('./delayed.js'), ADDITIONAL_SCRIPT_IMPORT_DELAY_MS);
   // load anything that can be postponed to the latest here
 }
 
