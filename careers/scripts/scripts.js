@@ -145,6 +145,15 @@ export function createTag(tag, attributes = {}, html = undefined) {
   return el;
 }
 
+function buildSectionBackground(main) {
+  main.querySelectorAll('.section.has-background').forEach((section) => {
+    const picture = section.querySelector('picture');
+    if (picture) {
+      section.appendChild(picture);
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -157,6 +166,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  buildSectionBackground(main);
 }
 
 /**
