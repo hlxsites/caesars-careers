@@ -129,7 +129,7 @@ export default async function decorate(block) {
       button.appendChild(heading);
       // add svg
       try {
-        const response = await fetch(`${window.hlx.codeBasePath}/icons/chevron-down.svg`);
+        const response = await fetch(`${window.hlx.codeBasePath}/icons/arrow-down.svg`);
         if (!response.ok) {
           return;
         }

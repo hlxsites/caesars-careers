@@ -232,7 +232,7 @@ header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="false"
   right: 16px;
   width: 16px;
   height: 16px;
-  background: url('../../icons/chevron-down.svg') no-repeat;
+  background: url('../../icons/arrow-down.svg') no-repeat;
 }
 
 header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] .local-nav-title::after,
@@ -242,7 +242,7 @@ header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="true"]
   right: 16px;
   width: 16px;
   height: 16px;
-  background: url('../../icons/chevron-down.svg') no-repeat;
+  background: url('../../icons/arrow-down.svg') no-repeat;
   transform: rotate(180deg);
 }
 
