@@ -177,7 +177,7 @@ function buildSlide(blockState, slide, index) {
     || index === blockState.firstVisibleSlide + 1) {
     slide.querySelectorAll('img').forEach((image) => {
       image.loading = 'eager';
-      image.fetchpriority = 'high';
+      image.fetchPriority = 'high';
     });
   }
 
