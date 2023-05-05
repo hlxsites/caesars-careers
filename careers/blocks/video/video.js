@@ -4,6 +4,7 @@ import { createTag } from '../../scripts/scripts.js';
  * Keep track of all the YouTube players for each video on the page
  */
 const playerMap = {};
+const pendingPlayers = [];
 
 const videoTypeMap = Object.freeze({
   youtube: [/youtube\.com/, /youtu\.be/],
@@ -64,34 +65,33 @@ const loadYouTubePlayer = (element, videoId) => {
  * @return {HTMLElement}
  */
 const buildVideoPlayer = (href) => {
-  const videoModal = createTag('div', { class: 'video-player', 'aria-modal': 'true', role: 'dialog' });
-  const videoContainer = createTag('div', { class: 'video-container' });
-
-  const videoContent = createTag('div', { class: 'video-content' });
-  if (getVideoType(href) === 'youtube') {
-    // Create a YouTube compatible iFrame
-    const videoId = getYouTubeId(href);
-    videoContent.dataset.ytid = videoId;
-    videoContent.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
-    if (!window.YT) {
-      // onYouTubeIframeAPIReady will load the video after the script is loaded
-      window.onYouTubeIframeAPIReady = () => loadYouTubePlayer(
-        videoContent.firstElementChild,
-        videoId,
-      );
-    } else {
-      loadYouTubePlayer(videoContent.firstElementChild, videoId);
-    }
-  } else {
-    videoContent.innerHTML = `<video controls playsinline loop preload="auto">
-        <source src="${href}" type="video/mp4" />
-        "Your browser does not support videos"
-        </video>`;
+  if (getVideoType(href) !== 'youtube') {
+    return null;
   }
-  videoContainer.appendChild(videoContent);
-  videoModal.appendChild(videoContainer);
 
-  return videoModal;
+  const videoContainer = createTag('div', { class: 'video-container' });
+  const videoContent = createTag('div', { class: 'video-content' });
+
+  // Create a YouTube compatible iFrame
+  const videoId = getYouTubeId(href);
+  videoContent.dataset.ytid = videoId;
+  videoContent.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
+  if (!window.YT) {
+    pendingPlayers.push({ id: videoId, element: videoContent.firstElementChild});
+  } else {
+    loadYouTubePlayer(videoContent.firstElementChild, videoId);
+  }
+
+  if (!window.onYouTubeIframeAPIReady) {
+    // onYouTubeIframeAPIReady will load the video after the script is loaded
+    window.onYouTubeIframeAPIReady = () => {
+      pendingPlayers.forEach(({videoId, element}) => loadYouTubePlayer(element, videoId));
+    }
+  }
+
+  videoContainer.appendChild(videoContent);
+
+  return videoContainer;
 };
 
 export default function decorate(block) {
