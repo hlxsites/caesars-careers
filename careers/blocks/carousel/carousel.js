@@ -17,8 +17,6 @@ const SLIDE_ANIMATION_DURATION_MS = 640;
 
 const DEFAULT_CONFIG = Object.freeze({
   interval: DEFAULT_SCROLL_INTERVAL_MS,
-  maxlines: 3,
-  ellipsis: '...more',
 });
 
 class CarouselState {
