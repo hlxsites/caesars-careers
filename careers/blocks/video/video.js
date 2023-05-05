@@ -1,7 +1,6 @@
 import { createTag } from '../../scripts/scripts.js';
 
 const pendingPlayers = [];
-
 const videoTypeMap = Object.freeze({
   youtube: [/youtube\.com/, /youtu\.be/],
 });
@@ -56,7 +55,6 @@ const buildVideoPlayer = (href) => {
   }
 
   const videoPlayer = createTag('div', { class: 'video-player' });
-
   // Create a YouTube compatible iFrame
   const videoId = getYouTubeId(href);
   videoPlayer.dataset.ytid = videoId;
@@ -66,7 +64,6 @@ const buildVideoPlayer = (href) => {
   } else {
     loadYouTubePlayer(videoPlayer.firstElementChild, videoId);
   }
-
   if (!window.onYouTubeIframeAPIReady) {
     // onYouTubeIframeAPIReady will load the video after the script is loaded
     window.onYouTubeIframeAPIReady = () => {

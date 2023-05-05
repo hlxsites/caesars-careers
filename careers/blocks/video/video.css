@@ -32,10 +32,6 @@
   margin: 500px 0 0 16px;
 }
 
-.video.block .video-poster p.video-poster-image + h4 {
-  margin-top: 0;
-}
-
 .video.block .video-poster img {
   object-fit: cover;
   width: 100%;
