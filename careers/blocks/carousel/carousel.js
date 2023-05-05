@@ -177,6 +177,7 @@ function buildSlide(blockState, slide, index) {
     || index === blockState.firstVisibleSlide + 1) {
     slide.querySelectorAll('img').forEach((image) => {
       image.loading = 'eager';
+      image.fetchpriority = 'high';
     });
   }
 
@@ -229,6 +230,7 @@ function addClones(element) {
   element.firstChild.before(cloneForBeginning);
   element.firstChild.querySelectorAll('img').forEach((image) => {
     image.loading = 'eager';
+    image.fetchpriority = 'high';
   });
 
   const cloneForEnd = createClone(initialChildren[0], initialChildren.length + 1);
