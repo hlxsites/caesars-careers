@@ -49,27 +49,38 @@ const loadYouTubePlayer = (element, videoId) => {
  * @param href
  * @return {HTMLElement}
  */
-const buildVideoPlayer = (href) => {
+const buildVideoPlayer = (href, block) => {
   if (getVideoType(href) !== 'youtube') {
     return null;
   }
 
   const videoPlayer = createTag('div', { class: 'video-player' });
-  // Create a YouTube compatible iFrame
-  const videoId = getYouTubeId(href);
-  videoPlayer.dataset.ytid = videoId;
-  videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
-  if (!window.YT) {
-    pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild });
-  } else {
-    loadYouTubePlayer(videoPlayer.firstElementChild, videoId);
-  }
-  if (!window.onYouTubeIframeAPIReady) {
-    // onYouTubeIframeAPIReady will load the video after the script is loaded
-    window.onYouTubeIframeAPIReady = () => {
-      pendingPlayers.forEach(({ id, element }) => loadYouTubePlayer(element, id));
-    };
-  }
+  const observer = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      if (videoPlayer.dataset && videoPlayer.dataset.ytid === undefined) {
+        // Create a YouTube compatible iFrame
+        const videoId = getYouTubeId(href);
+        videoPlayer.dataset.ytid = videoId;
+        videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
+        if (!window.YT) {
+          pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild });
+        } else {
+          loadYouTubePlayer(videoPlayer.firstElementChild, videoId);
+        }
+        if (!window.onYouTubeIframeAPIReady) {
+          // onYouTubeIframeAPIReady will load the video after the script is loaded
+          window.onYouTubeIframeAPIReady = () => {
+            pendingPlayers.forEach(({ id, element }) => loadYouTubePlayer(element, id));
+          };
+        }
+      }
+    }
+  }, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0,
+  });
+  observer.observe(block);
 
   return videoPlayer;
 };
@@ -87,7 +98,7 @@ export default function decorate(block) {
   const videoLink = block.querySelector('a');
   if (videoLink) {
     const videoHref = videoLink.href;
-    const videoPlayer = buildVideoPlayer(videoHref);
+    const videoPlayer = buildVideoPlayer(videoHref, block);
     block.append(videoPlayer);
     videoLink.parentElement.remove();
   }
