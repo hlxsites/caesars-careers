@@ -26,7 +26,7 @@
 }
 
 .carousel.block .carousel-nav,
-.carousel.block .carousel-dots {
+.carousel.block {
   display: none;
 }
 
