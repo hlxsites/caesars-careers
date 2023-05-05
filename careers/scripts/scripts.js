@@ -14,6 +14,7 @@ import {
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+const ADDITIONAL_SCRIPT_IMPORT_DELAY_MS = 2000;
 
 /**
  * Read and return a configuration object for a block that contains both config
@@ -218,7 +219,7 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  window.setTimeout(() => import('./delayed.js'), ADDITIONAL_SCRIPT_IMPORT_DELAY_MS);
   // load anything that can be postponed to the latest here
 }
 
