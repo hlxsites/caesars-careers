@@ -32,6 +32,7 @@ footer .footer .rewards-wrapper > div {
 footer .footer .footer-content a.primary {
   background-color: var(--static-color-white);
   color: var(--static-color-pink-red);
+  border-color: var(--static-color-pink-red);
 }
 
 footer .footer .footer-content h2 {
