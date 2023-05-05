@@ -30,22 +30,8 @@ class CarouselState {
 }
 
 /**
- * Keep active dot in sync with current slide
- * @param carousel The carousel
- * @param activeSlide {number} The active slide
- */
-function syncActiveDot(block, slideIndex) {
-  [...block.getElementsByClassName('carousel-nav-dot')].forEach((navDot) => {
-    if (navDot.id === `carousel-nav-dot-${slideIndex}`) {
-      navDot.classList.add('carousel-nav-dot-active');
-    } else {
-      navDot.classList.remove('carousel-nav-dot-active');
-    }
-  });
-}
-
-/**
  * Clear any active scroll intervals
+ * @param blockState Current block state
  */
 function stopAutoScroll(blockState) {
   clearInterval(blockState.scrollInterval);
@@ -55,7 +41,9 @@ function stopAutoScroll(blockState) {
 /**
  * Scroll a single slide into view.
  * @param carousel The carousel
+ * @param blockState Current block state
  * @param slideIndex {number} The slide index
+ * @param scrollBehavior Scroll behavior to use for scrolling
  */
 function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 'smooth') {
   const carouselSlider = carousel.querySelector('.carousel-slide-container');
@@ -76,7 +64,6 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
       }
     });
     blockState.curSlide = slideIndex;
-    syncActiveDot(carousel, blockState.curSlide);
   } else if (slideIndex === 0) {
     // sliding from first to last
     let leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
@@ -85,7 +72,6 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
 
     setTimeout(() => {
       carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'instant' });
-      syncActiveDot(carousel, blockState.maxVisibleSlides);
     }, SLIDE_ANIMATION_DURATION_MS);
 
     // sync slide state
@@ -106,7 +92,6 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
 
     setTimeout(() => {
       carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'instant' });
-      syncActiveDot(carousel, blockState.firstVisibleSlide);
     }, SLIDE_ANIMATION_DURATION_MS);
 
     // sync slide state
@@ -126,6 +111,7 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
  * offset width of the scrollable element. The snap threshold is determined
  * by the direction of the scroll to ensure that snap direction is natural.
  * @param el the scrollable element
+ * @param blockState Current block state
  * @param dir the direction of the scroll
  */
 function snapScroll(el, blockState, dir = 1) {
@@ -148,6 +134,7 @@ function snapScroll(el, blockState, dir = 1) {
 
 /**
  * Build a navigation button for controlling the direction of carousel slides.
+ * @param blockState Current block state
  * @param navigationDirection A string of either 'prev or 'next'
  * @return {HTMLDivElement} The resulting nav element
  */
@@ -174,6 +161,7 @@ function buildNav(blockState, navigationDirection) {
 
 /**
  * Decorate a base slide element.
+ * @param blockState Current block state
  * @param slide A base block slide element
  * @param index The slide's position
  * @return {HTMLUListElement} A decorated carousel slide element
@@ -217,6 +205,7 @@ function buildSlide(blockState, slide, index) {
 /**
  * Clone an existing carousel item
  * @param {Element} item carousel item to be cloned
+ * @param targetIndex Index to use for the cloned item
  * @returns the clone of the carousel item
  */
 function createClone(item, targetIndex) {
@@ -249,8 +238,7 @@ function addClones(element) {
 /**
  * Start auto-scrolling
  * @param {*} block Block
- * @param {*} interval Optional, configured time in ms to show a slide
- * Defaults to DEFAULT_SCROLL_INTERVAL_MS when block is set up
+ * @param blockState Current block state
  */
 function startAutoScroll(block, blockState) {
   if (blockState.interval === 0) return; /* Means no auto-scrolling */
