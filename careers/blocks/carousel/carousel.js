@@ -29,12 +29,12 @@ const DEFAULT_CONFIG = Object.freeze({
 });
 
 class CarouselState {
-  constructor(curSlide, interval, isShowcase, firstVisibleSlide = 1, maxVisibleSlides = 0) {
+  constructor(curSlide, interval, firstVisibleSlide = 1, maxVisibleSlides = 0) {
     this.firstVisibleSlide = firstVisibleSlide;
     this.maxVisibleSlides = maxVisibleSlides;
     this.curSlide = curSlide;
     this.interval = interval;
-    this.isShowcase = isShowcase || false;
+    this.isShowcase = false;
     this.scrollInterval = null; /* for auto-scroll interval handling */
   }
 }
@@ -389,7 +389,6 @@ export default function decorate(block) {
   const blockState = new CarouselState(
     1,
     DEFAULT_CONFIG.interval,
-    block.classList.contains('showcase'),
     1,
     0,
   );
