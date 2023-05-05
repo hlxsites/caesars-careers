@@ -1,5 +1,6 @@
 .video.block {
   --video-height-s: 320px;
+
   position: relative;
   width: 100%;
   height: var(--video-height-s);
@@ -39,6 +40,7 @@
 @media only screen and (min-width: 768px) {
   .video.block {
     --video-height-m: 414px;
+
     height: var(--video-height-m);
   }
 
@@ -58,6 +60,7 @@
 @media only screen and (min-width: 960px) {
   .video.block {
     --video-height-l: 522px;
+
     height: var(--video-height-l);
   }
 
@@ -77,6 +80,7 @@
 @media only screen and (min-width: 1170px) {
   .video.block {
     --video-height-xl: 560px;
+
     height: var(--video-height-xl);
   }
 
