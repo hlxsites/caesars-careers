@@ -90,8 +90,8 @@ export default function decorate(block) {
   const videoLink = block.querySelector('a');
   if (videoLink) {
     const videoHref = videoLink.href;
-    //const videoPlayer = buildVideoPlayer(videoHref);
-    //block.append(videoPlayer);
+    const videoPlayer = buildVideoPlayer(videoHref);
+    block.append(videoPlayer);
     videoLink.parentElement.remove();
   }
 }
