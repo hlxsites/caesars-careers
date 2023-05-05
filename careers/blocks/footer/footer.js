@@ -23,14 +23,6 @@ export default async function decorate(block) {
     },
   };
 
-  const rewardsPath = getMetadata('rewards') || '/rewards';
-  if (rewardsPath && rewardsPath !== 'none') {
-    contentPaths.rewards = {
-      path: `${rewardsPath}.plain.html`,
-      isFragment: true,
-    };
-  }
-
   const globalFooterPath = getMetadata('global-footer') || '/global-footer';
   if (globalFooterPath && globalFooterPath !== 'none') {
     contentPaths.globalfooter = {
@@ -73,15 +65,6 @@ export default async function decorate(block) {
     }
     return blockEntry;
   }));
-
-  // add rewards
-  const { content: rewards } = contentBlocks.find(
-    (cb) => cb.name === 'rewards',
-  ) || {};
-
-  if (rewards) {
-    block.append(rewards);
-  }
 
   // add footer
   const { content: footer } = contentBlocks.find(

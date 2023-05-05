@@ -4,7 +4,7 @@ footer{
   --heading-font-family: var(--body-font-family);
 
   position: relative;
-  background-color: var(--static-color-black);
+  background-color: var(--static-color-pink-red);
   font-size: 14px;
   color: var(--text-color);
 }
@@ -31,7 +31,7 @@ footer .footer .rewards-wrapper > div {
 
 footer .footer .footer-content a.primary {
   background-color: var(--static-color-white);
-  color: var(--static-color-black);
+  color: var(--static-color-pink-red);
 }
 
 footer .footer .footer-content h2 {
