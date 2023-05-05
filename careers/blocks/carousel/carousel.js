@@ -29,7 +29,6 @@ class CarouselState {
     this.maxVisibleSlides = maxVisibleSlides;
     this.curSlide = curSlide;
     this.interval = interval;
-    this.isShowcase = false;
     this.scrollInterval = null; /* for auto-scroll interval handling */
   }
 }
@@ -65,31 +64,12 @@ function stopAutoScroll(blockState) {
 function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 'smooth') {
   const carouselSlider = carousel.querySelector('.carousel-slide-container');
 
-  let widthUsage;
-  let realSlideWidth;
-  let slidePadding;
   let realSlideWidthWithPadding;
   let paddingFix;
 
-  if (blockState.isShowcase) {
-    widthUsage = 0.9; /* carousel-slide width */
-    realSlideWidth = carouselSlider.offsetWidth * widthUsage;
-    slidePadding = 32; /* carousel-slide padding-right */
-    realSlideWidthWithPadding = realSlideWidth + slidePadding;
-    paddingFix = 16; /* carousel-text abs(margin-left) */
-  }
-
   if (slideIndex >= blockState.firstVisibleSlide && slideIndex <= blockState.maxVisibleSlides) {
     // normal sliding in-between slides
-    let leftSlideOffset;
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex
-        - translationCorrection * slideIndex
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
-    }
+    let leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
     carouselSlider.scrollTo({
       left: leftSlideOffset,
       behavior: scrollBehavior,
@@ -107,24 +87,10 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
     syncActiveDot(carousel, blockState.curSlide);
   } else if (slideIndex === 0) {
     // sliding from first to last
-    let leftSlideOffset;
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex
-        - translationCorrection * slideIndex
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
-    }
+    let leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
     carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'smooth' });
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.maxVisibleSlides
-        - translationCorrection * blockState.maxVisibleSlides
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.maxVisibleSlides;
-    }
+    leftSlideOffset = carouselSlider.offsetWidth * blockState.maxVisibleSlides;
+
     setTimeout(() => {
       carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'instant' });
       syncActiveDot(carousel, blockState.maxVisibleSlides);
@@ -142,24 +108,10 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
   } else if (slideIndex === blockState.maxVisibleSlides + 1) {
     // sliding from last to first
     let leftSlideOffset;
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex
-        - translationCorrection * slideIndex
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
-    }
+    leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
     carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'smooth' });
+    leftSlideOffset = carouselSlider.offsetWidth * blockState.firstVisibleSlide;
 
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.firstVisibleSlide
-        - translationCorrection * blockState.firstVisibleSlide
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.firstVisibleSlide;
-    }
     setTimeout(() => {
       carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'instant' });
       syncActiveDot(carousel, blockState.firstVisibleSlide);
