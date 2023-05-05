@@ -1,7 +1,8 @@
 .video.block {
   position: relative;
   width: 100%;
-  height: 560px;
+  height: 320px;
+  overflow: hidden;
 }
 
 .video.block .video-poster,
@@ -15,13 +16,8 @@
 
 .video.block .video-player iframe {
   width: 100%;
-  height: 560px;
+  height: 320px;
   aspect-ratio: 16 / 9;
-}
-
-.video.block .video-poster > div {
-  display: flex;
-  flex-flow: column;
 }
 
 .video.block .video-poster p {
@@ -29,11 +25,66 @@
 }
 
 .video.block .video-poster h4 {
-  margin: 500px 0 0 16px;
+  margin: 300px 0 0 16px;
 }
 
 .video.block .video-poster img {
   object-fit: cover;
   width: 100%;
-  max-height: 560px;
+  max-height: 320px;
+}
+
+/* Responsive Breakpoints */
+@media only screen and (min-width: 768px) {
+  .video.block {
+    height: 414px;
+  }
+
+  .video.block .video-player iframe {
+    height: 414px;
+  }
+
+  .video.block .video-poster img {
+    max-height: 414px;
+  }
+
+  .video.block .video-poster h4 {
+    margin: 394px 0 0 16px;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .video.block {
+    height: 522px;
+  }
+
+  .video.block .video-player iframe {
+    height: 522px;
+  }
+
+  .video.block .video-poster img {
+    max-height: 522px;
+  }
+
+  .video.block .video-poster h4 {
+    margin: 502px 0 0 16px;
+  }
+}
+
+@media only screen and (min-width: 1170px) {
+  .video.block {
+    height: 560px;
+  }
+
+  .video.block .video-player iframe {
+    height: 560px;
+  }
+
+  .video.block .video-poster img {
+    max-height: 560px;
+  }
+
+  .video.block .video-poster h4 {
+    margin: 500px 0 0 16px;
+  }
 }
