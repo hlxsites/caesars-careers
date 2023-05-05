@@ -15,7 +15,7 @@
  */
 
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
-import { readBlockConfigWithContent, buildEllipsis } from '../../scripts/scripts.js';
+import { buildEllipsis } from '../../scripts/scripts.js';
 
 const DEFAULT_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_ID_PREFIX = 'carousel-slide';
@@ -25,6 +25,8 @@ const SLIDE_ANIMATION_DURATION_MS = 640;
 
 const DEFAULT_CONFIG = Object.freeze({
   interval: DEFAULT_SCROLL_INTERVAL_MS,
+  maxlines: 3,
+  ellipsis: '...more',
 });
 
 class CarouselState {
@@ -385,10 +387,9 @@ function startAutoScroll(block, blockState) {
  * @param block HTML block from Franklin
  */
 export default function decorate(block) {
-  const blockConfig = { ...DEFAULT_CONFIG, ...readBlockConfigWithContent(block) };
   const blockState = new CarouselState(
     1,
-    blockConfig.interval,
+    DEFAULT_CONFIG.interval,
     block.classList.contains('showcase'),
     1,
     0,
@@ -468,8 +469,8 @@ export default function decorate(block) {
             const ellipsisBuilder = buildEllipsis(
               fullTextContent,
               textContentWidth,
-              blockConfig.maxlines,
-              blockConfig.ellipsis,
+              DEFAULT_CONFIG.maxlines,
+              DEFAULT_CONFIG.ellipsis,
               {
                 font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
                 letterSpacing: `${textStyle.letterSpacing}`,
@@ -483,7 +484,7 @@ export default function decorate(block) {
               clickableCloseButton.classList.add('hidden-close-button');
               clickableEllipsis.classList.add('clickable-ellipsis');
 
-              clickableEllipsis.innerHTML = blockConfig.ellipsis;
+              clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
               textContent.innerHTML = `${ellipsisBuilder.shortText}`;
 
               textContent.append(clickableEllipsis);
