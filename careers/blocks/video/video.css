@@ -1,40 +1,42 @@
-.video.block .video-content {
+.video.block {
   position: relative;
-  text-align: center;
-  overflow: hidden;
-}
-
-.video.block .hidden {
-  display: none;
-}
-
-.video.block .video-content iframe {
-  height: 560px;
   width: 100%;
+  height: 560px;
+  border: 1px solid red;
+}
+
+.video.block .video-poster,
+.video.block .video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.video.block .video-player iframe {
+  width: 100%;
+  height: 560px;
   aspect-ratio: 16 / 9;
 }
 
-.video-static-content {
-  position: absolute;
-  height: 560px;
-  z-index: -1;
+.video.block .video-poster > div {
+  display: flex;
+  flex-flow: column;
 }
 
-.video.block .video-static-content h4 {
-  position: absolute;
-  margin-top: 500px;
-  margin-left: 16px;
+.video.block .video-poster p {
+  margin: 0;
 }
 
-.video.block .video-image {
-  position: relative;
-  z-index: -1;
+.video.block .video-poster h4 {
+  margin: 500px 0 0 16px;
 }
 
-.video.block .video-image img {
-  position: absolute;
-  height: 560px;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+.video.block .video-poster p.video-poster-image + h4 {
+  margin-top: 0;
+}
+
+.video.block .video-poster img {
+  object-fit: contain;
 }
