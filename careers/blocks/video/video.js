@@ -62,7 +62,7 @@ const buildVideoPlayer = (href) => {
   videoPlayer.dataset.ytid = videoId;
   videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
   if (!window.YT) {
-    pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild});
+    pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild });
   } else {
     loadYouTubePlayer(videoPlayer.firstElementChild, videoId);
   }
@@ -70,8 +70,8 @@ const buildVideoPlayer = (href) => {
   if (!window.onYouTubeIframeAPIReady) {
     // onYouTubeIframeAPIReady will load the video after the script is loaded
     window.onYouTubeIframeAPIReady = () => {
-      pendingPlayers.forEach(({id, element}) => loadYouTubePlayer(element, id));
-    }
+      pendingPlayers.forEach(({ id, element }) => loadYouTubePlayer(element, id));
+    };
   }
 
   return videoPlayer;
