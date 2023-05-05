@@ -63,13 +63,9 @@ function stopAutoScroll(blockState) {
  */
 function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 'smooth') {
   const carouselSlider = carousel.querySelector('.carousel-slide-container');
-
-  let realSlideWidthWithPadding;
-  let paddingFix;
-
   if (slideIndex >= blockState.firstVisibleSlide && slideIndex <= blockState.maxVisibleSlides) {
     // normal sliding in-between slides
-    let leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
+    const leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
     carouselSlider.scrollTo({
       left: leftSlideOffset,
       behavior: scrollBehavior,
@@ -130,45 +126,6 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
 }
 
 /**
- * Build navigation dots
- * @param slides An array of slide elements within the carousel
- * @return {HTMLUListElement} The carousel dots element
- */
-function buildDots(block, blockState, slides = []) {
-  const dots = document.createElement('ul');
-  dots.classList.add('carousel-dots');
-
-  const navigationDots = new Array(slides.length);
-  slides.forEach((slide, index) => {
-    const dotItem = document.createElement('li');
-    const dotBtn = document.createElement('button');
-
-    dotBtn.classList.add('carousel-nav-dot');
-    dotBtn.setAttribute('id', `carousel-nav-dot-${index + 1}`);
-    dotBtn.setAttribute('type', 'button');
-
-    if (index + 1 === blockState.firstVisibleSlide) {
-      dotBtn.setAttribute('tabindex', '0');
-      dotBtn.classList.add('carousel-nav-dot-active');
-    } else {
-      dotBtn.setAttribute('tabindex', '-1');
-    }
-
-    dotItem.append(dotBtn);
-
-    dotItem.addEventListener('click', () => {
-      scrollToSlide(block, blockState, index + 1);
-    });
-
-    navigationDots[index] = dotItem;
-  });
-
-  dots.append(...navigationDots);
-
-  return dots;
-}
-
-/**
  * Based on the direction of a scroll snap the scroll position based on the
  * offset width of the scrollable element. The snap threshold is determined
  * by the direction of the scroll to ensure that snap direction is natural.
@@ -180,7 +137,7 @@ function snapScroll(el, blockState, dir = 1) {
     return;
   }
 
-  let snapLimit = 0.25;
+  const snapLimit = 0.25;
   let threshold = el.offsetWidth * snapLimit;
   if (dir >= 0) {
     threshold -= (threshold * snapLimit);
@@ -401,7 +358,6 @@ export default function decorate(block) {
   setTimeout(() => {
     // scroll to first slide once all DOM has been built
     scrollToSlide(block, blockState, blockState.firstVisibleSlide, 'instant');
-    mediaTextWidthChangeHandler(mediaTextWidthQueryMatcher);
   }, 100);
 
   // make carousel draggable and swipeable
@@ -508,7 +464,6 @@ export default function decorate(block) {
         if (entry.isIntersecting) {
           startAutoScroll(block, blockState);
           mediaVideoWidthQueryMatcher.addEventListener('change', mediaVideoWidthChangeHandler);
-          mediaTextWidthQueryMatcher.addEventListener('change', mediaTextWidthChangeHandler);
           mediaExtraLargeWidthQueryMatcher.addEventListener('change', mediaExtraLargeWidthChangeHandler);
           mediaLargeWidthQueryMatcher.addEventListener('change', mediaLargeWidthChangeHandler);
           mediaMediumWidthQueryMatcher.addEventListener('change', mediaMediumWidthChangeHandler);
@@ -516,7 +471,6 @@ export default function decorate(block) {
         } else {
           stopAutoScroll(blockState);
           mediaVideoWidthQueryMatcher.removeEventListener('change', mediaVideoWidthChangeHandler);
-          mediaTextWidthQueryMatcher.removeEventListener('change', mediaTextWidthChangeHandler);
           mediaExtraLargeWidthQueryMatcher.removeEventListener('change', mediaExtraLargeWidthChangeHandler);
           mediaLargeWidthQueryMatcher.removeEventListener('change', mediaLargeWidthChangeHandler);
           mediaMediumWidthQueryMatcher.removeEventListener('change', mediaMediumWidthChangeHandler);
