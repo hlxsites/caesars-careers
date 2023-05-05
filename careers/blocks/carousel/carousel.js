@@ -7,11 +7,6 @@
  * - swipe between slides
  * - endless sliding
  * - next and previous navigation buttons
- *
- * Showcase variant only:
- * - clickable short/long text for showcase variant with close button
- * - direct selection via dots
- * - active slide indicator
  */
 
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
@@ -233,10 +228,7 @@ function snapScroll(el, blockState, dir = 1) {
     return;
   }
 
-  let snapLimit = 0.5;
-  if (blockState.isShowcase) {
-    snapLimit = 0.05;
-  }
+  let snapLimit = 0.25;
   let threshold = el.offsetWidth * snapLimit;
   if (dir >= 0) {
     threshold -= (threshold * snapLimit);
@@ -431,12 +423,6 @@ export default function decorate(block) {
     const prevBtn = buildNav(blockState, 'prev');
     const nextBtn = buildNav(blockState, 'next');
     block.append(prevBtn, nextBtn);
-
-    let navigationDots;
-    if (blockState.isShowcase) {
-      navigationDots = buildDots(block, blockState, slides);
-      block.append(navigationDots);
-    }
   }
 
   const mediaVideoWidthQueryMatcher = window.matchMedia('only screen and (max-width: 1170px)');
