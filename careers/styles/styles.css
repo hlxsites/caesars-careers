@@ -325,30 +325,30 @@ main .section {
   padding: 0 var(--layout-size-m);
 }
 
-main .section.has-centered-text > div > p {
+main .section.centered-text > div > p {
   text-align: center;
 }
 
-main .section.has-shorter-width > div > p {
+main .section.shorter-width > div > p {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
 }
 
-main .section.has-centered-title > div > h2 {
+main .section.centered-title > div > h2 {
   text-align: center;
   text-transform: uppercase;
 }
 
-main .section.has-light-color-text {
+main .section.light-color-text {
   color: var(--static-color-white);
 }
 
-main .section.has-dark-color-text {
+main .section.dark-color-text {
   color: var(--static-color-black);
 }
 
-main .section.has-background-color {
+main .section.background-color {
   background-color: var(--static-color-light-gray);
 }
 
@@ -568,12 +568,12 @@ main .section.is-hero.has-background {
   padding-bottom: var(--layout-size-xxl);
 }
 
-main .section.is-hero.has-video-background {
+main .section.is-hero.video-background {
   overflow: hidden;
   width: 100%;
 }
 
-main .section.is-hero.has-video-background h1 {
+main .section.is-hero.video-background h1 {
   text-align: center;
   text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
   color: var(--static-color-white);
@@ -585,11 +585,11 @@ main .section.is-hero.has-video-background h1 {
   margin-top: 190px;
 }
 
-main .section.is-hero.has-centered-hero-text h1 {
+main .section.is-hero.centered-hero-text h1 {
   margin-top: 360px;
 }
 
-main .section.is-hero.has-video-background picture {
+main .section.is-hero.video-background picture {
   position: absolute;
   z-index: -5;
   top: 0;
@@ -599,15 +599,15 @@ main .section.is-hero.has-video-background picture {
   min-height: var(--screen-width-s);
 }
 
-main .section.is-hero.has-video-background > picture img {
+main .section.is-hero.video-background > picture img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-main .section.is-hero.has-background-block .carousel-main-image::after,
-main .section.is-hero.has-background-block .carousel-alt-image::after,
-main .section.is-hero.has-background-block .carousel-only-image::after {
+main .section.is-hero.background-block .carousel-main-image::after,
+main .section.is-hero.background-block .carousel-alt-image::after,
+main .section.is-hero.background-block .carousel-only-image::after {
   content: '';
   position: absolute;
   left: 0; top: 0;
@@ -615,16 +615,16 @@ main .section.is-hero.has-background-block .carousel-only-image::after {
   background: linear-gradient(rgba(0 0 0 / 0%), rgba(0 0 0 / 70%));
 }
 
-main .section.is-hero.has-background-block {
+main .section.is-hero.background-block {
   overflow: hidden;
   width: 100%;
 }
 
-main .section.is-hero.has-background-block > div:first-child {
+main .section.is-hero.background-block > div:first-child {
   position: absolute;
 }
 
-main .section.is-hero.has-background-block > div:nth-child(2) {
+main .section.is-hero.background-block > div:nth-child(2) {
   margin-top: 520px;
 }
 
@@ -741,12 +741,12 @@ main .section.product-quickfacts .default-content-wrapper > p > span.quick-facts
       width: var(--screen-width-l);
   }
 
-  main .section.has-video-background h1 {
+  main .section.video-background h1 {
     padding-top: 48px;
     margin-top: 175px;
   }
 
-  main .section.has-video-background > video {
+  main .section.video-background > video {
     position: absolute;
     z-index: -5;
     top: 0;
