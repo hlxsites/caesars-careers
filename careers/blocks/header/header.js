@@ -1,5 +1,6 @@
-import { getMetadata, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { decorateMain } from '../../scripts/scripts.js';
+import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
+// import { getMetadata, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
+// import { decorateMain } from '../../scripts/scripts.js';
 
 const screenConfig = Object.freeze({
   tablet: {
@@ -18,7 +19,7 @@ const CAESARS_DOT_COM = 'https://www.caesars.com';
 const GLOBAL_HEADER_JSON = '/content/empire/en/jcr:content/root/header.model.json';
 const GLOBAL_HEADER_JSON_LOCAL = '/careers/scripts/resources/header.model.json';
 const GLOBAL_HEADER_LOGO_LOCAL = '/careers/icons/caesars-global-logo.svg';
-const GLOBAL_HEADER_SIGN_IN = '/fragments/header/sign-in';
+// const GLOBAL_HEADER_SIGN_IN = '/fragments/header/sign-in';
 const DESKTOP_SIGN_IN_TEXT = 'Sign In';
 const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
 
@@ -49,17 +50,17 @@ async function createGlobalNavLogo(logoFileReference) {
   return logo;
 }
 
-async function fetchFragment(path) {
-  const resp = await fetch(`${path}.plain.html`);
-  if (resp.ok) {
-    const container = document.createElement('div');
-    container.innerHTML = await resp.text();
-    decorateMain(container);
-    await loadBlocks(container);
-    return container;
-  }
-  return null;
-}
+// async function fetchFragment(path) {
+//   const resp = await fetch(`${path}.plain.html`);
+//   if (resp.ok) {
+//     const container = document.createElement('div');
+//     container.innerHTML = await resp.text();
+//     decorateMain(container);
+//     await loadBlocks(container);
+//     return container;
+//   }
+//   return null;
+// }
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -156,54 +157,6 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
-const showMore = (nav, maxItemsDesktop) => {
-  const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-  const more = document.createElement('li');
-  more.classList.add('more');
-  const moreText = document.createElement('div');
-  moreText.classList.add('more-text');
-  const aMore = document.createElement('a');
-  aMore.classList.add('more-link');
-  aMore.text = 'MORE';
-  moreText.appendChild(aMore);
-  const dropdownMenu = document.createElement('div');
-  dropdownMenu.classList.add('dropdown-menu');
-
-  [...ul.children].forEach((child, index) => {
-    if (index < maxItemsDesktop) {
-      return;
-    }
-    const dropdownItem = document.createElement('div');
-    dropdownItem.classList.add('dropdown');
-    child.firstChild.classList.add('menu-item');
-    dropdownItem.appendChild(child.firstChild);
-    dropdownMenu.appendChild(dropdownItem);
-    ul.removeChild(child);
-  });
-
-  more.prepend(moreText);
-  more.appendChild(dropdownMenu);
-  ul.appendChild(more);
-
-  more.addEventListener('click', () => {
-    const dropdown = more.querySelector('.dropdown-menu');
-    dropdown.classList.toggle('active');
-    aMore.classList.toggle('active');
-  });
-  // Disable dropdown onclick outside the dropdown
-  document.onclick = (e) => {
-    const eventTarget = e.target.classList;
-    if (!(eventTarget.contains('more') || eventTarget.contains('more-link') || eventTarget.contains('more-text')
-     || eventTarget.contains('dropdown') || eventTarget.contains('dropdown-menu'))) {
-      const dropdown = more.querySelector('.dropdown-menu');
-      if (dropdown.classList.contains('active')) {
-        dropdown.classList.toggle('active');
-        aMore.classList.toggle('active');
-      }
-    }
-  };
-};
-
 /**
  * shows the login modal
  */
@@ -225,25 +178,25 @@ function toggleUserMenu() {
  * Creates the user menu
  * @param {Element} block Header block
  */
-async function createUserMenu(block) {
-  const userMenu = document.createElement('div');
-  userMenu.classList.add('user-menu');
-  const userMenuClose = document.createElement('div');
-  userMenuClose.classList.add('user-menu-close');
-  userMenuClose.addEventListener('click', toggleUserMenu);
-  userMenu.appendChild(userMenuClose);
-  const userMenuContainer = document.createElement('div');
-  userMenuContainer.classList.add('user-menu-container');
-  const userMenuMainPanel = document.createElement('div');
-  userMenuMainPanel.classList.add('user-menu-main-panel');
-  const loginText = document.createElement('div');
-  loginText.classList.add('text-center');
-  userMenuMainPanel.appendChild(loginText);
-  const fragmentBlock = await fetchFragment(`${GLOBAL_HEADER_SIGN_IN}`);
-  userMenuContainer.appendChild(fragmentBlock);
-  userMenu.appendChild(userMenuContainer);
-  block.appendChild(userMenu);
-}
+// async function createUserMenu(block) {
+//   const userMenu = document.createElement('div');
+//   userMenu.classList.add('user-menu');
+//   const userMenuClose = document.createElement('div');
+//   userMenuClose.classList.add('user-menu-close');
+//   userMenuClose.addEventListener('click', toggleUserMenu);
+//   userMenu.appendChild(userMenuClose);
+//   const userMenuContainer = document.createElement('div');
+//   userMenuContainer.classList.add('user-menu-container');
+//   const userMenuMainPanel = document.createElement('div');
+//   userMenuMainPanel.classList.add('user-menu-main-panel');
+//   const loginText = document.createElement('div');
+//   loginText.classList.add('text-center');
+//   userMenuMainPanel.appendChild(loginText);
+//   const fragmentBlock = await fetchFragment(`${GLOBAL_HEADER_SIGN_IN}`);
+//   userMenuContainer.appendChild(fragmentBlock);
+//   userMenu.appendChild(userMenuContainer);
+//   block.appendChild(userMenu);
+// }
 
 /**
  * decorates the header, mainly the nav
@@ -314,7 +267,7 @@ export default async function decorate(block) {
     if (globalNavJson.style) globalNavDesktop.classList.add(globalNavJson.style);
   }
 
-  createUserMenu(block);
+  // createUserMenu(block);
 
   // fetch nav content
   const navPath = getMetadata('nav') || '/nav';
@@ -377,21 +330,10 @@ export default async function decorate(block) {
     nav.setAttribute('aria-expanded', 'false');
 
     // prevent mobile nav behavior on window resize
-    toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches);
-
-    // add event listeners when window width changes
-    screenConfig.smallDesktop.media.addEventListener('change', () => {
-      const localNavTitle = block.querySelector('.local-nav-title');
-      const globalNavTitle = block.querySelector('.global-nav-title');
-      toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches);
-      if (screenConfig.smallDesktop.media.matches) {
-        localNavTitle.removeEventListener('click');
-        globalNavTitle.removeEventListener('click');
-      } else {
-        localNavTitle.addEventListener('click', () => {
-          toggleNavSectionTitles(localNavTitle, localNavTitle.parentElement());
-          toggleNavSectionTitles(globalNavTitle, globalNavTitle.parentElement());
-        });
+    window.addEventListener('resize', () => {
+      const localNav = block.querySelector('header nav');
+      if (!screenConfig.tablet.media.matches) {
+        localNav.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -424,83 +366,5 @@ export default async function decorate(block) {
     navWrapper.append(nav);
     block.prepend(globalNavDesktop);
     block.append(navWrapper);
-
-    if (screenConfig.largeDesktop.media.matches) {
-      showMore(nav, screenConfig.largeDesktop.maxItems);
-    } else if (screenConfig.smallDesktop.media.matches) {
-      showMore(nav, screenConfig.smallDesktop.maxItems);
-    }
-
-    const handleTabletScreenChange = (query) => {
-      if (query.matches) {
-        const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-        const more = nav.querySelector('.more');
-        const dropdownMenu = nav.querySelector('.dropdown-menu');
-        if (more && dropdownMenu) {
-          [...dropdownMenu.children].forEach((item) => {
-            item.firstChild.classList.remove('menu-item');
-            const li = document.createElement('li');
-            li.appendChild(item.firstChild);
-            ul.appendChild(li);
-          });
-          ul.removeChild(more);
-        }
-      }
-    };
-    handleTabletScreenChange(screenConfig.tablet.media);
-    screenConfig.tablet.media.addEventListener('change', handleTabletScreenChange);
-
-    const handleScreenChange = (query) => {
-      if (query.matches) {
-        nav.setAttribute('aria-expanded', 'true');
-        const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-        const dropdownMenu = nav.querySelector('.dropdown-menu');
-        const more = nav.querySelector('.more');
-
-        if (ul.children.length >= screenConfig.largeDesktop.maxItems + 1) {
-          return;
-        }
-        [...dropdownMenu.children].forEach((menuItem, index) => {
-          if (index >= (screenConfig.largeDesktop.maxItems - screenConfig.smallDesktop.maxItems)) {
-            return;
-          }
-          dropdownMenu.removeChild(menuItem);
-          menuItem.firstChild.classList.remove('menu-item');
-          const li = document.createElement('li');
-          li.appendChild(menuItem.firstChild);
-          ul.insertBefore(li, more);
-        });
-      }
-    };
-    handleScreenChange(screenConfig.largeDesktop.media);
-    screenConfig.largeDesktop.media.addEventListener('change', handleScreenChange);
-
-    // screen change to small desktop
-    const handleScreenChangeSmallDesktop = (query) => {
-      if (query.matches) {
-        const items = nav.querySelectorAll('.dropdown');
-        if (items.length === 0) {
-          // For screen change from tablet to small desktop
-          showMore(nav, screenConfig.smallDesktop.maxItems);
-          return;
-        }
-        const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-        const dropdownMenu = nav.querySelector('.dropdown-menu');
-        const firstElementChild = dropdownMenu.firstChild;
-        [...ul.children].forEach((li, index) => {
-          if (index < screenConfig.smallDesktop.maxItems || li.classList.contains('more')) {
-            return;
-          }
-          ul.removeChild(li);
-          const dropdownItem = document.createElement('div');
-          dropdownItem.classList.add('dropdown');
-          li.firstChild.classList.add('menu-item');
-          dropdownItem.appendChild(li.firstChild);
-          dropdownMenu.insertBefore(dropdownItem, firstElementChild);
-        });
-      }
-    };
-    handleScreenChangeSmallDesktop(screenConfig.smallDesktop.media);
-    screenConfig.smallDesktop.media.addEventListener('change', handleScreenChangeSmallDesktop);
   }
 }
