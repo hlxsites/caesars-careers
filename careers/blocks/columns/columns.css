@@ -89,8 +89,19 @@
 .columns.columns-2-cols.cet-card h2,
 .columns.columns-2-cols.cet-card h3,
 .columns.columns-2-cols.cet-card h4 {
+  font-family: var(--hero-heading-font-family);
   margin: 0 0 var(--layout-size-l) -4px;
   text-transform: uppercase;
+}
+
+.columns.columns-2-cols.cet-card h4 {
+  font-size: var(--body-font-size-xs);
+  font-weight: var(--emphasized-font-weight);
+  line-height: 1.25;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-left: 1px;
+  text-transform: none;
 }
 
 .columns-wrapper:not(:last-child) .columns.columns-2-cols.cet-card>div:last-child {
@@ -103,6 +114,13 @@
   vertical-align: unset;
   letter-spacing: unset;
   font-weight: unset;
+}
+
+.columns.columns-2-cols.cet-card:not(.full-width) .button-container > strong > a.primary,
+.columns.columns-2-cols.cet-card:not(.full-width) .button-container > em > a.secondary {
+  border: 1px solid var(--button-border-color);
+  background-color: var(--button-color);
+  color: var(--static-color-white);
 }
 
 @media (min-width: 768px) {
@@ -283,21 +301,25 @@
   }
 
   .columns.columns-2-cols.cet-card.image-end:not(.full-width)>div>div:nth-child(even)>h3,
+  .columns.columns-2-cols.cet-card.image-end:not(.full-width)>div>div:nth-child(even)>h4,
   .columns.columns-2-cols.cet-card.image-end:not(.full-width)>div>div:nth-child(even)>p {
     padding-left: 190px;
   }
 
   .columns.columns-2-cols.cet-card.image-end:not(.full-width)>div>div:nth-child(odd)>h3,
+  .columns.columns-2-cols.cet-card.image-end:not(.full-width)>div>div:nth-child(odd)>h4,
   .columns.columns-2-cols.cet-card.image-end:not(.full-width)>div>div:nth-child(odd)>p {
     padding-right: 190px;
   }
 
   .columns.columns-2-cols.cet-card.image-start:not(.full-width)>div>div:nth-child(even)>h3,
+  .columns.columns-2-cols.cet-card.image-start:not(.full-width)>div>div:nth-child(even)>h4,
   .columns.columns-2-cols.cet-card.image-start:not(.full-width)>div>div:nth-child(even)>p {
     padding-left: 190px;
   }
 
   .columns.columns-2-cols.cet-card.image-start:not(.full-width)>div>div:nth-child(odd)>h3,
+  .columns.columns-2-cols.cet-card.image-start:not(.full-width)>div>div:nth-child(odd)>h4,
   .columns.columns-2-cols.cet-card.image-start:not(.full-width)>div>div:nth-child(odd)>p {
     padding-right: 190px;
   }
