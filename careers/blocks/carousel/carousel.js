@@ -7,15 +7,7 @@
  * - swipe between slides
  * - endless sliding
  * - next and previous navigation buttons
- *
- * Showcase variant only:
- * - clickable short/long text for showcase variant with close button
- * - direct selection via dots
- * - active slide indicator
  */
-
-import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
-import { readBlockConfigWithContent, buildEllipsis } from '../../scripts/scripts.js';
 
 const DEFAULT_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_ID_PREFIX = 'carousel-slide';
@@ -28,33 +20,18 @@ const DEFAULT_CONFIG = Object.freeze({
 });
 
 class CarouselState {
-  constructor(curSlide, interval, isShowcase, firstVisibleSlide = 1, maxVisibleSlides = 0) {
+  constructor(curSlide, interval, firstVisibleSlide = 1, maxVisibleSlides = 0) {
     this.firstVisibleSlide = firstVisibleSlide;
     this.maxVisibleSlides = maxVisibleSlides;
     this.curSlide = curSlide;
     this.interval = interval;
-    this.isShowcase = isShowcase || false;
     this.scrollInterval = null; /* for auto-scroll interval handling */
   }
 }
 
 /**
- * Keep active dot in sync with current slide
- * @param carousel The carousel
- * @param activeSlide {number} The active slide
- */
-function syncActiveDot(block, slideIndex) {
-  [...block.getElementsByClassName('carousel-nav-dot')].forEach((navDot) => {
-    if (navDot.id === `carousel-nav-dot-${slideIndex}`) {
-      navDot.classList.add('carousel-nav-dot-active');
-    } else {
-      navDot.classList.remove('carousel-nav-dot-active');
-    }
-  });
-}
-
-/**
  * Clear any active scroll intervals
+ * @param blockState Current block state
  */
 function stopAutoScroll(blockState) {
   clearInterval(blockState.scrollInterval);
@@ -64,36 +41,15 @@ function stopAutoScroll(blockState) {
 /**
  * Scroll a single slide into view.
  * @param carousel The carousel
+ * @param blockState Current block state
  * @param slideIndex {number} The slide index
+ * @param scrollBehavior Scroll behavior to use for scrolling
  */
 function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 'smooth') {
   const carouselSlider = carousel.querySelector('.carousel-slide-container');
-
-  let widthUsage;
-  let realSlideWidth;
-  let slidePadding;
-  let realSlideWidthWithPadding;
-  let paddingFix;
-
-  if (blockState.isShowcase) {
-    widthUsage = 0.9; /* carousel-slide width */
-    realSlideWidth = carouselSlider.offsetWidth * widthUsage;
-    slidePadding = 32; /* carousel-slide padding-right */
-    realSlideWidthWithPadding = realSlideWidth + slidePadding;
-    paddingFix = 16; /* carousel-text abs(margin-left) */
-  }
-
   if (slideIndex >= blockState.firstVisibleSlide && slideIndex <= blockState.maxVisibleSlides) {
     // normal sliding in-between slides
-    let leftSlideOffset;
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex
-        - translationCorrection * slideIndex
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
-    }
+    const leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
     carouselSlider.scrollTo({
       left: leftSlideOffset,
       behavior: scrollBehavior,
@@ -108,30 +64,14 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
       }
     });
     blockState.curSlide = slideIndex;
-    syncActiveDot(carousel, blockState.curSlide);
   } else if (slideIndex === 0) {
     // sliding from first to last
-    let leftSlideOffset;
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex
-        - translationCorrection * slideIndex
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
-    }
+    let leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
     carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'smooth' });
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.maxVisibleSlides
-        - translationCorrection * blockState.maxVisibleSlides
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.maxVisibleSlides;
-    }
+    leftSlideOffset = carouselSlider.offsetWidth * blockState.maxVisibleSlides;
+
     setTimeout(() => {
       carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'instant' });
-      syncActiveDot(carousel, blockState.maxVisibleSlides);
     }, SLIDE_ANIMATION_DURATION_MS);
 
     // sync slide state
@@ -146,27 +86,12 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
   } else if (slideIndex === blockState.maxVisibleSlides + 1) {
     // sliding from last to first
     let leftSlideOffset;
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex
-        - translationCorrection * slideIndex
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
-    }
+    leftSlideOffset = carouselSlider.offsetWidth * slideIndex;
     carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'smooth' });
+    leftSlideOffset = carouselSlider.offsetWidth * blockState.firstVisibleSlide;
 
-    if (blockState.isShowcase) {
-      const translationCorrection = carouselSlider.offsetWidth - realSlideWidthWithPadding;
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.firstVisibleSlide
-        - translationCorrection * blockState.firstVisibleSlide
-        - paddingFix;
-    } else {
-      leftSlideOffset = carouselSlider.offsetWidth * blockState.firstVisibleSlide;
-    }
     setTimeout(() => {
       carouselSlider.scrollTo({ left: leftSlideOffset, behavior: 'instant' });
-      syncActiveDot(carousel, blockState.firstVisibleSlide);
     }, SLIDE_ANIMATION_DURATION_MS);
 
     // sync slide state
@@ -182,49 +107,11 @@ function scrollToSlide(carousel, blockState, slideIndex = 1, scrollBehavior = 's
 }
 
 /**
- * Build navigation dots
- * @param slides An array of slide elements within the carousel
- * @return {HTMLUListElement} The carousel dots element
- */
-function buildDots(block, blockState, slides = []) {
-  const dots = document.createElement('ul');
-  dots.classList.add('carousel-dots');
-
-  const navigationDots = new Array(slides.length);
-  slides.forEach((slide, index) => {
-    const dotItem = document.createElement('li');
-    const dotBtn = document.createElement('button');
-
-    dotBtn.classList.add('carousel-nav-dot');
-    dotBtn.setAttribute('id', `carousel-nav-dot-${index + 1}`);
-    dotBtn.setAttribute('type', 'button');
-
-    if (index + 1 === blockState.firstVisibleSlide) {
-      dotBtn.setAttribute('tabindex', '0');
-      dotBtn.classList.add('carousel-nav-dot-active');
-    } else {
-      dotBtn.setAttribute('tabindex', '-1');
-    }
-
-    dotItem.append(dotBtn);
-
-    dotItem.addEventListener('click', () => {
-      scrollToSlide(block, blockState, index + 1);
-    });
-
-    navigationDots[index] = dotItem;
-  });
-
-  dots.append(...navigationDots);
-
-  return dots;
-}
-
-/**
  * Based on the direction of a scroll snap the scroll position based on the
  * offset width of the scrollable element. The snap threshold is determined
  * by the direction of the scroll to ensure that snap direction is natural.
  * @param el the scrollable element
+ * @param blockState Current block state
  * @param dir the direction of the scroll
  */
 function snapScroll(el, blockState, dir = 1) {
@@ -232,10 +119,7 @@ function snapScroll(el, blockState, dir = 1) {
     return;
   }
 
-  let snapLimit = 0.5;
-  if (blockState.isShowcase) {
-    snapLimit = 0.05;
-  }
+  const snapLimit = 0.25;
   let threshold = el.offsetWidth * snapLimit;
   if (dir >= 0) {
     threshold -= (threshold * snapLimit);
@@ -250,6 +134,7 @@ function snapScroll(el, blockState, dir = 1) {
 
 /**
  * Build a navigation button for controlling the direction of carousel slides.
+ * @param blockState Current block state
  * @param navigationDirection A string of either 'prev or 'next'
  * @return {HTMLDivElement} The resulting nav element
  */
@@ -276,6 +161,7 @@ function buildNav(blockState, navigationDirection) {
 
 /**
  * Decorate a base slide element.
+ * @param blockState Current block state
  * @param slide A base block slide element
  * @param index The slide's position
  * @return {HTMLUListElement} A decorated carousel slide element
@@ -291,6 +177,7 @@ function buildSlide(blockState, slide, index) {
     || index === blockState.firstVisibleSlide + 1) {
     slide.querySelectorAll('img').forEach((image) => {
       image.loading = 'eager';
+      image.fetchPriority = 'high';
     });
   }
 
@@ -317,21 +204,9 @@ function buildSlide(blockState, slide, index) {
 }
 
 /**
- * Updates load setting for images in a slide
- * @param block block containing slides
- * @param slideId id of the slide to update
- */
-function setImageEagerLoading(block, slideId) {
-  const slide = block.querySelector(`#${slideId}`);
-  if (!slide) return;
-  slide.querySelectorAll('img').forEach((image) => {
-    image.loading = 'eager';
-  });
-}
-
-/**
  * Clone an existing carousel item
  * @param {Element} item carousel item to be cloned
+ * @param targetIndex Index to use for the cloned item
  * @returns the clone of the carousel item
  */
 function createClone(item, targetIndex) {
@@ -364,8 +239,7 @@ function addClones(element) {
 /**
  * Start auto-scrolling
  * @param {*} block Block
- * @param {*} interval Optional, configured time in ms to show a slide
- * Defaults to DEFAULT_SCROLL_INTERVAL_MS when block is set up
+ * @param blockState Current block state
  */
 function startAutoScroll(block, blockState) {
   if (blockState.interval === 0) return; /* Means no auto-scrolling */
@@ -385,11 +259,9 @@ function startAutoScroll(block, blockState) {
  * @param block HTML block from Franklin
  */
 export default function decorate(block) {
-  const blockConfig = { ...DEFAULT_CONFIG, ...readBlockConfigWithContent(block) };
   const blockState = new CarouselState(
     1,
-    blockConfig.interval,
-    block.classList.contains('showcase'),
+    DEFAULT_CONFIG.interval,
     1,
     0,
   );
@@ -432,103 +304,7 @@ export default function decorate(block) {
     const prevBtn = buildNav(blockState, 'prev');
     const nextBtn = buildNav(blockState, 'next');
     block.append(prevBtn, nextBtn);
-
-    let navigationDots;
-    if (blockState.isShowcase) {
-      navigationDots = buildDots(block, blockState, slides);
-      block.append(navigationDots);
-    }
   }
-
-  const mediaTextWidthQueryMatcher = window.matchMedia('only screen and (min-width: 1170px)');
-  const mediaTextWidthChangeHandler = (event) => {
-    if (!blockState.isShowcase) return;
-
-    if (event.matches === true) {
-      // unwrap clickable slide
-      const slidePanels = block.getElementsByClassName('carousel-slide');
-      [...slidePanels].forEach((panel) => {
-        const wrapper = panel.firstChild;
-        if (wrapper && wrapper.href) {
-          panel.innerHTML = wrapper.innerHTML;
-        }
-      });
-
-      // build "ellipsable" text content
-      const carouselTextElements = block.getElementsByClassName('carousel-text');
-      [...carouselTextElements].forEach((carouselText) => {
-        const textContents = carouselText.querySelectorAll('p');
-        [...textContents].forEach((textContent) => {
-          if (!textContent.classList.contains('button-container')) {
-            const displayBufferPixels = 32;
-            const textContentWidth = textContent.offsetWidth - displayBufferPixels;
-
-            const textStyle = window.getComputedStyle(textContent);
-            const fullTextContent = textContent.innerHTML;
-            const ellipsisBuilder = buildEllipsis(
-              fullTextContent,
-              textContentWidth,
-              blockConfig.maxlines,
-              blockConfig.ellipsis,
-              {
-                font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
-                letterSpacing: `${textStyle.letterSpacing}`,
-              },
-            );
-
-            if (ellipsisBuilder.lineCount >= 2) {
-              const clickableCloseButton = document.createElement('span');
-              const clickableEllipsis = document.createElement('span');
-
-              clickableCloseButton.classList.add('hidden-close-button');
-              clickableEllipsis.classList.add('clickable-ellipsis');
-
-              clickableEllipsis.innerHTML = blockConfig.ellipsis;
-              textContent.innerHTML = `${ellipsisBuilder.shortText}`;
-
-              textContent.append(clickableEllipsis);
-              carouselText.append(clickableCloseButton);
-
-              clickableEllipsis.addEventListener('click', () => {
-                carouselText.classList.add('extended-text');
-                textContent.innerHTML = `${fullTextContent}`;
-                clickableCloseButton.classList.remove('hidden-close-button');
-                clickableCloseButton.classList.add('active-close-button');
-              });
-              clickableCloseButton.addEventListener('click', () => {
-                carouselText.classList.remove('extended-text');
-                textContent.innerHTML = `${ellipsisBuilder.shortText}`;
-                textContent.append(clickableEllipsis);
-                clickableCloseButton.classList.remove('active-close-button');
-                clickableCloseButton.classList.add('hidden-close-button');
-              });
-            }
-          }
-        });
-      });
-    } else {
-      // make slide clickable
-      const slidePanels = block.getElementsByClassName('carousel-slide');
-      [...slidePanels].forEach((panel) => {
-        let targetLink;
-        let targetTitle;
-        panel.querySelectorAll('a').forEach((link) => {
-          // last link will always be the action button
-          targetLink = link.href;
-          targetTitle = link.title;
-        });
-
-        const link = document.createElement('a');
-        link.classList.add('clickable-slide');
-        link.href = targetLink;
-        link.title = targetTitle;
-
-        link.innerHTML = panel.innerHTML;
-        panel.innerHTML = '';
-        panel.append(link);
-      });
-    }
-  };
 
   const mediaVideoWidthQueryMatcher = window.matchMedia('only screen and (max-width: 1170px)');
   const mediaVideoWidthChangeHandler = (event) => {
@@ -554,7 +330,6 @@ export default function decorate(block) {
   setTimeout(() => {
     // scroll to first slide once all DOM has been built
     scrollToSlide(block, blockState, blockState.firstVisibleSlide, 'instant');
-    mediaTextWidthChangeHandler(mediaTextWidthQueryMatcher);
   }, 100);
 
   // make carousel draggable and swipeable
@@ -616,64 +391,15 @@ export default function decorate(block) {
     carousel.scrollLeft = prevScroll - walk;
   }, { passive: true });
 
-  const imageSizeEventHandler = (targetWidth) => {
-    block.querySelectorAll('img').forEach((image) => {
-      image.closest('picture').replaceWith(createOptimizedPicture(image.src, image.alt, false, [{ width: targetWidth }]));
-    });
-    setImageEagerLoading(block, 'carousel-slide0');
-    setImageEagerLoading(block, 'carousel-slide1');
-  };
-  const mediaSmallWidthQueryMatcher = window.matchMedia('(max-width: 768px)');
-  const mediaSmallWidthChangeHandler = (event) => {
-    if (event.matches) {
-      imageSizeEventHandler('768');
-    }
-  };
-  mediaSmallWidthChangeHandler(mediaSmallWidthQueryMatcher);
-
-  const mediaMediumWidthQueryMatcher = window.matchMedia('(min-width: 769px) and (max-width: 960px)');
-  const mediaMediumWidthChangeHandler = (event) => {
-    if (event.matches === true) {
-      imageSizeEventHandler('960');
-    }
-  };
-  mediaMediumWidthChangeHandler(mediaMediumWidthQueryMatcher);
-
-  const mediaLargeWidthQueryMatcher = window.matchMedia('(min-width: 961px) and (max-width: 1170px)');
-  const mediaLargeWidthChangeHandler = (event) => {
-    if (event.matches === true) {
-      imageSizeEventHandler('1170');
-    }
-  };
-  mediaLargeWidthChangeHandler(mediaLargeWidthQueryMatcher);
-
-  const mediaExtraLargeWidthQueryMatcher = window.matchMedia('(min-width: 1171px) and (max-width: 1440px)');
-  const mediaExtraLargeWidthChangeHandler = (event) => {
-    if (event.matches === true) {
-      imageSizeEventHandler('1440');
-    }
-  };
-  mediaExtraLargeWidthChangeHandler(mediaExtraLargeWidthQueryMatcher);
-
   const observer = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           startAutoScroll(block, blockState);
           mediaVideoWidthQueryMatcher.addEventListener('change', mediaVideoWidthChangeHandler);
-          mediaTextWidthQueryMatcher.addEventListener('change', mediaTextWidthChangeHandler);
-          mediaExtraLargeWidthQueryMatcher.addEventListener('change', mediaExtraLargeWidthChangeHandler);
-          mediaLargeWidthQueryMatcher.addEventListener('change', mediaLargeWidthChangeHandler);
-          mediaMediumWidthQueryMatcher.addEventListener('change', mediaMediumWidthChangeHandler);
-          mediaSmallWidthQueryMatcher.addEventListener('change', mediaSmallWidthChangeHandler);
         } else {
           stopAutoScroll(blockState);
           mediaVideoWidthQueryMatcher.removeEventListener('change', mediaVideoWidthChangeHandler);
-          mediaTextWidthQueryMatcher.removeEventListener('change', mediaTextWidthChangeHandler);
-          mediaExtraLargeWidthQueryMatcher.removeEventListener('change', mediaExtraLargeWidthChangeHandler);
-          mediaLargeWidthQueryMatcher.removeEventListener('change', mediaLargeWidthChangeHandler);
-          mediaMediumWidthQueryMatcher.removeEventListener('change', mediaMediumWidthChangeHandler);
-          mediaSmallWidthQueryMatcher.removeEventListener('change', mediaSmallWidthChangeHandler);
         }
       });
     }
