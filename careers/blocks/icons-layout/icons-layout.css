@@ -20,11 +20,11 @@
 
 .icons-layout.block h4 {
   text-align: center;
-  font-weight: var(--emphasized-font-weight);
+  font-weight: var(--emphasized-block-font-weight);
   font-size: var(--heading-font-size-l);
   line-height: 1.1;
   text-transform: uppercase;
-  font-family: var(--alternate-heading-font-family);
+  font-family: var(--text-font-family);
 }
 
 .icons-layout.block p {

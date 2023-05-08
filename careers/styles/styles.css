@@ -115,6 +115,7 @@ body.careers {
   --button-color: var(--static-color-pink-red);
 
   --emphasized-font-weight: 400;
+  --emphasized-block-font-weight: 700;
 
   --hero-heading-font-family: "Montserrat", sans-serif;
 }
