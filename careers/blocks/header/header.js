@@ -156,54 +156,6 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
-const showMore = (nav, maxItemsDesktop) => {
-  const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-  const more = document.createElement('li');
-  more.classList.add('more');
-  const moreText = document.createElement('div');
-  moreText.classList.add('more-text');
-  const aMore = document.createElement('a');
-  aMore.classList.add('more-link');
-  aMore.text = 'MORE';
-  moreText.appendChild(aMore);
-  const dropdownMenu = document.createElement('div');
-  dropdownMenu.classList.add('dropdown-menu');
-
-  [...ul.children].forEach((child, index) => {
-    if (index < maxItemsDesktop) {
-      return;
-    }
-    const dropdownItem = document.createElement('div');
-    dropdownItem.classList.add('dropdown');
-    child.firstChild.classList.add('menu-item');
-    dropdownItem.appendChild(child.firstChild);
-    dropdownMenu.appendChild(dropdownItem);
-    ul.removeChild(child);
-  });
-
-  more.prepend(moreText);
-  more.appendChild(dropdownMenu);
-  ul.appendChild(more);
-
-  more.addEventListener('click', () => {
-    const dropdown = more.querySelector('.dropdown-menu');
-    dropdown.classList.toggle('active');
-    aMore.classList.toggle('active');
-  });
-  // Disable dropdown onclick outside the dropdown
-  document.onclick = (e) => {
-    const eventTarget = e.target.classList;
-    if (!(eventTarget.contains('more') || eventTarget.contains('more-link') || eventTarget.contains('more-text')
-     || eventTarget.contains('dropdown') || eventTarget.contains('dropdown-menu'))) {
-      const dropdown = more.querySelector('.dropdown-menu');
-      if (dropdown.classList.contains('active')) {
-        dropdown.classList.toggle('active');
-        aMore.classList.toggle('active');
-      }
-    }
-  };
-};
-
 /**
  * shows the login modal
  */
@@ -377,13 +329,15 @@ export default async function decorate(block) {
     nav.setAttribute('aria-expanded', 'false');
 
     // prevent mobile nav behavior on window resize
-    toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches);
+    toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches
+      || screenConfig.largeDesktop.media.matches);
 
     // add event listeners when window width changes
     screenConfig.smallDesktop.media.addEventListener('change', () => {
       const localNavTitle = block.querySelector('.local-nav-title');
       const globalNavTitle = block.querySelector('.global-nav-title');
-      toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches);
+      toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches
+        || screenConfig.largeDesktop.media.matches);
       if (screenConfig.smallDesktop.media.matches) {
         localNavTitle.removeEventListener('click');
         globalNavTitle.removeEventListener('click');
@@ -424,83 +378,5 @@ export default async function decorate(block) {
     navWrapper.append(nav);
     block.prepend(globalNavDesktop);
     block.append(navWrapper);
-
-    if (screenConfig.largeDesktop.media.matches) {
-      showMore(nav, screenConfig.largeDesktop.maxItems);
-    } else if (screenConfig.smallDesktop.media.matches) {
-      showMore(nav, screenConfig.smallDesktop.maxItems);
-    }
-
-    const handleTabletScreenChange = (query) => {
-      if (query.matches) {
-        const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-        const more = nav.querySelector('.more');
-        const dropdownMenu = nav.querySelector('.dropdown-menu');
-        if (more && dropdownMenu) {
-          [...dropdownMenu.children].forEach((item) => {
-            item.firstChild.classList.remove('menu-item');
-            const li = document.createElement('li');
-            li.appendChild(item.firstChild);
-            ul.appendChild(li);
-          });
-          ul.removeChild(more);
-        }
-      }
-    };
-    handleTabletScreenChange(screenConfig.tablet.media);
-    screenConfig.tablet.media.addEventListener('change', handleTabletScreenChange);
-
-    const handleScreenChange = (query) => {
-      if (query.matches) {
-        nav.setAttribute('aria-expanded', 'true');
-        const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-        const dropdownMenu = nav.querySelector('.dropdown-menu');
-        const more = nav.querySelector('.more');
-
-        if (ul.children.length >= screenConfig.largeDesktop.maxItems + 1) {
-          return;
-        }
-        [...dropdownMenu.children].forEach((menuItem, index) => {
-          if (index >= (screenConfig.largeDesktop.maxItems - screenConfig.smallDesktop.maxItems)) {
-            return;
-          }
-          dropdownMenu.removeChild(menuItem);
-          menuItem.firstChild.classList.remove('menu-item');
-          const li = document.createElement('li');
-          li.appendChild(menuItem.firstChild);
-          ul.insertBefore(li, more);
-        });
-      }
-    };
-    handleScreenChange(screenConfig.largeDesktop.media);
-    screenConfig.largeDesktop.media.addEventListener('change', handleScreenChange);
-
-    // screen change to small desktop
-    const handleScreenChangeSmallDesktop = (query) => {
-      if (query.matches) {
-        const items = nav.querySelectorAll('.dropdown');
-        if (items.length === 0) {
-          // For screen change from tablet to small desktop
-          showMore(nav, screenConfig.smallDesktop.maxItems);
-          return;
-        }
-        const ul = nav.querySelector('.nav-sections > .local-nav > ul');
-        const dropdownMenu = nav.querySelector('.dropdown-menu');
-        const firstElementChild = dropdownMenu.firstChild;
-        [...ul.children].forEach((li, index) => {
-          if (index < screenConfig.smallDesktop.maxItems || li.classList.contains('more')) {
-            return;
-          }
-          ul.removeChild(li);
-          const dropdownItem = document.createElement('div');
-          dropdownItem.classList.add('dropdown');
-          li.firstChild.classList.add('menu-item');
-          dropdownItem.appendChild(li.firstChild);
-          dropdownMenu.insertBefore(dropdownItem, firstElementChild);
-        });
-      }
-    };
-    handleScreenChangeSmallDesktop(screenConfig.smallDesktop.media);
-    screenConfig.smallDesktop.media.addEventListener('change', handleScreenChangeSmallDesktop);
   }
 }
