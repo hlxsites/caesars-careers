@@ -169,6 +169,12 @@
     text-align: left;
   }
 
+  .columns.columns-2-cols.cet-card .button-group:not(.button-container):last-child strong a {
+    background-color: var(--static-color-white);
+    border: 1px solid var(--static-color-gray-dark);
+    color: var(--text-color);
+  }
+
   .columns.columns-2-cols.intro>div:last-child {
     display: none;
   }
