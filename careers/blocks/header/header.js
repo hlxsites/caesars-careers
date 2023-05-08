@@ -1,5 +1,6 @@
-import { getMetadata, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { decorateMain } from '../../scripts/scripts.js';
+import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
+// import { getMetadata, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
+// import { decorateMain } from '../../scripts/scripts.js';
 
 const screenConfig = Object.freeze({
   tablet: {
@@ -18,7 +19,7 @@ const CAESARS_DOT_COM = 'https://www.caesars.com';
 const GLOBAL_HEADER_JSON = '/content/empire/en/jcr:content/root/header.model.json';
 const GLOBAL_HEADER_JSON_LOCAL = '/careers/scripts/resources/header.model.json';
 const GLOBAL_HEADER_LOGO_LOCAL = '/careers/icons/caesars-global-logo.svg';
-const GLOBAL_HEADER_SIGN_IN = '/fragments/header/sign-in';
+// const GLOBAL_HEADER_SIGN_IN = '/fragments/header/sign-in';
 const DESKTOP_SIGN_IN_TEXT = 'Sign In';
 const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
 
@@ -49,17 +50,17 @@ async function createGlobalNavLogo(logoFileReference) {
   return logo;
 }
 
-async function fetchFragment(path) {
-  const resp = await fetch(`${path}.plain.html`);
-  if (resp.ok) {
-    const container = document.createElement('div');
-    container.innerHTML = await resp.text();
-    decorateMain(container);
-    await loadBlocks(container);
-    return container;
-  }
-  return null;
-}
+// async function fetchFragment(path) {
+//   const resp = await fetch(`${path}.plain.html`);
+//   if (resp.ok) {
+//     const container = document.createElement('div');
+//     container.innerHTML = await resp.text();
+//     decorateMain(container);
+//     await loadBlocks(container);
+//     return container;
+//   }
+//   return null;
+// }
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -177,25 +178,25 @@ function toggleUserMenu() {
  * Creates the user menu
  * @param {Element} block Header block
  */
-async function createUserMenu(block) {
-  const userMenu = document.createElement('div');
-  userMenu.classList.add('user-menu');
-  const userMenuClose = document.createElement('div');
-  userMenuClose.classList.add('user-menu-close');
-  userMenuClose.addEventListener('click', toggleUserMenu);
-  userMenu.appendChild(userMenuClose);
-  const userMenuContainer = document.createElement('div');
-  userMenuContainer.classList.add('user-menu-container');
-  const userMenuMainPanel = document.createElement('div');
-  userMenuMainPanel.classList.add('user-menu-main-panel');
-  const loginText = document.createElement('div');
-  loginText.classList.add('text-center');
-  userMenuMainPanel.appendChild(loginText);
-  const fragmentBlock = await fetchFragment(`${GLOBAL_HEADER_SIGN_IN}`);
-  userMenuContainer.appendChild(fragmentBlock);
-  userMenu.appendChild(userMenuContainer);
-  block.appendChild(userMenu);
-}
+// async function createUserMenu(block) {
+//   const userMenu = document.createElement('div');
+//   userMenu.classList.add('user-menu');
+//   const userMenuClose = document.createElement('div');
+//   userMenuClose.classList.add('user-menu-close');
+//   userMenuClose.addEventListener('click', toggleUserMenu);
+//   userMenu.appendChild(userMenuClose);
+//   const userMenuContainer = document.createElement('div');
+//   userMenuContainer.classList.add('user-menu-container');
+//   const userMenuMainPanel = document.createElement('div');
+//   userMenuMainPanel.classList.add('user-menu-main-panel');
+//   const loginText = document.createElement('div');
+//   loginText.classList.add('text-center');
+//   userMenuMainPanel.appendChild(loginText);
+//   const fragmentBlock = await fetchFragment(`${GLOBAL_HEADER_SIGN_IN}`);
+//   userMenuContainer.appendChild(fragmentBlock);
+//   userMenu.appendChild(userMenuContainer);
+//   block.appendChild(userMenu);
+// }
 
 /**
  * decorates the header, mainly the nav
@@ -266,7 +267,7 @@ export default async function decorate(block) {
     if (globalNavJson.style) globalNavDesktop.classList.add(globalNavJson.style);
   }
 
-  createUserMenu(block);
+  // createUserMenu(block);
 
   // fetch nav content
   const navPath = getMetadata('nav') || '/nav';
@@ -329,23 +330,10 @@ export default async function decorate(block) {
     nav.setAttribute('aria-expanded', 'false');
 
     // prevent mobile nav behavior on window resize
-    toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches
-      || screenConfig.largeDesktop.media.matches);
-
-    // add event listeners when window width changes
-    screenConfig.smallDesktop.media.addEventListener('change', () => {
-      const localNavTitle = block.querySelector('.local-nav-title');
-      const globalNavTitle = block.querySelector('.global-nav-title');
-      toggleMenu(nav, navSections, screenConfig.smallDesktop.media.matches
-        || screenConfig.largeDesktop.media.matches);
-      if (screenConfig.smallDesktop.media.matches) {
-        localNavTitle.removeEventListener('click');
-        globalNavTitle.removeEventListener('click');
-      } else {
-        localNavTitle.addEventListener('click', () => {
-          toggleNavSectionTitles(localNavTitle, localNavTitle.parentElement());
-          toggleNavSectionTitles(globalNavTitle, globalNavTitle.parentElement());
-        });
+    window.addEventListener('resize', () => {
+      const localNav = block.querySelector('header nav');
+      if (!screenConfig.tablet.media.matches) {
+        localNav.setAttribute('aria-expanded', 'false');
       }
     });
 

@@ -69,8 +69,7 @@ header .nav-brand {
   flex: 1;
   justify-content: center;
   align-items: center;
-  
-  /* margin-right: 16px; */
+  grid-area: brand;
 }
 
 header .nav-brand p {
@@ -83,8 +82,9 @@ header .nav-brand p {
 header .nav-brand a {
   /* margin: unset; */
   display: flex;
-  align-items: center;
   position: relative;
+  align-items: center;
+  justify-content: center;
   height: var(--nav-height);
   width: 100%;
   padding: 5px 0;
@@ -96,8 +96,6 @@ header .nav-brand a::after {
   background: url('../../icons/caesars-careers-logo.svg') no-repeat;
   height: 40px;
   width: 111px;
-  left: 30%;
-  right: 30%;
 }
 
 header nav a:any-link {
@@ -108,6 +106,8 @@ header nav a:any-link {
 header nav .nav-hamburger {
   grid-area: hamburger;
   height: 22px;
+  width: 16px;
+  padding-left: 1em;
   display: flex;
   align-items: center;
 }
@@ -115,6 +115,7 @@ header nav .nav-hamburger {
 header nav .nav-hamburger button {
   position: relative;
   height: 22px;
+  width: 16px;
   margin: 0;
   border: 0;
   border-radius: 0;
@@ -131,7 +132,7 @@ header nav[aria-expanded="false"] button::before {
   width: 16px;
   height: 24px;
   top: 0;
-  left: 1rem;
+  left: 0;
 }
 
 header nav[aria-expanded="true"] button::before {
@@ -298,9 +299,10 @@ header nav[aria-expanded="true"] .nav-sections .global-nav[aria-expanded="true"]
 }
 
 /* tools */
-header nav .nav-tools {
+
+/* header nav .nav-tools {
   grid-area: tools;
-}
+} */
 
 header nav .nav-tools p:first-of-type a {
   background-color: rgb(255 255 255 / 15%);
@@ -338,7 +340,7 @@ header nav .nav-tools p:first-of-type a:hover {
 }
 
 @media (min-width: 1170px) {
-  header nav .local-nav .more {
+  /* header nav .local-nav .more {
     color: var(--static-color-white);
     opacity: unset;
     display: inline-block;
@@ -351,7 +353,7 @@ header nav .nav-tools p:first-of-type a:hover {
   header nav .local-nav .more-link {
     display: flex !important;
     align-items: center;
-  }
+  } */
 
   header nav .local-nav .menu-item {
     margin-left: 1em;
@@ -363,7 +365,7 @@ header nav .nav-tools p:first-of-type a:hover {
     flex-direction: row;
     align-items: center;
     padding: 0 var(--layout-size-m);
-    justify-content: flex-start;
+    justify-content: space-between;
     max-width: 1170px;
     height: var(--global-nav-height);
     transition: height .2s ease-in-out;
@@ -377,7 +379,11 @@ header nav .nav-tools p:first-of-type a:hover {
     height: 0;
   }
 
-  header nav .more-link::after {
+  header .global-nav-desktop .global-nav-section {
+    flex-grow: 3;
+  }
+
+  /* header nav .more-link::after {
     content: '';
     background: url("../../icons/chevron-white-down.svg") no-repeat;
     min-width: 15px;
@@ -390,12 +396,12 @@ header nav .nav-tools p:first-of-type a:hover {
   header nav .more-link.active::after {
     transform: scaleY(-1);
     transition: transform 200ms cubic-bezier(0.4, 0, 1, 1) 0ms;
-  }
+  } */
 
   header .global-nav-desktop .logo {
     display: flex;
     justify-content: center;
-    width: 200px;
+    width: 260px;
   }
 
   header .global-nav-desktop .logo svg {
@@ -463,16 +469,17 @@ header nav .nav-tools p:first-of-type a:hover {
   header nav .nav-brand {
     display: flex;
     height: 120px;
-    min-width: 200px;
+    width: 260px;
     background-color: var(--static-color-pink-red);
-    transform: scale(1.1) translateY(25px);
+    
+    /* transform: scale(1.1) translateY(25px); */
     transition: transform 200ms cubic-bezier(0.4, 0, 1, 1) 0ms;
-    align-items: unset;
+    align-items: center;
     align-self: flex-start;
-    padding-right: 15px;
+    flex: unset;
   }
 
-  header.is-sticky nav .nav-brand{
+  header.is-sticky nav .nav-brand {
     transform: translateY(10px);
     height: var(--global-nav-height);
     transition: transform 200ms cubic-bezier(0.4, 0, 1, 1) 0ms;
@@ -496,7 +503,7 @@ header nav .nav-tools p:first-of-type a:hover {
     height: 58px;
     width: 215px;
     left: 0;
-    top: 50%;
+    top: 0;
   }
 
   header.is-sticky nav .nav-brand p a::after {
@@ -504,15 +511,37 @@ header nav .nav-tools p:first-of-type a:hover {
     left: 0;
   }
 
+  /* User menu */
+  header .user-menu.open::before {
+    display: none;
+  }
+
+  header .user-menu-container {
+    transform: unset;
+    top: 0;
+    right: 24px;
+    height: auto;
+    max-width: 360px;
+  }
+
+  header .user-menu-close {
+    top: 16px;
+    right: 48px;
+  }
+
+  header.is-sticky .user-menu.open {
+    display: none;
+  }
+  
   /* Nav Section */
-  header nav[aria-expanded="true"] .nav-sections {
+  header nav .nav-sections {
     display: flex;
     position: relative;
     align-self: unset;
     visibility: visible;
     flex-direction: column;
     list-style-type: none;
-    height: unset;
+    height: 100%;
     width: unset;
     padding: unset;
     overflow: unset;
@@ -521,19 +550,22 @@ header nav .nav-tools p:first-of-type a:hover {
     border: unset;
   }
 
-  header nav[aria-expanded="true"] .nav-sections > div {
+  /* Hide global nav and user account mobile */
+  header nav .nav-sections .global-nav,
+  header nav .nav-sections .user-account-mobile,
+  header nav .nav-sections .local-nav-title {
+    display: none;
+  }
+
+  header nav .nav-sections > div {
     border: unset;
   }
 
-  header nav[aria-expanded="true"] .nav-sections .local-nav-title {
-    display: none;
+  header nav .nav-sections .local-nav {
+    height: 100%;
   }
 
-  header nav[aria-expanded="true"] .nav-sections .user-account-mobile {
-    display: none;
-  }
-
-  header nav .nav-sections ul {
+  header nav .nav-sections .local-nav ul {
     display: flex;
     position: relative;
     margin: 0;
@@ -550,35 +582,37 @@ header nav .nav-tools p:first-of-type a:hover {
   }
 
   header nav .nav-sections ul li {
+    display: flex;
     border: 0;
     padding: 0 var(--layout-size-m);
-    margin: unset;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
-  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li a:not(.menu-item) {
+  header nav .nav-sections .local-nav ul li a:not(.menu-item) {
     color: var(--static-color-white);
     opacity: unset;
-    display: inline-block;
     text-decoration: none;
     font-size: var(--body-font-size-xs);
     font-weight: 600;
-    height: 70px;
-    line-height: 6;
+    height: 100%;
+    text-align: center;
+    vertical-align: center;
   }
 
-  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li:hover {
+  header nav .nav-sections .local-nav ul li:hover {
     background-color: var(--static-color-pink-red);
     transition: unset;
   }
 
-  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li:first-of-type a:not(.more-link, .menu-item)::after,
-  header nav[aria-expanded="true"] .nav-sections .local-nav[aria-expanded="true"] ul li a:hover::after {
+  header nav .nav-sections .local-nav ul li:first-of-type a:not(.more-link, .menu-item)::after,
+  header nav .nav-sections .local-nav ul li a:hover::after {
     content: '';
     display: block;
     height: 3px;
     transition: transform .15s cubic-bezier(0.4, 0, 0.2, 1);
-    margin: -22px auto 0;
     background: var(--static-color-white);
+    margin: auto 0;
   }
 
   /* Tools */
@@ -617,13 +651,13 @@ header nav .nav-tools p:first-of-type a:hover {
 
 @media (min-width: 1440px) {
   header nav {
-    width: var(--screen-width-xl);
+    max-width: var(--screen-width-xl);
     margin-right: auto;
     margin-left: auto;
   }
 
   header .global-nav-desktop {
-    width: var(--screen-width-xl);
+    max-width: var(--screen-width-xl);
     margin-right: auto;
     margin-left: auto;
   }
@@ -697,27 +731,4 @@ header .user-menu.open::before {
   background-color: rgb(20 20 20 / 50%);
   z-index: -1;
   pointer-events: none;
-}
-
-@media (min-width: 1170px) {
-  header .user-menu.open::before {
-    display: none;
-  }
-
-  header .user-menu-container {
-    transform: unset;
-    top: 0;
-    right: 24px;
-    height: auto;
-    max-width: 360px;
-  }
-
-  header .user-menu-close {
-    top: 16px;
-    right: 48px;
-  }
-
-  header.is-sticky .user-menu.open {
-    display: none;
-  }
 }
