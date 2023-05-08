@@ -33,10 +33,13 @@
   --static-color-gray: #bec0c4;
   --static-color-gray-medium: #7c7c7c;
   --static-color-gray-dark: #4a4a4a;
+
   --text-color: var(--static-color-midnight);
   --link-color: var(--static-color-black);
   --background-color: var(--static-color-white);
   --block-background-color: var(--static-color-black);
+  --button-border-color: var(--static-color-gray-dark);
+  --button-color: var(--text-color);
 
   /* fonts */
   --body-font-family: 'Open Sans', sans-serif;
@@ -105,8 +108,11 @@ body.careers {
   --static-color-pink-red: #a41b32;
   --static-color-caesars-red: #ad1f23;
   --static-color-caesars-red-active: #971b1f;
+
   --link-color: var(--static-color-caesars-red);
   --block-background-color: var(--static-color-pink-red);
+  --button-border-color: var(--static-color-pink-red);
+  --button-color: var(--static-color-pink-red);
 
   --emphasized-font-weight: 400;
 
@@ -222,13 +228,13 @@ button {
 .button-container > em > a.secondary,
 button {
   min-width: 133px;
-  border: 1px solid var(--static-color-black);
+  border: 1px solid var(--button-border-color);
   border-radius: 4px;
   padding: 0 var(--layout-size-m);
   text-align: center;
   text-transform: uppercase;
   color: var(--static-color-white);
-  background-color: var(--static-color-black);
+  background-color: var(--button-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -251,8 +257,8 @@ button.primary:active {
 .button-container > em > a.secondary,
 button.secondary {
   background-color: var(--static-color-white);
-  border: 1px solid var(--static-color-gray-dark);
-  color: var(--text-color);
+  border: 1px solid var(--button-border-color);
+  color: var(--button-color);
 }
 
 .cet-card strong > a:hover,
