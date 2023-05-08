@@ -34,7 +34,6 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border: 3px solid green;
 }
 
 .featured-card[data-block-status="loaded"] .featured-card-content {
@@ -48,12 +47,18 @@
   text-transform: uppercase;
   padding-top: var(--layout-size-m);
   padding-bottom: var(--layout-size-m);
+  font-weight: var(--clickable-font-weight);
+  font-size: var(--heading-font-size-xl);
 }
 
 .featured-card.block .featured-card-image {
   display: flex;
   object-fit: cover;
   justify-content: center;
+}
+
+.featured-card.block .featured-card-image > picture{
+  margin-top: 16px;
 }
 
 .featured-card.block .featured-card-text .button-container {
