@@ -500,7 +500,7 @@ main .section.is-hero h4 {
   text-align: center;
   text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
   color: var(--static-color-white);
-  font-family: var(--heading-font-family);
+  font-family: var(--hero-heading-font-family);
   font-weight: var(--emphasized-font-weight);
   font-size: var(--heading-font-size-teaser);
   padding-bottom: 50px;
