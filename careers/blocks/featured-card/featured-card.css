@@ -34,6 +34,7 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  border: 3px solid green;
 }
 
 .featured-card[data-block-status="loaded"] .featured-card-content {
@@ -52,6 +53,7 @@
 .featured-card.block .featured-card-image {
   display: flex;
   object-fit: cover;
+  justify-content: center;
 }
 
 .featured-card.block .featured-card-text .button-container {
@@ -63,7 +65,7 @@
 }
 
 /* Responsive Breakpoints */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1440px) {
   .featured-card-wrapper + div {
     margin-top: var(--layout-size-xl) !important;
   }
@@ -75,6 +77,7 @@
     text-align: left;
     align-items: end;
     color: var(--static-color-white);
+    justify-content: center;
   }
 
   .featured-card.block .featured-card-image {
@@ -109,13 +112,5 @@
 
   .featured-card.block {
     margin-top: -110px;
-  }
-}
-
-@media only screen and (min-width: 960px) {
-  .featured-card[data-block-status="loaded"] .featured-card-content {
-    display: flex;
-    color: var(--static-color-white);
-    justify-content: center;
   }
 }
