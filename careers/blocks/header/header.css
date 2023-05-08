@@ -579,7 +579,7 @@ header nav .nav-tools p:first-of-type a:hover {
     height: 3px;
     transition: transform .15s cubic-bezier(0.4, 0, 0.2, 1);
     margin: -22px auto 0;
-    background: #fff;
+    background: var(--static-color-white);
   }
 
   /* Tools */
