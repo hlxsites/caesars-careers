@@ -126,16 +126,6 @@ h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-.careers h1,
-.careers h2,
-.careers h3,
-.careers h4,
-.careers h5,
-.careers h6 {
-  font-family: var(--text-font-family);
-  font-weight: var(--emphasized-slim-font-weight);
-}
-
 h1 {
   font-size: var(--heading-font-size-xxl)
 }
