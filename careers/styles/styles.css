@@ -36,10 +36,12 @@
   --text-color: var(--static-color-midnight);
   --link-color: var(--static-color-black);
   --background-color: var(--static-color-white);
+  --block-background-color: var(--static-color-black);
 
   /* fonts */
   --body-font-family: 'Open Sans', sans-serif;
   --heading-font-family: 'Josefin Sans', sans-serif;
+  --hero-heading-font-family: 'Josefin Sans', sans-serif;
   --fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
   --text-font-family: "Montserrat", sans-serif;
 
@@ -104,8 +106,11 @@ body.careers {
   --static-color-caesars-red: #ad1f23;
   --static-color-caesars-red-active: #971b1f;
   --link-color: var(--static-color-caesars-red);
+  --block-background-color: var(--static-color-pink-red);
 
-  --emphasized-slim-font-weight: 400;
+  --emphasized-font-weight: 400;
+
+  --hero-heading-font-family: "Montserrat", sans-serif;
 }
 
 body.appear {
@@ -468,11 +473,6 @@ main .section.is-hero em {
   font-style: normal;
 }
 
-.careers main .section.is-hero h1{
-  font-family: var(--text-font-family);
-  font-weight: var(--emphasized-slim-font-weight);
-}
-
 main .section.is-hero h1 {
   text-align: center;
   text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
@@ -480,7 +480,7 @@ main .section.is-hero h1 {
   font-size: var(--heading-font-size-hero);
   text-transform: uppercase;
   line-height: 1.1;
-  font-family: var(--heading-font-family);
+  font-family: var(--hero-heading-font-family);
   font-weight: var(--emphasized-font-weight);
 }
 

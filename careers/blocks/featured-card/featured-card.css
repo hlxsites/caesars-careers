@@ -5,7 +5,7 @@
 
 .featured-card-wrapper-no-background {
   padding-bottom: var(--layout-size-xs) !important;
-  background-color: var(--static-color-black) !important;
+  background-color: var(--block-background-color) !important;
 }
 
 .featured-card-wrapper {
