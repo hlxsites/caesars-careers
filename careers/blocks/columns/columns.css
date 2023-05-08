@@ -5,7 +5,7 @@
 .columns > div {
     display: flex;
     flex-direction: column;
-    margin-bottom: 64px;
+    margin-bottom: var(--layout-size-xxl);
 }
 
 .columns > div > div {
@@ -22,8 +22,8 @@
 
 .columns.product-quickfacts.stretch-end {
   width: 100%;
-  margin-bottom: 32px;
-  font-size: 14px;
+  margin-bottom: var(--layout-size-xl);
+  font-size: var(--body-font-size-s);
   line-height: 30px;
 }
 
@@ -57,8 +57,8 @@
 .columns.product-quickfacts.stretch-end img {
   max-height: 100px;
   max-width: 200px;
-  margin-bottom: 32px;
-  margin-top: 24px;
+  margin-bottom: var(--layout-size-xl);
+  margin-top: var(--layout-size-l);
 }
 
 .columns.columns-2-cols.intro > div:first-child {
@@ -135,7 +135,7 @@
     .columns > div {
         display: flex;
         flex-flow: row nowrap;
-        gap: 32px;
+        gap: var(--layout-size-xl);
         align-items: center;
     }
 
@@ -153,7 +153,7 @@
     }
 
     .columns.columns-2-cols.intro > div {
-        gap: 24px;
+        gap: var(--layout-size-l);
         align-items: unset;
     }
 
@@ -197,7 +197,7 @@
 
     .columns.product-quickfacts.stretch-end {
       width: 80%;
-      margin-bottom: 32px;
+      margin-bottom: var(--layout-size-xl);
     }
 
     .columns.product-quickfacts.stretch-end img {
