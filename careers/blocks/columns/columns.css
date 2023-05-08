@@ -97,6 +97,14 @@
   margin-bottom: var(--layout-size-l);
 }
 
+.columns.cet-card.full-width p > a {
+  height: unset;
+  line-height: unset;
+  vertical-align: unset;
+  letter-spacing: unset;
+  font-weight: unset;
+}
+
 @media (min-width: 768px) {
   .columns [data-align='center'] {
     text-align: center;
