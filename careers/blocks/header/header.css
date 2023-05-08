@@ -8,6 +8,7 @@ header {
 /* header and nav layout */
 header .nav-wrapper {
   background-color: var(--static-color-pink-red);
+  background-color: var(--static-color-pink-red);
   width: 100%;
   z-index: 2;
   position: fixed;
@@ -510,7 +511,28 @@ header nav .nav-tools p:first-of-type a:hover {
     top: auto;
     left: 0;
   }
+  /* User menu */
+  header .user-menu.open::before {
+    display: none;
+  }
 
+  header .user-menu-container {
+    transform: unset;
+    top: 0;
+    right: 24px;
+    height: auto;
+    max-width: 360px;
+  }
+
+  header .user-menu-close {
+    top: 16px;
+    right: 48px;
+  }
+
+  header.is-sticky .user-menu.open {
+    display: none;
+  }
+  
   /* User menu */
   header .user-menu.open::before {
     display: none;
@@ -550,6 +572,14 @@ header nav .nav-tools p:first-of-type a:hover {
     border: unset;
   }
 
+  /* Hide global nav and user account mobile */
+  header nav .nav-sections .global-nav,
+  header nav .nav-sections .user-account-mobile,
+  header nav .nav-sections .local-nav-title {
+    display: none;
+  }
+
+  header nav .nav-sections > div {
   /* Hide global nav and user account mobile */
   header nav .nav-sections .global-nav,
   header nav .nav-sections .user-account-mobile,
@@ -599,8 +629,13 @@ header nav .nav-tools p:first-of-type a:hover {
     height: 100%;
     text-align: center;
     vertical-align: center;
+    height: 100%;
+    text-align: center;
+    vertical-align: center;
   }
 
+  header nav .nav-sections .local-nav ul li:hover {
+    background-color: var(--static-color-pink-red);
   header nav .nav-sections .local-nav ul li:hover {
     background-color: var(--static-color-pink-red);
     transition: unset;
@@ -622,6 +657,7 @@ header nav .nav-tools p:first-of-type a:hover {
 
   /* Tools */
   header nav .nav-tools p:last-of-type a {
+    color: var(--static-color-pink-red);
     color: var(--static-color-pink-red);
     background-color: var(--static-color-white);
 
@@ -657,11 +693,13 @@ header nav .nav-tools p:first-of-type a:hover {
 @media (min-width: 1440px) {
   header nav {
     max-width: var(--screen-width-xl);
+    max-width: var(--screen-width-xl);
     margin-right: auto;
     margin-left: auto;
   }
 
   header .global-nav-desktop {
+    max-width: var(--screen-width-xl);
     max-width: var(--screen-width-xl);
     margin-right: auto;
     margin-left: auto;
