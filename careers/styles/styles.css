@@ -669,6 +669,10 @@ main .section.product-quickfacts .default-content-wrapper > p > span.quick-facts
   font-weight: var(--emphasized-font-weight);
 }
 
+main .default-content-wrapper p+.button-container {
+  margin-top: -50px;
+}
+
 /* Responsive Breakpoints */
 
 /* Tablet (portrait) */
