@@ -1,4 +1,5 @@
 let formstackTmp = '';
+const FORM_LOAD_DELAY_MS = 3000;
 
 function loadScript(url) {
   const formstack = document.createElement('formstack');
@@ -8,8 +9,7 @@ function loadScript(url) {
   const noscriptAnchor = document.createElement('a');
   noscriptAnchor.href = url;
   noscriptAnchor.title = 'Online form';
-  formstack.append(script);
-  formstack.append(noscript);
+  formstack.append(script, noscript);
   window.formStackContent = {};
   return formstack;
 }
@@ -41,7 +41,7 @@ export default function decorate(block) {
             const saveToDomScript = 'const formstackDiv = document.querySelector(\'formstack\'); formstackDiv.innerHTML = window.formStackContent.value;';
             saveToDom.append(saveToDomScript);
             document.head.appendChild(saveToDom);
-          }, 3000);
+          }, FORM_LOAD_DELAY_MS);
         }
       });
     });
