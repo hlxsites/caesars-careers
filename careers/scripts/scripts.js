@@ -148,6 +148,7 @@ export function createTag(tag, attributes = {}, html = undefined) {
 function buildSectionBackground(main) {
   main.querySelectorAll('.section.has-background').forEach((section) => {
     const picture = section.querySelector('picture');
+    picture.closest('p').remove();
     if (picture) {
       section.appendChild(picture);
     }

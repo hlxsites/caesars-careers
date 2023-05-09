@@ -33,17 +33,17 @@
   --static-color-gray: #bec0c4;
   --static-color-gray-medium: #7c7c7c;
   --static-color-gray-dark: #4a4a4a;
-  --static-color-red: #d60000;
-  --static-color-pink-red: #a41b32;
-  --static-color-caesars-red: #ad1f23;
-  --static-color-caesars-red-active: #971b1f;
   --text-color: var(--static-color-midnight);
   --link-color: var(--static-color-black);
   --background-color: var(--static-color-white);
+  --block-background-color: var(--static-color-black);
+  --button-border-color: var(--static-color-gray-dark);
+  --button-color: var(--text-color);
 
   /* fonts */
   --body-font-family: 'Open Sans', sans-serif;
   --heading-font-family: 'Josefin Sans', sans-serif;
+  --hero-heading-font-family: 'Josefin Sans', sans-serif;
   --fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
   --text-font-family: "Montserrat", sans-serif;
 
@@ -100,6 +100,27 @@ body {
   text-rendering: optimizespeed;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+body.careers {
+  /* colors */
+  --static-color-red: #d60000;
+  --static-color-pink-red: #a41b32;
+  --static-color-caesars-red: #ad1f23;
+  --static-color-caesars-red-active: #971b1f;
+
+  /* colors usages */
+  --link-color: var(--static-color-caesars-red);
+  --block-background-color: var(--static-color-pink-red);
+  --button-border-color: var(--static-color-pink-red);
+  --button-color: var(--static-color-pink-red);
+
+  /* font weights */
+  --emphasized-font-weight: 400;
+  --emphasized-block-font-weight: 700;
+
+  /* hero */
+  --hero-heading-font-family: "Montserrat", sans-serif;
 }
 
 body.appear {
@@ -167,7 +188,7 @@ blockquote {
 
 p:has(> sub) {
   line-height: 0.7;
-} 
+}
 
 /* Links */
 :any-link {
@@ -211,13 +232,13 @@ button {
 .button-container > em > a.secondary,
 button {
   min-width: 133px;
-  border: 1px solid var(--static-color-pink-red);
+  border: 1px solid var(--button-border-color);
   border-radius: 4px;
   padding: 0 var(--layout-size-m);
   text-align: center;
   text-transform: uppercase;
   color: var(--static-color-white);
-  background-color: var(--static-color-pink-red);
+  background-color: var(--button-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -240,8 +261,8 @@ button.primary:active {
 .button-container > em > a.secondary,
 button.secondary {
   background-color: var(--static-color-white);
-  border: 1px solid var(--static-color-gray-dark);
-  color: var(--text-color);
+  border: 1px solid var(--button-border-color);
+  color: var(--button-color);
 }
 
 .cet-card strong > a:hover,
@@ -304,30 +325,30 @@ main .section {
   padding: 0 var(--layout-size-m);
 }
 
-main .section.has-centered-text > div > p {
+main .section.centered-text > div > p {
   text-align: center;
 }
 
-main .section.has-shorter-width > div > p {
+main .section.shorter-width > div > p {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
 }
 
-main .section.has-centered-title > div > h2 {
+main .section.centered-title > div > h2 {
   text-align: center;
   text-transform: uppercase;
 }
 
-main .section.has-light-color-text {
+main .section.light-color-text {
   color: var(--static-color-white);
 }
 
-main .section.has-dark-color-text {
+main .section.dark-color-text {
   color: var(--static-color-black);
 }
 
-main .section.has-background-color {
+main .section.background-color {
   background-color: var(--static-color-light-gray);
 }
 
@@ -435,13 +456,8 @@ main .section.compact > div:last-of-type {
   padding-bottom: 0;
 }
 
-main .section.product-quickfacts .default-content-wrapper p {
-  margin: 16px auto 24px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-right: 16px;
-  font-weight: 700;
+main .default-content-wrapper p+.button-container {
+  margin-top: -50px;
 }
 
 main .section.is-hero > div:last-of-type {
@@ -469,7 +485,7 @@ main .section.is-hero h1 {
   font-size: var(--heading-font-size-hero);
   text-transform: uppercase;
   line-height: 1.1;
-  font-family: var(--heading-font-family);
+  font-family: var(--hero-heading-font-family);
   font-weight: var(--emphasized-font-weight);
 }
 
@@ -483,7 +499,7 @@ main .section.is-hero h4 {
   text-align: center;
   text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
   color: var(--static-color-white);
-  font-family: var(--heading-font-family);
+  font-family: var(--hero-heading-font-family);
   font-weight: var(--emphasized-font-weight);
   font-size: var(--heading-font-size-teaser);
   padding-bottom: 50px;
@@ -547,12 +563,12 @@ main .section.is-hero.has-background {
   padding-bottom: var(--layout-size-xxl);
 }
 
-main .section.is-hero.has-video-background {
+main .section.is-hero.video-background {
   overflow: hidden;
   width: 100%;
 }
 
-main .section.is-hero.has-video-background h1 {
+main .section.is-hero.video-background h1 {
   text-align: center;
   text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
   color: var(--static-color-white);
@@ -564,11 +580,11 @@ main .section.is-hero.has-video-background h1 {
   margin-top: 190px;
 }
 
-main .section.is-hero.has-centered-hero-text h1 {
+main .section.is-hero.centered-hero-text h1 {
   margin-top: 360px;
 }
 
-main .section.is-hero.has-video-background picture {
+main .section.is-hero.video-background picture {
   position: absolute;
   z-index: -5;
   top: 0;
@@ -578,15 +594,15 @@ main .section.is-hero.has-video-background picture {
   min-height: var(--screen-width-s);
 }
 
-main .section.is-hero.has-video-background > picture img {
+main .section.is-hero.video-background > picture img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-main .section.is-hero.has-background-block .carousel-main-image::after,
-main .section.is-hero.has-background-block .carousel-alt-image::after,
-main .section.is-hero.has-background-block .carousel-only-image::after {
+main .section.is-hero.background-block .carousel-main-image::after,
+main .section.is-hero.background-block .carousel-alt-image::after,
+main .section.is-hero.background-block .carousel-only-image::after {
   content: '';
   position: absolute;
   left: 0; top: 0;
@@ -594,58 +610,17 @@ main .section.is-hero.has-background-block .carousel-only-image::after {
   background: linear-gradient(rgba(0 0 0 / 0%), rgba(0 0 0 / 70%));
 }
 
-main .section.is-hero.has-background-block {
+main .section.is-hero.background-block {
   overflow: hidden;
   width: 100%;
 }
 
-main .section.is-hero.has-background-block > div:first-child {
+main .section.is-hero.background-block > div:first-child {
   position: absolute;
 }
 
-main .section.is-hero.has-background-block > div:nth-child(2) {
+main .section.is-hero.background-block > div:nth-child(2) {
   margin-top: 520px;
-}
-
-main .section.product-quickfacts {
-  background-color: var(--static-color-black);
-  color: var(--static-color-white);
-}
-
-main .section.product-quickfacts .default-content-wrapper {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  width: 80%;
-}
-
-main .section.product-quickfacts .default-content-wrapper p > a {
-  text-decoration: none;
-  color: var(--static-color-white);
-}
-
-main .section.product-quickfacts .default-content-wrapper > p > span {
-  display: flex;
-}
-
-main .section.product-quickfacts .default-content-wrapper > p > span > svg {
-  height: 28px;
-  margin-right: var(--layout-size-m);
-}
-
-main .section.product-quickfacts .default-content-wrapper > p > span.quick-facts-show-open {
-  height: 52px;
-  filter: invert(100%);
-  content: url('../icons/calendar-open.svg');
-  padding-right: var(--layout-size-m);
-  margin-top: var(--layout-size-xs);
-}
-
-main .section.product-quickfacts .default-content-wrapper > p > span.quick-facts-showtime-hours {
-  display: flex;
-  flex-direction: column;
-  margin-top: var(--layout-size-m);
-  font-weight: var(--emphasized-font-weight);
 }
 
 /* Responsive Breakpoints */
@@ -673,15 +648,6 @@ main .section.product-quickfacts .default-content-wrapper > p > span.quick-facts
 
   main .section > div:last-of-type {
     padding-bottom: var(--layout-size-xxl);
-  }
-
-  main .section.product-quickfacts .default-content-wrapper {
-    width: 50%;
-  }
-
-  main .section.product-quickfacts .default-content-wrapper > p > span > svg {
-    height: 50px;
-    margin-right: 16px;
   }
 }
 
@@ -720,12 +686,12 @@ main .section.product-quickfacts .default-content-wrapper > p > span.quick-facts
       width: var(--screen-width-l);
   }
 
-  main .section.has-video-background h1 {
+  main .section.video-background h1 {
     padding-top: 48px;
     margin-top: 175px;
   }
 
-  main .section.has-video-background > video {
+  main .section.video-background > video {
     position: absolute;
     z-index: -5;
     top: 0;
