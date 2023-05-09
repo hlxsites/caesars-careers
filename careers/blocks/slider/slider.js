@@ -1,4 +1,4 @@
-import { readBlockConfigWithContent, buildEllipsis } from '../../scripts/scripts.js';
+import { buildEllipsis } from '../../scripts/scripts.js';
 
 const DEFAULT_CONFIG = Object.freeze({
   'visible-slides': 3,
@@ -20,8 +20,6 @@ const setSliderPosition = (currentTranslate, slider) => {
 };
 
 export default function decorate(block) {
-  const blockConfig = { ...DEFAULT_CONFIG, ...readBlockConfigWithContent(block) };
-
   const cardWrapper = document.createElement('div');
   cardWrapper.classList.add('card-wrapper');
 
@@ -44,7 +42,7 @@ export default function decorate(block) {
 
   // add slider arrow buttons
   const slides = [...block.querySelectorAll('.card')];
-  if (slides.length > blockConfig['visible-slides']) {
+  if (slides.length > DEFAULT_CONFIG['visible-slides']) {
     const arrowLeft = document.createElement('div');
     arrowLeft.classList.add('slider-button', 'left');
     block.appendChild(arrowLeft);
@@ -74,7 +72,7 @@ export default function decorate(block) {
       const displayBufferPixels = 16;
       const textContentWidth = div.offsetWidth - displayBufferPixels;
 
-      let linesInCard = blockConfig.maxlines;
+      let linesInCard = DEFAULT_CONFIG.maxlines;
       let hasButtons = false;
       const buttonsInBlock = div.getElementsByClassName('button-container');
       hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
@@ -86,7 +84,7 @@ export default function decorate(block) {
         fullTextContent,
         textContentWidth,
         linesInCard,
-        blockConfig.ellipsis,
+        DEFAULT_CONFIG.ellipsis,
         textOptions,
       );
 
@@ -99,7 +97,7 @@ export default function decorate(block) {
 
         clickableCloseButton.innerHTML = '';
         clickableCloseButton.classList.add('close-button');
-        clickableEllipsis.innerHTML = blockConfig.ellipsis;
+        clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
         ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
 
         ellipsableText.append(clickableEllipsis);
@@ -164,12 +162,12 @@ export default function decorate(block) {
 
     const movedBy = currentTranslate - prevTranslate;
 
-    if ((!isADesktop() || slides.length > blockConfig['visible-slides'])
+    if ((!isADesktop() || slides.length > DEFAULT_CONFIG['visible-slides'])
       && movedBy < 0 && currentIndex < slides.length) {
       currentIndex += 1;
       indexFactor = 1;
     }
-    if ((!isADesktop() || slides.length > blockConfig['visible-slides'])
+    if ((!isADesktop() || slides.length > DEFAULT_CONFIG['visible-slides'])
       && movedBy > 0 && currentIndex > 0) {
       currentIndex -= 1;
       indexFactor = -1;
@@ -190,7 +188,7 @@ export default function decorate(block) {
   }, { passive: true });
 
   block.querySelector('.slider-button.right')?.addEventListener('click', () => {
-    if (slides.length - currentIndex > blockConfig['visible-slides']) {
+    if (slides.length - currentIndex > DEFAULT_CONFIG['visible-slides']) {
       currentIndex += 1;
       indexFactor = 1;
       setPositionByIndex();
