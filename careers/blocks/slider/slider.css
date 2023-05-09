@@ -58,6 +58,10 @@
   color: var(--text-color);
 }
 
+.slider.block.no-description .card .short-description {
+  height: 90px;
+}
+
 .slider .card .extended-text p {
   height: 180px;
   overflow: hidden;
@@ -146,6 +150,7 @@
 .slider .card img {
   width: 100%;
   object-fit: cover;
+  aspect-ratio: 3/2;
 }
 
 .slider.flat .card img {
@@ -194,6 +199,10 @@
     position: relative;
     padding: 16px 32px 16px 16px;
     height: 180px;
+  }
+
+  .slider.no-description .card .short-description {
+    height: 90px;
   }
 
   .slider.no-image .card .short-description {
