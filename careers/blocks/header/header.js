@@ -301,6 +301,17 @@ export default async function decorate(block) {
       newDiv.appendChild(localNavTitle);
       while (navSections.hasChildNodes()) newDiv.appendChild(navSections.firstChild);
       newDiv.setAttribute('aria-expanded', true);
+
+      // highlight current nav item if on same page
+      const navLinks = newDiv.querySelectorAll('a');
+      if (navLinks.length > 0) {
+        navLinks.forEach((navLink) => {
+          const navLinkUrl = new URL(navLink.href);
+          if (navLinkUrl.pathname === window.location.pathname) {
+            navLink.classList.add('active');
+          }
+        });
+      }
       navSections.append(newDiv);
       localNavTitle.addEventListener('click', () => {
         toggleNavSectionTitles(localNavTitle, newDiv);
