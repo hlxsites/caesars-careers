@@ -309,7 +309,7 @@ header nav .nav-tools p:first-of-type a {
   border: 1px solid transparent;
   display: flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: var(--layout-size-xs) var(--layout-size-m);
   min-width: unset;
   color: var(--static-color-white);
   font-size: var(--link-font-size-xs);
@@ -317,7 +317,7 @@ header nav .nav-tools p:first-of-type a {
   line-height: 22.4px;
   border-radius: 0;
   height: 100%;
-   
+
   /* font-family: 'Open Sans',sans-serif; */
   text-align: center;
   white-space: nowrap;
@@ -524,7 +524,7 @@ header nav .nav-tools p:first-of-type a:hover {
   header .user-menu-container {
     transform: unset;
     top: 0;
-    right: 24px;
+    right: var(--layout-size-l);
     height: auto;
     max-width: 360px;
   }

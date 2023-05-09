@@ -58,7 +58,7 @@
 }
 
 .featured-card.block .featured-card-image > picture{
-  margin-top: 16px;
+  margin-top: var(--layout-size-m);
 }
 
 .featured-card.block .featured-card-text .button-container {

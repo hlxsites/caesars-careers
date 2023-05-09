@@ -89,7 +89,7 @@
 
 .carousel.block .carousel-text h2,
 .carousel.block .carousel-text h3 {
-  font-size: 24px;
+  font-size: var(--body-font-size-l);
 }
 
 /* Responsive breakpoints */
