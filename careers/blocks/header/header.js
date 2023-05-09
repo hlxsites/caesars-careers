@@ -304,13 +304,14 @@ export default async function decorate(block) {
 
       // highlight current nav item if on same page
       const navLinks = newDiv.querySelectorAll('a');
-      navLinks.forEach((navLink) => {
-        const navLinkUrl = new URL(navLink.href);
-        if (navLinkUrl.pathname === window.location.pathname) {
-          navLink.classList.add('active');
-        }
-      });
-
+      if (navLinks.length > 0) {
+        navLinks.forEach((navLink) => {
+          const navLinkUrl = new URL(navLink.href);
+          if (navLinkUrl.pathname === window.location.pathname) {
+            navLink.classList.add('active');
+          }
+        });
+      }
       navSections.append(newDiv);
       localNavTitle.addEventListener('click', () => {
         toggleNavSectionTitles(localNavTitle, newDiv);
