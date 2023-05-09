@@ -115,6 +115,10 @@
     font-size: var(--heading-font-size-l);
   }
 
+  .default-content-wrapper+.featured-card-wrapper {
+    margin-top: 190px;
+  }
+
   .featured-card.block {
     margin-top: -110px;
   }
