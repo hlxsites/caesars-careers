@@ -35,7 +35,7 @@
 }
 
 .tabs.block .backward-tab-button {
-  background: url('../../icons/chevron-left.svg') no-repeat;
+  background: url('../../icons/arrow-left.svg') no-repeat;
   min-width: 44px;
   transform: scale(0.8);
 }
@@ -45,7 +45,7 @@
 }
 
 .tabs.block .forward-tab-button {
-  background: url('../../icons/chevron-right.svg') no-repeat;
+  background: url('../../icons/arrow-right.svg') no-repeat;
   min-width: 44px;
   transform: scale(0.8);
 }
