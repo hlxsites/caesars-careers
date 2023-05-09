@@ -13,6 +13,11 @@
   background-color: rgba(0 0 0 / 80%);
 }
 
+.careers .featured-card-wrapper {
+  padding-bottom: var(--layout-size-xs) !important;
+  background-color: rgba(164 27 40 / 80%);
+}
+
 .featured-card .featured-card-background {
   box-sizing: border-box;
   overflow: hidden;
