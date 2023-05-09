@@ -379,6 +379,11 @@ header nav .nav-tools p:first-of-type a:hover {
     height: 0;
   }
 
+  header.is-sticky .nav-brand p {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
   header .global-nav-desktop .global-nav-section {
     flex-grow: 3;
   }
