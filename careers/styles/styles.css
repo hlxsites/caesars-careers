@@ -211,13 +211,13 @@ button {
 .button-container > em > a.secondary,
 button {
   min-width: 133px;
-  border: 1px solid var(--static-color-black);
+  border: 1px solid var(--static-color-pink-red);
   border-radius: 4px;
   padding: 0 var(--layout-size-m);
   text-align: center;
   text-transform: uppercase;
   color: var(--static-color-white);
-  background-color: var(--static-color-black);
+  background-color: var(--static-color-pink-red);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
