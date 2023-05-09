@@ -181,7 +181,7 @@ section.library-config-container {
     text-align: middle;
     display: flex;
     align-items: center;
-    padding: var(--layout-size-l);
+    padding: 24px;
     box-sizing: border-box;
 }
 
@@ -222,7 +222,7 @@ section.library-config-container {
 
 .sk-library .block-group-list p {
     margin: 0;
-    padding: 0 var(--layout-size-l);
+    padding: 0 24px;
 }
 
 .sk-library li.placeholder {
