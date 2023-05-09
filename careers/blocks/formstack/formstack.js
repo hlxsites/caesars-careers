@@ -1,5 +1,5 @@
-let formstackTmp = '';
 const FORM_LOAD_DELAY_MS = 3000;
+let formstackTmp = '';
 
 function loadScript(url) {
   const formstack = document.createElement('formstack');
@@ -9,7 +9,8 @@ function loadScript(url) {
   const noscriptAnchor = document.createElement('a');
   noscriptAnchor.href = url;
   noscriptAnchor.title = 'Online form';
-  formstack.append(script, noscript);
+  formstack.append(script);
+  formstack.append(noscript);
   window.formStackContent = {};
   return formstack;
 }
@@ -29,12 +30,15 @@ export default function decorate(block) {
   if (formstackLink && formstackLink.href) {
     const formstackUrl = formstackLink.href;
     block.innerHTML = '';
+
+    let formIsLoading = false;
     const form = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (!formIsLoading && entry.isIntersecting) {
+          formIsLoading = true;
           block.append(loadScript(formstackUrl));
           // Now delay for a few seconds and then set the formstack div innerHTML
-          // to whatever is saved under window.formStackContent.value
+          // do whatever is saved under window.formStackContent.value
           window.setTimeout(() => {
             const saveToDom = document.createElement('script');
             saveToDom.type = 'text/javascript';
