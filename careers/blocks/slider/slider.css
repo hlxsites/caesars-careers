@@ -58,14 +58,21 @@
   color: var(--text-color);
 }
 
-.slider.block.no-description .card .short-description {
-  height: 90px;
-}
-
 .slider .card .extended-text p {
   height: 180px;
   overflow: hidden;
   overflow-y: scroll;
+}
+
+.slider.block .card .short-description:not(.extended-text) p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.slider.block.no-description .card .short-description {
+  height: 90px;
 }
 
 .slider .card .extended-text p::-webkit-scrollbar {
@@ -95,7 +102,7 @@
 .slider-container  .slider.block .card-wrapper .tall-card .button-container {
     margin-left: unset;
     width: 100%;
-    padding-right: 8%;
+    padding-right: 6.5%;
 }
 
 .slider .extended-text h4 {
@@ -116,7 +123,7 @@
 
 .slider .card .short-description h5 {
   opacity: .7;
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
   font-weight: var(--emphasized-font-weight);
   margin-top: 5px;
   line-height: 1.25;
@@ -173,7 +180,6 @@
   min-height: var(--layout-size-xl);
   transform: scale(0.8);
   cursor: pointer;
-  z-index: 2;
 }
 
 .slider .card .hidden-close-button {
