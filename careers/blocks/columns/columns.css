@@ -16,18 +16,21 @@
 .columns.long-card>div {
   border: 1px solid var(--static-color-light-gray);
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  align-items: unset;
 }
 
 .columns.long-card h2,
 .columns.long-card h3 {
   font-family: var(--hero-heading-font-family);
+  font-weight: var(--emphasized-block-font-weight);
+  font-size: var(--heading-font-size-fixed-l);
 }
 
 .columns.long-card h4,
 .columns.long-card h5 {
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-s);
-  font-weight: var(--emphasized-font-weight);
+  font-size: var(--body-font-size-xs);
+  font-weight: var(--emphasized-block-font-weight);
   line-height: 1.25;
   opacity: .7;
 }
@@ -42,7 +45,7 @@
 
 .columns.stretch-start.long-card>div>div:first-of-type,
 .columns.stretch-end.long-card>div>div:last-of-type {
-  padding: 10px;
+  padding: 16px 10px 10px;
 }
 
 .columns.intro>div>div {
