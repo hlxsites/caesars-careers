@@ -18,6 +18,12 @@
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
 }
 
+.columns.long-card h5 {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 .columns.long-card>div>div>.button-container {
   text-align: right;
 }
