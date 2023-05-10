@@ -10,7 +10,7 @@
 
 .featured-card-wrapper {
   padding-bottom: var(--layout-size-xs) !important;
-  background-color: rgba(0 0 0 / 80%);
+  background-color: rgba(var(--block-background-color-rgba) / 80%);
 }
 
 .featured-card .featured-card-background {
@@ -58,7 +58,7 @@
 }
 
 .featured-card.block .featured-card-image > picture{
-  margin-top: 16px;
+  margin-top: var(--layout-size-m);
 }
 
 .featured-card.block .featured-card-text .button-container {
@@ -113,6 +113,10 @@
   .featured-card.block .featured-card-text h4 {
     font-weight: 600;
     font-size: var(--heading-font-size-l);
+  }
+
+  .default-content-wrapper+.featured-card-wrapper {
+    margin-top: 190px;
   }
 
   .featured-card.block {

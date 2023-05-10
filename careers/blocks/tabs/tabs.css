@@ -1,5 +1,5 @@
 .tabs.block {
-  margin-top: 24px;
+  margin-top: var(--layout-size-l);
 }
 
 .tabs.block .tab-navbar {

@@ -93,7 +93,7 @@ footer .footer .footer-property-social ul {
 }
 
 footer .footer .footer-property-social ul li:not(:last-child) {
-  margin-right: 24px;
+  margin-right: var(--layout-size-l);
 }
 
 footer .footer .footer-property-social a {
@@ -251,7 +251,7 @@ footer .footer .footer-property-links ul.open {
   }
 
   footer .footer .footer-property-social ul li svg {
-    font-size: 24px;
+    font-size: var(--body-font-size-l);
   }
 }
 

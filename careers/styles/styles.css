@@ -37,6 +37,7 @@
   --link-color: var(--static-color-black);
   --background-color: var(--static-color-white);
   --block-background-color: var(--static-color-black);
+  --block-background-color-rgba: 0 0 0;
   --button-border-color: var(--static-color-gray-dark);
   --button-color: var(--text-color);
 
@@ -48,6 +49,7 @@
   --text-font-family: "Montserrat", sans-serif;
 
   /* body font sizes */
+  --body-font-size-l: 24px;
   --body-font-size-m: 18px;
   --body-font-size-s: 14px;
   --body-font-size-xs: 12px;
@@ -112,6 +114,7 @@ body.careers {
   /* colors usages */
   --link-color: var(--static-color-caesars-red);
   --block-background-color: var(--static-color-pink-red);
+  --block-background-color-rgba: 164 27 40;
   --button-border-color: var(--static-color-pink-red);
   --button-color: var(--static-color-pink-red);
 
