@@ -275,6 +275,11 @@
 
   }
 
+  .slider.max-visible-2.block .card-wrapper {
+    width: calc(100%/2 - 4px);
+
+  }
+
   .slider.spacious .card-wrapper {
     gap: 50px;
   }
