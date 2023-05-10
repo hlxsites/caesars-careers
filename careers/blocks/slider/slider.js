@@ -63,7 +63,7 @@ export default function decorate(block) {
     clickableCloseButton.classList.add('close-button');
     div.append(clickableCloseButton);
 
-    ellipsableText.addEventListener('click', () => {
+    ellipsableText?.addEventListener('click', () => {
       div.classList.add('extended-text');
       ellipsableText.innerHTML = `${fullTextContent}`;
       clickableCloseButton.classList.remove('hidden-close-button');
@@ -159,6 +159,7 @@ export default function decorate(block) {
 
   // Card slider animation
   slides.forEach((slide, index) => {
+    console.log('enters here');
     const slideImage = slide.querySelector('img');
     slideImage?.addEventListener('dragstart', (e) => e.preventDefault());
     slide.addEventListener('touchstart', touchStart(index), { passive: true });
