@@ -21,13 +21,15 @@
 .columns.long-card h2,
 .columns.long-card h3 {
   font-family: var(--hero-heading-font-family);
+  font-weight: var(--emphasized-block-font-weight);
+  font-size: var(--heading-font-size-fixed-l);
 }
 
 .columns.long-card h4,
 .columns.long-card h5 {
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-s);
-  font-weight: var(--emphasized-font-weight);
+  font-size: var(--body-font-size-xs);
+  font-weight: var(--emphasized-block-font-weight);
   line-height: 1.25;
   opacity: .7;
 }
