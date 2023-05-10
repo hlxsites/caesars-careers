@@ -508,6 +508,11 @@ main .section.is-hero h4 {
   padding-bottom: 50px;
 }
 
+main .section.is-hero.remove-bottom-spacing h4 {
+  padding-bottom: unset;
+  margin-bottom: 1%;
+}
+
 main .section.is-hero.left-aligned h4 {
   text-align: left;
   margin-left: 20%;
