@@ -159,7 +159,6 @@ export default function decorate(block) {
 
   // Card slider animation
   slides.forEach((slide, index) => {
-    console.log('enters here');
     const slideImage = slide.querySelector('img');
     slideImage?.addEventListener('dragstart', (e) => e.preventDefault());
     slide.addEventListener('touchstart', touchStart(index), { passive: true });
