@@ -155,6 +155,11 @@
   flex: 1;
 }
 
+.slider.full-card.max-visible-2 .tall-card .card-image,
+.slider.max-visible-2 .card.tall-card .card-image {
+  max-height: 300px;
+}
+
 .slider.block .card img {
   width: 100%;
   object-fit: cover;
@@ -275,13 +280,13 @@
 
   }
 
+  .slider.spacious .card-wrapper {
+    gap: 50px;
+  }
+
   .slider.max-visible-2.block .card-wrapper {
     width: calc(100%/2 - 4px);
 
-  }
-
-  .slider.spacious .card-wrapper {
-    gap: 50px;
   }
 }
 
