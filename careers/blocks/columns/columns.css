@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 .section.columns-container .default-content-wrapper {
   text-align: center;
 }
@@ -10,6 +11,38 @@
 
 .columns>div>div {
   text-align: center;
+}
+
+.columns.long-card>div {
+  border: 1px solid var(--static-color-light-gray);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+}
+
+.columns.long-card h2,
+.columns.long-card h3 {
+  font-family: var(--hero-heading-font-family);
+}
+
+.columns.long-card h4,
+.columns.long-card h5 {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s);
+  font-weight: var(--emphasized-font-weight);
+  line-height: 1.25;
+  opacity: .7;
+}
+
+.columns.long-card>div>div {
+  text-align: left;
+}
+
+.columns.long-card>div>div>.button-container {
+  text-align: right;
+}
+
+.columns.stretch-start.long-card>div>div:first-of-type,
+.columns.stretch-end.long-card>div>div:last-of-type {
+  padding: 10px;
 }
 
 .columns.intro>div>div {
@@ -143,6 +176,15 @@
     align-items: center;
   }
 
+  .columns.long-card picture {
+    display: flex;
+  }
+
+  .columns.long-card img {
+    height: 278px;
+    object-fit: cover;
+  }
+
   .columns>div>div {
     text-align: left;
   }
@@ -181,6 +223,11 @@
 
   .columns.stretch-end>div>div:last-of-type {
     flex: 4;
+  }
+
+  .columns.stretch-start.long-card>div>div:last-of-type,
+  .columns.stretch-end.long-card>div>div:first-of-type {
+    flex: 2;
   }
 
   .columns.columns-2-cols.cet-card .button-group {
