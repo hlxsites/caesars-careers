@@ -82,6 +82,10 @@
   padding: var(--layout-size-m) 0 var(--layout-size-m) var(--layout-size-m);
 }
 
+.tabs.block .tab .tab-text h2 {
+  font-size: var(--heading-font-size-teaser);
+}
+
 .tabs.block .tab .tab-text h2,
 .tabs.block .tab .tab-text h3,
 .tabs.block .tab .tab-text h4 {
