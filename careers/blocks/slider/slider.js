@@ -1,11 +1,7 @@
-const DEFAULT_CONFIG = Object.freeze({
-  'visible-slides': 3,
-  maxlines: 3,
-  ellipsis: '...more',
-});
+let visibleSlides = 3;
 
 const isADesktop = () => {
-  const mediaDesktop = window.matchMedia('only screen and (min-width: 769px)');
+  const mediaDesktop = window.matchMedia('only screen and (min-width: 1170px)');
   return mediaDesktop.matches;
 };
 
@@ -22,6 +18,12 @@ export default function decorate(block) {
   cardWrapper.classList.add('card-wrapper');
 
   block.querySelectorAll('div.slider > div').forEach((div) => {
+    block.classList.forEach((className) => {
+      if (className.startsWith('max-visible-')) {
+        // If the classname is 'max-visible-4', numberOfCardsDisplayed = 4
+        visibleSlides = className.substring(12);
+      }
+    });
     cardWrapper.appendChild(div);
     div.classList.add('card');
 
@@ -40,7 +42,7 @@ export default function decorate(block) {
 
   // add slider arrow buttons
   const slides = [...block.querySelectorAll('.card')];
-  if (slides.length > DEFAULT_CONFIG['visible-slides']) {
+  if (slides.length > visibleSlides) {
     const arrowLeft = document.createElement('div');
     arrowLeft.classList.add('slider-button', 'left');
     block.appendChild(arrowLeft);
@@ -115,13 +117,12 @@ export default function decorate(block) {
     isDragging = false;
 
     const movedBy = currentTranslate - prevTranslate;
-
-    if ((!isADesktop() || slides.length > DEFAULT_CONFIG['visible-slides'])
+    if ((!isADesktop() || slides.length > visibleSlides)
       && movedBy < 0 && currentIndex < slides.length) {
       currentIndex += 1;
       indexFactor = 1;
     }
-    if ((!isADesktop() || slides.length > DEFAULT_CONFIG['visible-slides'])
+    if ((!isADesktop() || slides.length > visibleSlides)
       && movedBy > 0 && currentIndex > 0) {
       currentIndex -= 1;
       indexFactor = -1;
@@ -142,7 +143,7 @@ export default function decorate(block) {
   }, { passive: true });
 
   block.querySelector('.slider-button.right')?.addEventListener('click', () => {
-    if (slides.length - currentIndex > DEFAULT_CONFIG['visible-slides']) {
+    if (slides.length - currentIndex > visibleSlides) {
       currentIndex += 1;
       indexFactor = 1;
       setPositionByIndex();
