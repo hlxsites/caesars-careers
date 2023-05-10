@@ -55,7 +55,6 @@ export default function decorate(block) {
   const shortDescriptionDivs = block.querySelectorAll('.short-description');
   shortDescriptionDivs.forEach((div) => {
     const ellipsableText = div.querySelector('p');
-    console.log(ellipsableText);
     const fullTextContent = ellipsableText && ellipsableText.innerText;
 
     const clickableCloseButton = document.createElement('span');
