@@ -59,6 +59,10 @@
   color: var(--text-color);
 }
 
+.slider.block .card .short-description {
+  height: unset;
+}
+
 .slider.block .card .extended-text p {
   height: 180px;
   overflow: hidden;
@@ -104,6 +108,12 @@
     margin-left: unset;
     width: 100%;
     padding-right: 6.5%;
+}
+
+.slider-container  .slider.single:not(.teaser) .card-wrapper .tall-card .button-container {
+  padding-right: 4.75%;
+  bottom: 0;
+  top: auto;
 }
 
 .slider.block .extended-text h4 {
@@ -217,7 +227,7 @@
   }
 
   .slider.single:not(.flat) .card .short-description {
-    height: 340px;
+    height: 350px;
   }
 
   .slider.single.teaser:not(.flat) .card .short-description {
