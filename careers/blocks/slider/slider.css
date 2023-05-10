@@ -216,6 +216,10 @@
     height: 340px;
   }
 
+  .slider.single.teaser:not(.flat) .card .short-description {
+    height: 280px;
+  }
+
   .slider.no-description .card .short-description {
     height: 90px;
   }
@@ -284,6 +288,10 @@
 
   .slider.block.single .card .short-description:not(.extended-text) p {
     white-space: unset;
+  }
+
+  .slider.block.teaser .card img {
+    aspect-ratio: unset;
   }
 }
 
