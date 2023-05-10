@@ -1,7 +1,7 @@
 let visibleSlides = 3;
 
 const isADesktop = () => {
-  const mediaDesktop = window.matchMedia('only screen and (min-width: 769px)');
+  const mediaDesktop = window.matchMedia('only screen and (min-width: 1170px)');
   return mediaDesktop.matches;
 };
 
@@ -117,7 +117,6 @@ export default function decorate(block) {
     isDragging = false;
 
     const movedBy = currentTranslate - prevTranslate;
-
     if ((!isADesktop() || slides.length > visibleSlides)
       && movedBy < 0 && currentIndex < slides.length) {
       currentIndex += 1;
