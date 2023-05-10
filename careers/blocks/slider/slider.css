@@ -155,8 +155,7 @@
   flex: 1;
 }
 
-.slider.full-card.max-visible-2 .tall-card .card-image,
-.slider.max-visible-2 .card.tall-card .card-image {
+.slider.full-card.max-visible-2 .tall-card .card-image {
   max-height: 300px;
 }
 
