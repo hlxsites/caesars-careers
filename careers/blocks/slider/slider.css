@@ -212,6 +212,10 @@
     height: 180px;
   }
 
+  .slider.single:not(.flat) .card .short-description {
+    height: 340px;
+  }
+
   .slider.no-description .card .short-description {
     height: 90px;
   }
@@ -271,12 +275,25 @@
     background: url("../../icons/arrow-right.svg") no-repeat;
     filter: invert(50%);
   }
+
+  .slider-container .slider.single.block .card-wrapper .tall-card .button-container{
+    bottom: 0;
+    top: auto;
+    padding-right: 32px;
+  }
+
+  .slider.block.single .card .short-description:not(.extended-text) p {
+    white-space: unset;
+  }
 }
 
 @media only screen and (min-width: 1170px) {
   .slider.block .card-wrapper {
     width: calc(100%/3 - 8px);
+  }
 
+  .slider.block.single .card-wrapper {
+    width: calc(100% - 8px);
   }
 
   .slider.spacious .card-wrapper {
