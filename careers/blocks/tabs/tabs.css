@@ -151,7 +151,7 @@
     padding-bottom: var(--layout-size-xs);
     border-bottom: 3px solid;
     margin: -3px auto 0;
-    border-color: var(--static-color-black);
+    border-color: var(--block-background-color);
   }
 
   .tabs.block .tab-title:hover::after {
