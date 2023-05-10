@@ -366,7 +366,8 @@ main .section.has-background {
 }
 
 main .section.has-background-overlay {
-  background-color: rgba(0 0 0 / 50%);
+  background-color: rgba(var(--block-background-color-rgba) / 50%);
+  color: var(--static-color-white);
 }
 
 main .section.has-background > picture {
