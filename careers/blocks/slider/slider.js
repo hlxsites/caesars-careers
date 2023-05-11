@@ -1,4 +1,11 @@
+import { buildEllipsis } from '../../scripts/scripts.js';
+
 let visibleSlides = 3;
+
+const DEFAULT_CONFIG = Object.freeze({
+  maxlines: 3,
+  ellipsis: '...more',
+});
 
 const isADesktop = () => {
   const mediaDesktop = window.matchMedia('only screen and (min-width: 1170px)');
@@ -57,25 +64,69 @@ export default function decorate(block) {
     const ellipsableText = div.querySelector('p');
     const fullTextContent = ellipsableText && ellipsableText.innerText;
 
-    const clickableCloseButton = document.createElement('span');
+    // Changes that need DOM built and styled, so we're observing resizing,
+    // especially having `div.offsetWidth` available and set
+    const observer = new ResizeObserver((entries) => {
+      if (entries.length > 1) return;
+      if (!ellipsableText || !fullTextContent) return;
 
-    clickableCloseButton.classList.add('hidden-close-button');
+      const textStyle = window.getComputedStyle(div);
+      const textOptions = {
+        font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
+        letterSpacing: `${textStyle.letterSpacing}`,
+      };
 
-    clickableCloseButton.innerHTML = '';
-    clickableCloseButton.classList.add('close-button');
-    div.append(clickableCloseButton);
+      const displayBufferPixels = 16;
+      const textContentWidth = div.offsetWidth - displayBufferPixels;
 
-    ellipsableText?.addEventListener('click', () => {
-      div.classList.add('extended-text');
-      ellipsableText.innerHTML = `${fullTextContent}`;
-      clickableCloseButton.classList.remove('hidden-close-button');
-      clickableCloseButton.classList.add('active-close-button');
+      let linesInCard = DEFAULT_CONFIG.maxlines;
+      let hasButtons = false;
+      const buttonsInBlock = div.getElementsByClassName('button-container');
+      hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
+      if (hasButtons) {
+        linesInCard = Math.max(linesInCard - 1, 1);
+      }
+
+      const ellipsisBuilder = buildEllipsis(
+        fullTextContent,
+        textContentWidth,
+        linesInCard,
+        DEFAULT_CONFIG.ellipsis,
+        textOptions,
+      );
+
+      if (ellipsisBuilder.lineCount > linesInCard) {
+        const clickableCloseButton = document.createElement('span');
+        const clickableEllipsis = document.createElement('span');
+
+        clickableCloseButton.classList.add('hidden-close-button');
+        clickableEllipsis.classList.add('clickable-ellipsis');
+
+        clickableCloseButton.innerHTML = '';
+        clickableCloseButton.classList.add('close-button');
+        clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
+        ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
+
+        ellipsableText.append(clickableEllipsis);
+        div.append(clickableCloseButton);
+
+        ellipsableText.addEventListener('click', () => {
+          div.classList.add('extended-text');
+          ellipsableText.innerHTML = `${fullTextContent}`;
+          clickableCloseButton.classList.remove('hidden-close-button');
+          clickableCloseButton.classList.add('active-close-button');
+        });
+        clickableCloseButton.addEventListener('click', () => {
+          div.classList.remove('extended-text');
+          ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
+          ellipsableText.append(clickableEllipsis);
+          clickableCloseButton.classList.remove('active-close-button');
+          clickableCloseButton.classList.add('hidden-close-button');
+        });
+      }
     });
-    clickableCloseButton.addEventListener('click', () => {
-      div.classList.remove('extended-text');
-      clickableCloseButton.classList.remove('active-close-button');
-      clickableCloseButton.classList.add('hidden-close-button');
-    });
+
+    observer.observe(div);
   });
 
   let isDragging = false;
