@@ -516,6 +516,7 @@ header nav .nav-tools p:first-of-type a:hover {
     width: 215px;
     left: 0;
     top: 0;
+    margin-left: 20px;
   }
 
   header.is-sticky nav .nav-brand p a::after {
