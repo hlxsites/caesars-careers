@@ -62,18 +62,15 @@
 .slider.block.single .card .short-description {
   height: unset;
 }
+  
+.slider.block .card .short-description p {
+  cursor: pointer;
+}
 
 .slider.block .card .extended-text p {
   height: 180px;
   overflow: hidden;
   overflow-y: scroll;
-}
-
-.slider.block .card .short-description:not(.extended-text) p {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
 }
 
 .slider.block.no-description .card .short-description {
