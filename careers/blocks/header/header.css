@@ -7,11 +7,18 @@ header {
 
 /* header and nav layout */
 header .nav-wrapper {
-  background-color: var(--static-color-pink-red);
   width: 100%;
   z-index: 2;
   position: fixed;
   text-transform: uppercase;
+}
+
+header:not(is-sticky) .nav-wrapper {
+  background-color: var(--static-header-background-color);
+}
+
+header.is-sticky .nav-wrapper {
+  background-color: var(--static-color-pink-red);
 }
 
 header .global-nav-desktop {
@@ -537,7 +544,7 @@ header nav .nav-tools p:first-of-type a:hover {
   header.is-sticky .user-menu.open {
     display: none;
   }
-  
+
   /* Nav Section */
   header nav .nav-sections {
     display: flex;
@@ -584,6 +591,14 @@ header nav .nav-tools p:first-of-type a:hover {
     max-height: unset;
     transform: none;
     transition: none;
+  }
+
+  header:not(is-sticky) nav .nav-sections .local-nav ul {
+    background-color: unset;
+  }
+
+  header.is-sticky nav .nav-sections .local-nav ul {
+    background-color: var(--static-color-pink-red);
   }
 
   header nav .nav-sections ul li {
