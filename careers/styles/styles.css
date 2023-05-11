@@ -125,6 +125,7 @@ body.careers {
 
   /* hero */
   --hero-heading-font-family: "Montserrat", sans-serif;
+  --heading-font-size-hero: 80px;
 }
 
 body.appear {
