@@ -47,6 +47,7 @@
   text-transform: uppercase;
   padding-top: var(--layout-size-m);
   padding-bottom: var(--layout-size-m);
+  font-family: var(--hero-heading-font-family);
   font-weight: var(--clickable-font-weight);
   font-size: var(--heading-font-size-xl);
 }
