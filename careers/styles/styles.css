@@ -475,6 +475,10 @@ main .section.is-hero > div:first-of-type {
   width: 100%;
 }
 
+main .section.is-hero > .default-content-wrapper:first-of-type {
+  margin-top: 120px;
+}
+
 main .section.is-hero {
   min-height: 670px;
   padding: unset;
