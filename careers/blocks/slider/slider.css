@@ -59,6 +59,10 @@
   color: var(--text-color);
 }
 
+.slider.block.no-description .card .short-description {
+  height: 90px;
+}
+
 .slider.block.single:not(.teaser) .card .short-description {
   height: 560px;
 }
@@ -71,10 +75,6 @@
   height: 180px;
   overflow: hidden;
   overflow-y: scroll;
-}
-
-.slider.block.no-description .card .short-description {
-  height: 90px;
 }
 
 .slider.block .card .extended-text p::-webkit-scrollbar {
