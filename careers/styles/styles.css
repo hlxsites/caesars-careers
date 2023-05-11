@@ -345,6 +345,10 @@ main .section.centered-title > div > h2 {
   text-transform: uppercase;
 }
 
+main .section.compact-header > div > h2 {
+  font-family: var(--text-font-family);
+}
+
 main .section.light-color-text {
   color: var(--static-color-white);
 }
