@@ -303,6 +303,10 @@
 }
 
 @media only screen and (min-width: 1170px) {
+  .default-content-wrapper + .slider-wrapper {
+    margin-top: 72px;
+  }
+
   .slider.block .card-wrapper {
     width: calc(100%/3 - 8px);
   }
@@ -317,7 +321,6 @@
 
   .slider.max-visible-2.block .card-wrapper {
     width: calc(100%/2 - 4px);
-
   }
 }
 
