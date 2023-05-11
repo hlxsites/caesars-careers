@@ -59,6 +59,14 @@
   color: var(--text-color);
 }
 
+.slider.block.no-description .card .short-description {
+  height: 90px;
+}
+
+.slider.block.single:not(.teaser) .card .short-description {
+  height: 560px;
+}
+  
 .slider.block .card .short-description p {
   cursor: pointer;
 }
@@ -67,10 +75,6 @@
   height: 180px;
   overflow: hidden;
   overflow-y: scroll;
-}
-
-.slider.block.no-description .card .short-description {
-  height: 90px;
 }
 
 .slider.block .card .extended-text p::-webkit-scrollbar {
@@ -101,6 +105,12 @@
     margin-left: unset;
     width: 100%;
     padding-right: 6.5%;
+}
+
+.slider-container  .slider.single:not(.teaser) .card-wrapper .tall-card .button-container {
+  padding-right: 4.75%;
+  bottom: 0;
+  top: auto;
 }
 
 .slider.block .extended-text h4 {
@@ -168,6 +178,10 @@
   object-fit: contain;
 }
 
+.slider.teaser .card img {
+  aspect-ratio: unset;
+}
+
 .slider.full-card .tall-card .card-image picture img {
   aspect-ratio: unset;
   height: 100%;
@@ -198,6 +212,10 @@
   .slider.block .card {
     width: 100%;
   }
+
+  .slider.block.single:not(.teaser) .card .short-description {
+    height: 380px;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -219,6 +237,18 @@
 
   .slider:not(.flat).full-card .card .short-description {
     margin: unset !important;
+  }
+
+  .slider.single:not(.flat) .card .short-description {
+    height: 380px;
+  }
+
+  .slider.single.teaser:not(.flat) .card .short-description {
+    height: 240px;
+  }
+
+  .slider.block.single:not(.teaser) .card .short-description {
+    height: 380px;
   }
 
   .slider:not(.flat) .card .extended-text::-webkit-scrollbar {
@@ -268,6 +298,16 @@
     background: url("../../icons/arrow-right.svg") no-repeat;
     filter: invert(50%);
   }
+
+  .slider-container .slider.single.block .card-wrapper .tall-card .button-container{
+    bottom: 0;
+    top: auto;
+    padding-right: 32px;
+  }
+
+  .slider.block.single .card .short-description:not(.extended-text) p {
+    white-space: unset;
+  }
 }
 
 @media only screen and (min-width: 1170px) {
@@ -281,6 +321,10 @@
 
   .slider.spacious .card-wrapper {
     gap: 50px;
+  }
+
+  .slider.block.single .card-wrapper {
+    width: calc(100% - 8px);
   }
 
   .slider.max-visible-2.block .card-wrapper {
