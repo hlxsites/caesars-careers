@@ -275,7 +275,7 @@
 
 @media only screen and (min-width: 1170px) {
   .default-content-wrapper + .slider-wrapper {
-    margin-top: 64px;
+    margin-top: 72px;
   }
 
   .slider.block .card-wrapper {
