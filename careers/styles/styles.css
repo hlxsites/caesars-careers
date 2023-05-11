@@ -33,6 +33,7 @@
   --static-color-gray: #bec0c4;
   --static-color-gray-medium: #7c7c7c;
   --static-color-gray-dark: #4a4a4a;
+  --static-header-background-color: var(--static-color-black);
   --text-color: var(--static-color-midnight);
   --link-color: var(--static-color-black);
   --background-color: var(--static-color-white);
@@ -111,6 +112,7 @@ body.careers {
   --static-color-pink-red: #a41b32;
   --static-color-caesars-red: #ad1f23;
   --static-color-caesars-red-active: #971b1f;
+  --static-header-background-color: rgba(164 27 50 / 90%);
 
   /* colors usages */
   --link-color: var(--static-color-caesars-red);

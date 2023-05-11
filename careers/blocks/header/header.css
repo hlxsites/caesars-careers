@@ -7,7 +7,7 @@ header {
 
 /* header and nav layout */
 header .nav-wrapper {
-  background-color: var(--static-color-pink-red);
+  background-color: var(--static-header-background-color);
   width: 100%;
   z-index: 2;
   position: fixed;
@@ -577,7 +577,6 @@ header nav .nav-tools p:first-of-type a:hover {
     flex-direction: row;
     top: unset;
     left: unset;
-    background-color: var(--static-color-pink-red);
     border: 0;
     width: 100%;
     height: 100%;
