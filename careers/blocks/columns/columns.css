@@ -41,11 +41,15 @@
 
 .columns.long-card>div>div>.button-container {
   text-align: right;
+  margin-bottom: 0;
+  margin-top: auto;
 }
 
 .columns.stretch-start.long-card>div>div:first-of-type,
 .columns.stretch-end.long-card>div>div:last-of-type {
   padding: 16px 10px 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .columns.intro>div>div {
