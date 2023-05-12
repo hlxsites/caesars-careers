@@ -130,6 +130,13 @@
   text-transform: uppercase;
 }
 
+.columns.columns-2-cols.cet-card.full-width h1,
+.columns.columns-2-cols.cet-card.full-width h2,
+.columns.columns-2-cols.cet-card.full-width h3,
+.columns.columns-2-cols.cet-card.full-width h4 {
+  font-weight: var(--emphasized-block-font-weight);
+}
+
 .columns.columns-2-cols.cet-card h4 {
   font-size: var(--body-font-size-xs);
   font-weight: var(--emphasized-font-weight);
