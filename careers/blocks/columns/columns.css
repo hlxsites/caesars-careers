@@ -181,6 +181,7 @@
 
 .content-table .button-container > strong > a.primary:hover {
   text-decoration: underline;
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {
