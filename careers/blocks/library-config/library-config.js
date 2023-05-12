@@ -2,7 +2,7 @@ import { createTag } from '../../scripts/scripts.js';
 
 const validListTypes = ['blocks', 'sections', 'buttons', 'placeholders', 'assets', 'templates'];
 
-const LIBRARY_PATH = '/block-library/library.json';
+const LIBRARY_PATH = '/careers/block-library/library.json';
 
 async function executeList(name, content, list) {
   const { default: listFn } = await import(`./lists/${name}.js`);

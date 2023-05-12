@@ -643,6 +643,10 @@ main .section.is-hero.background-block > div:nth-child(2) {
   margin-top: 520px;
 }
 
+main .section.is-hero .button-container > em > a.secondary {
+  border: none;
+}
+
 /* Responsive Breakpoints */
 
 /* Tablet (portrait) */
