@@ -16,6 +16,7 @@
   font-weight: var(--clickable-font-weight);
   padding-bottom: var(--layout-size-m);
   text-align: center;
+  cursor: pointer;
 }
 
 .tabs.block .hidden-tab-title {
