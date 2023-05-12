@@ -126,6 +126,7 @@ body.careers {
 
   /* hero */
   --hero-heading-font-family: "Montserrat", sans-serif;
+  --heading-font-size-hero: 80px;
 }
 
 body.appear {
@@ -477,6 +478,10 @@ main .section.is-hero > div:last-of-type {
 main .section.is-hero > div:first-of-type {
   padding-top: unset;
   width: 100%;
+}
+
+main .section.is-hero > .default-content-wrapper:first-of-type {
+  margin-top: 120px;
 }
 
 main .section.is-hero {
