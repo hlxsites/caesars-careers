@@ -334,18 +334,19 @@ export default async function decorate(block) {
     // close the mobile menu or user menu when clicking anywhere outside of it
     window.addEventListener('click', (event) => {
       const mobileMenuExpanded = nav.getAttribute('aria-expanded') === 'true';
-      if (!screenConfig.smallDesktop.media.matches
-        && !screenConfig.largeDesktop.media.matches && mobileMenuExpanded) {
-        const rect = navSections.getBoundingClientRect();
-        if (event.clientX > rect.right) {
+      const userMenu = block.querySelector('.user-menu');
+      const userMenuExpanded = userMenu.classList.contains('open');
+      if (screenConfig.tablet.media.matches && mobileMenuExpanded) {
+        const navSectionsRect = navSections.getBoundingClientRect();
+        if (event.clientX > navSectionsRect.right) {
           toggleMenu(nav, navSections);
         }
       }
-      const userMenu = block.querySelector('.user-menu');
-      const userMenuContainer = userMenu.querySelector('.user-menu-container');
-      if (userMenu.classList.contains('open')) {
-        const rect = userMenuContainer.getBoundingClientRect();
-        if (event.clientX < rect.left) {
+
+      if (!screenConfig.tablet.media.matches && userMenuExpanded) {
+        const userMenuContainer = userMenu.querySelector('.user-menu-container');
+        const userMenuContainerRect = userMenuContainer.getBoundingClientRect();
+        if (event.clientX < userMenuContainerRect.left) {
           userMenu.classList.remove('open');
         }
       }
