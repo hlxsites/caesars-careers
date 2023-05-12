@@ -1,6 +1,5 @@
-import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
-// import { getMetadata, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-// import { decorateMain } from '../../scripts/scripts.js';
+import { getMetadata, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
+import { createTag, decorateMain } from '../../scripts/scripts.js';
 
 const screenConfig = Object.freeze({
   tablet: {
@@ -19,7 +18,7 @@ const CAESARS_DOT_COM = 'https://www.caesars.com';
 const GLOBAL_HEADER_JSON = '/content/empire/en/jcr:content/root/header.model.json';
 const GLOBAL_HEADER_JSON_LOCAL = '/careers/scripts/resources/header.model.json';
 const GLOBAL_HEADER_LOGO_LOCAL = '/careers/icons/caesars-global-logo.svg';
-// const GLOBAL_HEADER_SIGN_IN = '/fragments/header/sign-in';
+const GLOBAL_HEADER_SIGN_IN = '/careers/fragments/header/sign-in';
 const DESKTOP_SIGN_IN_TEXT = 'Sign In';
 const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
 
@@ -50,17 +49,17 @@ async function createGlobalNavLogo(logoFileReference) {
   return logo;
 }
 
-// async function fetchFragment(path) {
-//   const resp = await fetch(`${path}.plain.html`);
-//   if (resp.ok) {
-//     const container = document.createElement('div');
-//     container.innerHTML = await resp.text();
-//     decorateMain(container);
-//     await loadBlocks(container);
-//     return container;
-//   }
-//   return null;
-// }
+async function fetchFragment(path) {
+  const resp = await fetch(`${path}.plain.html`);
+  if (resp.ok) {
+    const container = document.createElement('div');
+    container.innerHTML = await resp.text();
+    decorateMain(container);
+    await loadBlocks(container);
+    return container;
+  }
+  return null;
+}
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -161,14 +160,14 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
  * shows the login modal
  */
 function toggleUserMenu() {
-  const userMenu = this.closest('.header.block').querySelector('.user-menu');
+  const userMenu = document.querySelector('.header.block .user-menu');
   if (userMenu.classList.contains('open')) {
     userMenu.classList.remove('open');
   } else {
     userMenu.classList.add('open');
   }
   if (this.classList.contains('user-account-mobile')) {
-    const nav = this.closest('nav');
+    const nav = document.querySelector('nav');
     const navSections = nav.querySelector('.nav-sections');
     toggleMenu(nav, navSections);
   }
@@ -178,25 +177,16 @@ function toggleUserMenu() {
  * Creates the user menu
  * @param {Element} block Header block
  */
-// async function createUserMenu(block) {
-//   const userMenu = document.createElement('div');
-//   userMenu.classList.add('user-menu');
-//   const userMenuClose = document.createElement('div');
-//   userMenuClose.classList.add('user-menu-close');
-//   userMenuClose.addEventListener('click', toggleUserMenu);
-//   userMenu.appendChild(userMenuClose);
-//   const userMenuContainer = document.createElement('div');
-//   userMenuContainer.classList.add('user-menu-container');
-//   const userMenuMainPanel = document.createElement('div');
-//   userMenuMainPanel.classList.add('user-menu-main-panel');
-//   const loginText = document.createElement('div');
-//   loginText.classList.add('text-center');
-//   userMenuMainPanel.appendChild(loginText);
-//   const fragmentBlock = await fetchFragment(`${GLOBAL_HEADER_SIGN_IN}`);
-//   userMenuContainer.appendChild(fragmentBlock);
-//   userMenu.appendChild(userMenuContainer);
-//   block.appendChild(userMenu);
-// }
+async function createUserMenu() {
+  const userMenuClose = createTag('div', { class: 'user-menu-close' });
+  userMenuClose.addEventListener('click', toggleUserMenu);
+  const userMenu = createTag('div', { class: 'user-menu' }, userMenuClose);
+  const userMenuContainer = createTag('div', { class: 'user-menu-container' });
+  const fragmentBlock = await fetchFragment(`${GLOBAL_HEADER_SIGN_IN}`);
+  userMenuContainer.append(fragmentBlock);
+  userMenu.append(userMenuContainer);
+  return userMenu;
+}
 
 /**
  * decorates the header, mainly the nav
@@ -206,8 +196,6 @@ export default async function decorate(block) {
   block.textContent = '';
   let globalNav;
   let globalNavSections;
-  // let globalNavLogin;
-  // let globalNavLogo;
   const globalNavDesktop = document.createElement('div');
   globalNavDesktop.classList.add('global-nav-desktop');
   const globalNavSection = document.createElement('div');
@@ -251,23 +239,18 @@ export default async function decorate(block) {
         toggleNavSectionTitles(globalNavTitle, globalNavSections);
       });
       // user account
-      const userAccount = document.createElement('div');
-      userAccount.classList.add('user-account');
-      const signIn = document.createElement('a');
-      signIn.classList.add('sign-in');
-      signIn.setAttribute('aria-label', `${DESKTOP_SIGN_IN_TEXT}`);
-      signIn.innerHTML = `${DESKTOP_SIGN_IN_TEXT}`;
+      const userAccount = createTag('div', { class: 'user-account' });
+      const signIn = createTag('a', { class: 'sign-in', 'aria-label': `${DESKTOP_SIGN_IN_TEXT}` }, `${DESKTOP_SIGN_IN_TEXT}`);
       signIn.addEventListener('click', toggleUserMenu);
-      userAccount.appendChild(signIn);
-      globalNavDesktop.appendChild(userAccount);
+      userAccount.append(signIn);
+      globalNavDesktop.append(userAccount);
     }
     if (globalNavJson.logoFileReference) {
       globalNavDesktop.prepend(await createGlobalNavLogo(globalNavJson.logoFileReference));
     }
     if (globalNavJson.style) globalNavDesktop.classList.add(globalNavJson.style);
   }
-
-  // createUserMenu(block);
+  block.append(await createUserMenu());
 
   // fetch nav content
   const navPath = getMetadata('nav') || '/careers/nav';
@@ -348,14 +331,22 @@ export default async function decorate(block) {
       }
     });
 
-    // close the mobile menu when clicking anywhere outside of it
+    // close the mobile menu or user menu when clicking anywhere outside of it
     window.addEventListener('click', (event) => {
-      const expanded = nav.getAttribute('aria-expanded') === 'true';
+      const mobileMenuExpanded = nav.getAttribute('aria-expanded') === 'true';
       if (!screenConfig.smallDesktop.media.matches
-        && !screenConfig.largeDesktop.media.matches && expanded) {
+        && !screenConfig.largeDesktop.media.matches && mobileMenuExpanded) {
         const rect = navSections.getBoundingClientRect();
         if (event.clientX > rect.right) {
           toggleMenu(nav, navSections);
+        }
+      }
+      const userMenu = block.querySelector('.user-menu');
+      const userMenuContainer = userMenu.querySelector('.user-menu-container');
+      if (userMenu.classList.contains('open')) {
+        const rect = userMenuContainer.getBoundingClientRect();
+        if (event.clientX < rect.left) {
+          userMenu.classList.remove('open');
         }
       }
     });
