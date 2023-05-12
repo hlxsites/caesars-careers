@@ -111,6 +111,7 @@ body.careers {
   --static-color-pink-red: #a41b32;
   --static-color-caesars-red: #ad1f23;
   --static-color-caesars-red-active: #971b1f;
+  --static-header-background-color: rgba(164 27 50 / 90%);
 
   /* colors usages */
   --link-color: var(--static-color-caesars-red);
@@ -342,6 +343,10 @@ main .section.shorter-width > div > p {
 main .section.centered-title > div > h2 {
   text-align: center;
   text-transform: uppercase;
+}
+
+main .section.compact-header > div > h2 {
+  font-family: var(--text-font-family);
 }
 
 main .section.light-color-text {
