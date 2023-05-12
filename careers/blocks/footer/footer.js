@@ -14,7 +14,7 @@ export default async function decorate(block) {
   const cfg = readBlockConfig(block);
   block.textContent = '';
 
-  const footerPath = cfg.footer || '/footer';
+  const footerPath = cfg.footer || '/careers/footer';
 
   const contentPaths = {
     footer: {
@@ -23,7 +23,7 @@ export default async function decorate(block) {
     },
   };
 
-  const globalFooterPath = getMetadata('global-footer') || '/global-footer';
+  const globalFooterPath = getMetadata('global-footer') || '/careers/global-footer';
   if (globalFooterPath && globalFooterPath !== 'none') {
     contentPaths.globalfooter = {
       path: `${globalFooterPath}.plain.html`,
