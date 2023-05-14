@@ -25,6 +25,7 @@ const GLOBAL_HEADER_SIGN_IN = '/careers/fragments/header/sign-in';
 const DESKTOP_SIGN_IN_TEXT = 'Sign In';
 const DESKTOP_MY_ACCOUNT_TEXT = 'My Account';
 const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
+const URL_ENCODED_PATH = encodeURIComponent(window.location.pathname);
 
 async function createGlobalNavLogo(logoFileReference) {
   // Add logo
@@ -243,8 +244,7 @@ export default async function decorate(block) {
         toggleNavSectionTitles(globalNavTitle, globalNavSections);
       });
       // user account
-      const urlEncodedPath = encodeURIComponent(window.location.pathname);
-      const signIn = createTag('a', { href: `${CAESARS_SIGN_IN}${urlEncodedPath}`, class: 'sign-in', 'aria-label': `${DESKTOP_SIGN_IN_TEXT}` }, `${DESKTOP_SIGN_IN_TEXT}`);
+      const signIn = createTag('a', { href: `${CAESARS_SIGN_IN}${URL_ENCODED_PATH}`, class: 'sign-in', 'aria-label': `${DESKTOP_SIGN_IN_TEXT}` }, `${DESKTOP_SIGN_IN_TEXT}`);
       const userAccount = createTag('div', { class: 'user-account' }, signIn);
       const myAccount = createTag('a', { class: 'my-account', 'aria-label': `${DESKTOP_MY_ACCOUNT_TEXT}` }, `${DESKTOP_MY_ACCOUNT_TEXT}`);
       myAccount.addEventListener('click', toggleUserMenu);
@@ -281,13 +281,8 @@ export default async function decorate(block) {
 
     const navSections = nav.querySelector('.nav-sections');
     if (navSections) {
-      const newDiv = document.createElement('div');
-      newDiv.classList.add('local-nav');
-      const localNavTitle = document.createElement('div');
-      localNavTitle.classList.add('local-nav-title');
-      localNavTitle.setAttribute('aria-expanded', true);
-      localNavTitle.innerHTML = 'Property Links';
-      newDiv.appendChild(localNavTitle);
+      const localNavTitle = createTag('div', { class: 'local-nav-title', 'aria-expanded': true }, 'Property Links');
+      const newDiv = createTag('div', { class: 'local-nav' }, localNavTitle);
       while (navSections.hasChildNodes()) newDiv.appendChild(navSections.firstChild);
       newDiv.setAttribute('aria-expanded', true);
 
@@ -307,15 +302,12 @@ export default async function decorate(block) {
       });
       if (globalNavSections) navSections.append(globalNavSections);
 
-      const userAccountMobile = document.createElement('div');
-      userAccountMobile.classList.add('user-account-mobile');
-      const signInMobile = document.createElement('div');
-      signInMobile.classList.add('sign-in');
-      const signInLink = document.createElement('a');
-      signInLink.textContent = `${MOBILE_SIGN_IN_TEXT}`;
-      signInMobile.appendChild(signInLink);
-      userAccountMobile.append(signInMobile);
-      userAccountMobile.addEventListener('click', toggleUserMenu);
+      const signInLink = createTag('a', { href: `${CAESARS_SIGN_IN}${URL_ENCODED_PATH}`, class: 'sign-in' }, `${MOBILE_SIGN_IN_TEXT}`);
+      const signInMobile = createTag('div', { class: 'sign-in' }, signInLink);
+      const myAccount = createTag('a', { class: 'my-account', 'aria-label': `${DESKTOP_MY_ACCOUNT_TEXT}` }, `${DESKTOP_MY_ACCOUNT_TEXT}`);
+      signInMobile.append(myAccount);
+      const userAccountMobile = createTag('div', { class: 'user-account-mobile' }, signInMobile);
+      myAccount.addEventListener('click', toggleUserMenu);
       navSections.prepend(userAccountMobile);
     }
 
