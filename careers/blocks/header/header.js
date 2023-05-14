@@ -15,11 +15,15 @@ const screenConfig = Object.freeze({
   },
 });
 const CAESARS_DOT_COM = 'https://www.caesars.com';
+const CAESARS_SIGN_IN = 'https://www.caesars.com/myrewards/profile/signin/?forwardUrl=';
+const CAESARS_GALAXY_LOGIN = `/a/security/js/login_galaxy.js?cachebuster=${Date.now.toString()}`;
+const CAESARS_GALAXY_LOGIN_LOCAL = '/careers/scripts/resources/login_galaxy.js';
 const GLOBAL_HEADER_JSON = '/content/empire/en/jcr:content/root/header.model.json';
 const GLOBAL_HEADER_JSON_LOCAL = '/careers/scripts/resources/header.model.json';
 const GLOBAL_HEADER_LOGO_LOCAL = '/careers/icons/caesars-global-logo.svg';
 const GLOBAL_HEADER_SIGN_IN = '/careers/fragments/header/sign-in';
 const DESKTOP_SIGN_IN_TEXT = 'Sign In';
+const DESKTOP_MY_ACCOUNT_TEXT = 'My Account';
 const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
 
 async function createGlobalNavLogo(logoFileReference) {
@@ -239,10 +243,12 @@ export default async function decorate(block) {
         toggleNavSectionTitles(globalNavTitle, globalNavSections);
       });
       // user account
-      const userAccount = createTag('div', { class: 'user-account' });
-      const signIn = createTag('a', { class: 'sign-in', 'aria-label': `${DESKTOP_SIGN_IN_TEXT}` }, `${DESKTOP_SIGN_IN_TEXT}`);
-      signIn.addEventListener('click', toggleUserMenu);
-      userAccount.append(signIn);
+      const urlEncodedPath = encodeURIComponent(window.location.pathname);
+      const signIn = createTag('a', { href: `${CAESARS_SIGN_IN}${urlEncodedPath}`, class: 'sign-in', 'aria-label': `${DESKTOP_SIGN_IN_TEXT}` }, `${DESKTOP_SIGN_IN_TEXT}`);
+      const userAccount = createTag('div', { class: 'user-account' }, signIn);
+      const myAccount = createTag('a', { class: 'my-account', 'aria-label': `${DESKTOP_MY_ACCOUNT_TEXT}` }, `${DESKTOP_MY_ACCOUNT_TEXT}`);
+      myAccount.addEventListener('click', toggleUserMenu);
+      userAccount.append(myAccount);
       globalNavDesktop.append(userAccount);
     }
     if (globalNavJson.logoFileReference) {
@@ -334,8 +340,8 @@ export default async function decorate(block) {
     // close the mobile menu or user menu when clicking anywhere outside of it
     window.addEventListener('click', (event) => {
       const mobileMenuExpanded = nav.getAttribute('aria-expanded') === 'true';
-      const userMenu = block.querySelector('.user-menu');
-      const userMenuExpanded = userMenu.classList.contains('open');
+      // const userMenu = block.querySelector('.user-menu');
+      // const userMenuExpanded = userMenu.classList.contains('open');
       if (screenConfig.tablet.media.matches && mobileMenuExpanded) {
         const navSectionsRect = navSections.getBoundingClientRect();
         if (event.clientX > navSectionsRect.right) {
@@ -343,13 +349,13 @@ export default async function decorate(block) {
         }
       }
 
-      if (!screenConfig.tablet.media.matches && userMenuExpanded) {
-        const userMenuContainer = userMenu.querySelector('.user-menu-container');
-        const userMenuContainerRect = userMenuContainer.getBoundingClientRect();
-        if (event.clientX < userMenuContainerRect.left) {
-          userMenu.classList.remove('open');
-        }
-      }
+      // if (!screenConfig.tablet.media.matches && userMenuExpanded) {
+      //   const userMenuContainer = userMenu.querySelector('.user-menu-container');
+      //   const userMenuContainerRect = userMenuContainer.getBoundingClientRect();
+      //   if (event.clientX < userMenuContainerRect.left) {
+      //     userMenu.classList.remove('open');
+      //   }
+      // }
     });
 
     // add page scroll listener to know when header turns to sticky
@@ -369,5 +375,13 @@ export default async function decorate(block) {
     navWrapper.append(nav);
     block.prepend(globalNavDesktop);
     block.append(navWrapper);
+
+    // Load login script
+    let galaxyScriptPath = CAESARS_GALAXY_LOGIN;
+    if (window.location.host.endsWith('.page') || window.location.host.endsWith('.live') || window.location.host.startsWith('localhost')) {
+      galaxyScriptPath = CAESARS_GALAXY_LOGIN_LOCAL;
+    }
+    const galaxyLogin = createTag('script', { src: `${galaxyScriptPath}` });
+    document.head.appendChild(galaxyLogin);
   }
 }
