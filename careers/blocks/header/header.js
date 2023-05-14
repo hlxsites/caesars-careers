@@ -246,7 +246,7 @@ export default async function decorate(block) {
       // user account
       const signIn = createTag('a', { href: `${CAESARS_SIGN_IN}${URL_ENCODED_PATH}`, class: 'sign-in', 'aria-label': `${DESKTOP_SIGN_IN_TEXT}` }, `${DESKTOP_SIGN_IN_TEXT}`);
       const userAccount = createTag('div', { class: 'user-account' }, signIn);
-      const myAccount = createTag('a', { class: 'my-account', 'aria-label': `${DESKTOP_MY_ACCOUNT_TEXT}` }, `${DESKTOP_MY_ACCOUNT_TEXT}`);
+      const myAccount = createTag('a', { class: 'my-account', 'aria-label': `${DESKTOP_MY_ACCOUNT_TEXT}`, 'aria-hidden': true }, `${DESKTOP_MY_ACCOUNT_TEXT}`);
       myAccount.addEventListener('click', toggleUserMenu);
       userAccount.append(myAccount);
       globalNavDesktop.append(userAccount);
@@ -304,7 +304,7 @@ export default async function decorate(block) {
 
       const signInLink = createTag('a', { href: `${CAESARS_SIGN_IN}${URL_ENCODED_PATH}`, class: 'sign-in' }, `${MOBILE_SIGN_IN_TEXT}`);
       const signInMobile = createTag('div', { class: 'sign-in' }, signInLink);
-      const myAccount = createTag('a', { class: 'my-account', 'aria-label': `${DESKTOP_MY_ACCOUNT_TEXT}` }, `${DESKTOP_MY_ACCOUNT_TEXT}`);
+      const myAccount = createTag('a', { class: 'my-account', 'aria-label': `${DESKTOP_MY_ACCOUNT_TEXT}`, 'aria-hidden': true }, `${DESKTOP_MY_ACCOUNT_TEXT}`);
       signInMobile.append(myAccount);
       const userAccountMobile = createTag('div', { class: 'user-account-mobile' }, signInMobile);
       myAccount.addEventListener('click', toggleUserMenu);
