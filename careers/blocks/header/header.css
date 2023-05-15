@@ -71,7 +71,7 @@ header nav p {
 }
 
 /* brand */
-header .nav-brand[data-block-status="loaded"] {
+header .nav-brand {
   display: flex;
   flex: 1;
   justify-content: center;
