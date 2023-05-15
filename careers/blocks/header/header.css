@@ -219,8 +219,8 @@ header nav[aria-expanded="true"] .nav-sections .user-account-mobile::before {
   background: url('../../icons/user-circle.svg') no-repeat;
 }
 
-header nav[aria-expanded="true"] .nav-sections .local-nav-title,
-header nav[aria-expanded="true"] .nav-sections .global-nav-title {
+header nav[aria-expanded="true"] .nav-sections .local-nav-title[data-block-status="loaded"],
+header nav[aria-expanded="true"] .nav-sections .global-nav-title[data-block-status="loaded"] {
   display: flex;
   position: relative;
   font-size: var(--heading-font-size-xxs);
