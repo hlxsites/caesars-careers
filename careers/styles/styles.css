@@ -655,7 +655,7 @@ main .section.is-hero .button-container > em > a.secondary {
     width: var(--screen-width-s);
   }
 
-  main .section.short-width-text[data-block-status="loaded"] > div {
+  main .section.short-width-text > div {
     display: flex;
     flex-direction: column;
     align-items: center;
