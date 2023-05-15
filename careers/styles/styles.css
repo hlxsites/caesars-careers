@@ -448,7 +448,7 @@ main .section.is-hero > div {
   padding: unset;
 }
 
-main .section.short-width-text[data-block-status="loaded"] > div {
+main .section.short-width-text > div {
   display: flex;
   flex-direction: column;
   align-items: center;
