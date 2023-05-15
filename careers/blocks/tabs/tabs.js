@@ -129,6 +129,7 @@ function showTitle(block, tabsCount, direction) {
 export default function decorate(block) {
   const tabTitles = document.createElement('div');
   tabTitles.classList.add('tab-navbar');
+  tabTitles.setAttribute('role', 'tablist');
 
   block.prepend(tabTitles);
 
@@ -140,6 +141,7 @@ export default function decorate(block) {
     if (rowIndex > 0) {
       row.classList.add('tab');
       row.classList.add(`tab-content-${rowIndex}`);
+      row.setAttribute('role', 'tabpanel');
       tabsCount += 1;
     }
     if (rowIndex === 1) {
@@ -154,6 +156,7 @@ export default function decorate(block) {
           const divToMove = contentElement.closest('div');
           divToMove.classList.add('tab-title');
           divToMove.classList.add(`tab-navbar-element-${rowIndex}`);
+          divToMove.setAttribute('role', 'tab');
           if (rowIndex === 1) {
             divToMove.classList.add(classes.activeTabTitle);
           } else {
