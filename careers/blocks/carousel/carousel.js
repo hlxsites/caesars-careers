@@ -211,6 +211,7 @@ function buildSlide(blockState, slide, index) {
  */
 function createClone(item, targetIndex) {
   const clone = item.cloneNode(true);
+  clone.id = `${clone.id}-clone`;
   clone.setAttribute('data-slide-index', targetIndex);
   clone.style.transform = `translateX(${targetIndex * 100}%)`;
   return clone;
