@@ -480,11 +480,11 @@ main .section.is-hero > div:first-of-type {
   width: 100%;
 }
 
-main .section.is-hero[data-block-status="loaded"] > .default-content-wrapper:first-of-type {
+main .section.is-hero > .default-content-wrapper:first-of-type {
   margin-top: 120px;
 }
 
-main .section.is-hero {
+main .section.is-hero[data-block-status="loaded"] {
   min-height: 670px;
   padding: unset;
 }
