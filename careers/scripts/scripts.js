@@ -127,7 +127,6 @@ function buildAutoBlocks(main) {
  * @param {object} attributes attributes to be added
  * @param html {HTMLElement | SVGAElement | string} Additional html to be appended to tag
  */
-
 export function createTag(tag, attributes = {}, html = undefined) {
   const el = document.createElement(tag);
   if (html) {
@@ -145,6 +144,10 @@ export function createTag(tag, attributes = {}, html = undefined) {
   return el;
 }
 
+/**
+ * Use an image as a whole section background
+ * @param {*} main Main (section) node
+ */
 function buildSectionBackground(main) {
   main.querySelectorAll('.section.has-background').forEach((section) => {
     const picture = section.querySelector('picture');
