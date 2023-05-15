@@ -1,6 +1,6 @@
 /* stylelint-disable no-descending-specificity */
 
-header {
+header[data-block-status="loaded"] {
   --nav-title-color: #707784;
   --nav-item-color: #565d6a;
 }
