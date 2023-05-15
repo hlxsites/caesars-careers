@@ -160,7 +160,7 @@ header nav .nav-sections {
   visibility: hidden;
 }
 
-header nav[aria-expanded="true"] .nav-sections {
+header nav[aria-expanded="true"] .nav-sections[data-block-status="loaded"] {
   visibility: visible;
   align-self: start;
   grid-area: sections;
