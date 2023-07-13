@@ -15,7 +15,7 @@ const screenConfig = Object.freeze({
     maxItems: 9,
   },
 });
-const CAESARS_DOT_COM = 'https://www.caesars.com';
+// const CAESARS_DOT_COM = 'https://www.caesars.com';
 const GLOBAL_HEADER_JSON = '/content/empire/en/jcr:content/root/header.model.json';
 const GLOBAL_HEADER_JSON_LOCAL = '/careers/scripts/resources/header.model.json';
 const GLOBAL_HEADER_LOGO_LOCAL = '/careers/icons/caesars-global-logo.svg';
@@ -214,10 +214,10 @@ export default async function decorate(block) {
   globalNavSection.classList.add('global-nav-section');
 
   // fetch global nav
-  if (window.location.host.endsWith('.page') || window.location.host.endsWith('.live') || window.location.host.startsWith('localhost')) {
-    globalNav = await fetch(`${GLOBAL_HEADER_JSON_LOCAL}`);
+  if (window.location.host.endsWith('caesars.com')) {
+    globalNav = await fetch(`${GLOBAL_HEADER_JSON}`);
   } else {
-    globalNav = await fetch(`${CAESARS_DOT_COM}${GLOBAL_HEADER_JSON}`);
+    globalNav = await fetch(`${GLOBAL_HEADER_JSON_LOCAL}`);
   }
   if (globalNav.ok) {
     const globalNavJson = await globalNav.json();
