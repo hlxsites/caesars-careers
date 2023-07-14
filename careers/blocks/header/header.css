@@ -352,7 +352,7 @@ header nav .nav-tools p:first-of-type a:hover {
   }
 
   /* Global Nav */
-  header .global-nav-desktop[data-block-status="loaded"] {
+  header .global-nav-desktop {
     display: flex;
     flex-direction: row;
     align-items: center;
