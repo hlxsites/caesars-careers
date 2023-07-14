@@ -212,6 +212,7 @@ export default async function decorate(block) {
   globalNavDesktop.classList.add('global-nav-desktop');
   const globalNavSection = document.createElement('div');
   globalNavSection.classList.add('global-nav-section');
+  const currentPage = encodeURIComponent(window.location.pathname);
 
   // fetch global nav
   if (window.location.host.endsWith('caesars.com')) {
@@ -253,11 +254,12 @@ export default async function decorate(block) {
       // user account
       const userAccount = document.createElement('div');
       userAccount.classList.add('user-account');
+      // get current relative path to send as the forwardUrl
       const signIn = document.createElement('a');
       signIn.classList.add('sign-in');
       signIn.setAttribute('aria-label', `${DESKTOP_SIGN_IN_TEXT}`);
+      signIn.href = `https://www.caesars.com/myrewards/profile/signin/?forwardUrl=${currentPage}`;
       signIn.innerHTML = `${DESKTOP_SIGN_IN_TEXT}`;
-      signIn.addEventListener('click', toggleUserMenu);
       userAccount.appendChild(signIn);
       globalNavDesktop.appendChild(userAccount);
     }
@@ -323,6 +325,7 @@ export default async function decorate(block) {
       const signInMobile = document.createElement('div');
       signInMobile.classList.add('sign-in');
       const signInLink = document.createElement('a');
+      signInLink.href = `https://www.caesars.com/myrewards/profile/signin/?forwardUrl=${currentPage}`;
       signInLink.textContent = `${MOBILE_SIGN_IN_TEXT}`;
       signInMobile.appendChild(signInLink);
       userAccountMobile.append(signInMobile);
