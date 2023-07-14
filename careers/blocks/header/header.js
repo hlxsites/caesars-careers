@@ -158,23 +158,6 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
- * shows the login modal
- */
-function toggleUserMenu() {
-  const userMenu = this.closest('.header.block').querySelector('.user-menu');
-  if (userMenu.classList.contains('open')) {
-    userMenu.classList.remove('open');
-  } else {
-    userMenu.classList.add('open');
-  }
-  if (this.classList.contains('user-account-mobile')) {
-    const nav = this.closest('nav');
-    const navSections = nav.querySelector('.nav-sections');
-    toggleMenu(nav, navSections);
-  }
-}
-
-/**
  * Creates the user menu
  * @param {Element} block Header block
  */
@@ -329,7 +312,6 @@ export default async function decorate(block) {
       signInLink.textContent = `${MOBILE_SIGN_IN_TEXT}`;
       signInMobile.appendChild(signInLink);
       userAccountMobile.append(signInMobile);
-      userAccountMobile.addEventListener('click', toggleUserMenu);
       navSections.prepend(userAccountMobile);
     }
 
