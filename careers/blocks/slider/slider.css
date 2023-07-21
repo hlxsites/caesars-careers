@@ -1,3 +1,7 @@
+.slider-wrapper {
+  padding: unset;
+}
+
 /* To prevent scrolling on the cards */
 .slider.block {
   overflow: hidden;
