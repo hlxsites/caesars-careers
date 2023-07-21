@@ -497,7 +497,7 @@ main .section.is-hero h1 {
   text-align: center;
   text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
   color: var(--static-color-white);
-  font-size: var(--heading-font-size-hero);
+  font-size: var(--heading-font-size-xl);
   text-transform: uppercase;
   line-height: 1.1;
   font-family: var(--hero-heading-font-family);
@@ -692,6 +692,10 @@ main .section.is-hero .button-container > em > a.secondary {
     width: var(--screen-width-m);
   }
 
+  main .section.is-hero h1 {
+    font-size: var(--heading-font-size-xl);
+  }
+
   /* Inline buttons */
   .inline-button a {
     margin-right: var(--layout-size-m);
@@ -710,6 +714,10 @@ main .section.is-hero .button-container > em > a.secondary {
       width: var(--screen-width-l);
   }
 
+  main .section.is-hero h1 {
+    font-size: var(--heading-font-size-xxl);
+  }
+  
   main .section.video-background h1 {
     padding-top: 48px;
     margin-top: 175px;
