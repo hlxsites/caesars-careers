@@ -422,11 +422,11 @@ main .section > div {
 }
 
 main .section > div:first-of-type {
-  padding-top: var(--layout-size-xl);
+  padding-top: var(--layout-size-m);
 }
 
 main .section > div:last-of-type {
-  padding-bottom: var(--layout-size-xl);
+  padding-bottom: var(--layout-size-m);
 }
 
 /* Block Library Style */
@@ -667,11 +667,11 @@ main .section.is-hero .button-container > em > a.secondary {
   }
 
   main .section > div:first-of-type {
-    padding-top: var(--layout-size-xxl);
+    padding-top: var(--layout-size-l);
   }
 
   main .section > div:last-of-type {
-    padding-bottom: var(--layout-size-xxl);
+    padding-bottom: var(--layout-size-l);
   }
 }
 
