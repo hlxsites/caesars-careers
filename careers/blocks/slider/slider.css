@@ -54,7 +54,7 @@
 
 .slider.block .card .short-description {
   padding: 16px 32px 16px 16px;
-  height: 180px;
+  height: auto;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -90,8 +90,9 @@
 
 .slider:not(.flat) .card .button-container {
   text-align: right;
-  position: absolute;
-  margin-top: 115px;
+  position: relative;
+
+  /* margin-top: 115px; */
   margin-left: 280px;
 }
 
@@ -107,7 +108,8 @@
 .slider-container  .slider.block .card-wrapper .tall-card .button-container {
     margin-left: unset;
     width: 100%;
-    padding-right: 6.5%;
+    
+    /* padding-right: 6.5%; */
 }
 
 .slider-container  .slider.single:not(.teaser) .card-wrapper .tall-card .button-container {
@@ -129,7 +131,6 @@
   line-height: 1.1;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .slider.block .card .short-description h5 {
@@ -140,7 +141,6 @@
   line-height: 1.25;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .slider.block .card .active-close-button {
@@ -231,7 +231,7 @@
     background: var(--static-color-white);
     position: relative;
     padding: 16px 32px 16px 16px;
-    height: 190px;
+    height: auto;
   }
 
   .slider.no-description .card .short-description {
