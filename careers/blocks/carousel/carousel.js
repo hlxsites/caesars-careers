@@ -346,14 +346,14 @@ export default function decorate(block) {
 
   carousel.addEventListener('mouseenter', () => {
     stopAutoScroll(blockState);
-  });
+  }, { passive: true });
   carousel.addEventListener('mouseleave', () => {
     if (isDown) {
       snapScroll(carousel, blockState, carousel.scrollLeft > startScroll ? 1 : -1);
     }
     startAutoScroll(block, blockState);
     isDown = false;
-  });
+  }, { passive: true });
 
   const movementEndEventHandler = () => {
     if (isDown) {
