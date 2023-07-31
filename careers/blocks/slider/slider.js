@@ -104,14 +104,14 @@ export default function decorate(block) {
               ellipsableText.innerHTML = `${fullTextContent}`;
               clickableCloseButton.classList.remove('hidden-close-button');
               clickableCloseButton.classList.add('active-close-button');
-            });
+            }, { passive: true });
             clickableCloseButton.addEventListener('click', () => {
               div.classList.remove('extended-text');
               ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
               ellipsableText.append(clickableEllipsis);
               clickableCloseButton.classList.remove('active-close-button');
               clickableCloseButton.classList.add('hidden-close-button');
-            });
+            }, { passive: true });
           }
         }
       } else {
