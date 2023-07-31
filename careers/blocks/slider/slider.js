@@ -1,4 +1,4 @@
-import { buildEllipsis } from '../../scripts/scripts.js';
+import { buildEllipsis, createTag } from '../../scripts/scripts.js';
 
 let visibleSlides = 3;
 
@@ -21,8 +21,7 @@ const setSliderPosition = (currentTranslate, slider) => {
 };
 
 export default function decorate(block) {
-  const cardWrapper = document.createElement('div');
-  cardWrapper.classList.add('card-wrapper');
+  const cardWrapper = createTag('div', { class: 'card-wrapper' });
 
   block.querySelectorAll('div.slider > div').forEach((div) => {
     block.classList.forEach((className) => {
@@ -50,13 +49,11 @@ export default function decorate(block) {
   // add slider arrow buttons
   const slides = [...block.querySelectorAll('.card')];
   if (slides.length > visibleSlides) {
-    const arrowLeft = document.createElement('div');
-    arrowLeft.classList.add('slider-button', 'left');
-    block.appendChild(arrowLeft);
-
-    const arrowRight = document.createElement('div');
-    arrowRight.classList.add('slider-button', 'right');
-    block.appendChild(arrowRight);
+    const arrowLeft = createTag('div', { class: 'slider-button' })
+    const arrowRight = createTag('div', { class: 'slider-button' });
+    arrowLeft.classList.add('left');
+    arrowRight.classList.add('right');
+    block.appendChild(arrowLeft, arrowRight);
   }
 
   const shortDescriptionDivs = block.querySelectorAll('.short-description');
@@ -98,11 +95,8 @@ export default function decorate(block) {
       if (ellipsisBuilder.lineCount > linesInCard) {
         const hasCloseButton = div.getElementsByClassName('close-button');
         if(hasCloseButton.length === 0) {
-          const clickableCloseButton = document.createElement('span');
-          const clickableEllipsis = document.createElement('span');
-
-          clickableCloseButton.classList.add('hidden-close-button');
-          clickableEllipsis.classList.add('clickable-ellipsis');
+          const clickableCloseButton = createTag('span', { class: 'hidden-close-button' });
+          const clickableEllipsis = createTag('span', { class: 'clickable-ellipsis' });
 
           clickableCloseButton.innerHTML = '';
           clickableCloseButton.classList.add('close-button');
@@ -212,7 +206,7 @@ export default function decorate(block) {
     }
   }
 
-  // Card slider animation
+  // Card slider animations
   slides.forEach((slide, index) => {
     const slideImage = slide.querySelector('img');
     slideImage?.addEventListener('dragstart', (e) => e.preventDefault());
