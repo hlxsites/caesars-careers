@@ -68,17 +68,19 @@ function showTab(block, rowIndex, overflowDetails = null) {
       } else if (tabToHideIndex < tabToShowIndex) { // slide in, then slide out
         tabToShow.classList.add(classes.tabSlideIn);
       }
-    } else if (!mediaWidthQueryMatcher.matches && tabToHideIndex > tabToShowIndex) {
-      if (overflowDetails && overflowDetails.overflowMovement) {
-        tabToShow.classList.add(classes.tabSlideIn);
-      } else {
-        tabToShow.classList.add(classes.tabSlideOut);
-      }
-    } else if (!mediaWidthQueryMatcher.matches && tabToHideIndex < tabToShowIndex) {
-      if (overflowDetails && overflowDetails.underflowMovement) {
-        tabToShow.classList.add(classes.tabSlideOut);
-      } else {
-        tabToShow.classList.add(classes.tabSlideIn);
+    } else {
+      if (tabToHideIndex > tabToShowIndex) {
+        if (overflowDetails && overflowDetails.overflowMovement) {
+          tabToShow.classList.add(classes.tabSlideIn);
+        } else {
+          tabToShow.classList.add(classes.tabSlideOut);
+        }
+      } else if (tabToHideIndex < tabToShowIndex) {
+        if (overflowDetails && overflowDetails.underflowMovement) {
+          tabToShow.classList.add(classes.tabSlideOut);
+        } else {
+          tabToShow.classList.add(classes.tabSlideIn);
+        }
       }
     }
   }
