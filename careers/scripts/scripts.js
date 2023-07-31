@@ -14,6 +14,7 @@ import {
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = ['carousel']; // add your LCP blocks to the list
+
 const ADDITIONAL_SCRIPT_IMPORT_DELAY_MS = 3000;
 
 /**
