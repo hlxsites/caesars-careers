@@ -9,6 +9,11 @@
   margin-bottom: var(--layout-size-xxl);
 }
 
+.columns.content-table > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .columns>div>div {
   text-align: center;
 }
@@ -201,13 +206,14 @@
     text-align: right;
   }
 
-  .columns>div {
+  .columns>div,
+  .columns.content-table > div {
     display: flex;
     flex-flow: row nowrap;
     gap: var(--layout-size-xl);
     align-items: center;
   }
-
+  
   .columns.long-card picture {
     display: flex;
   }
