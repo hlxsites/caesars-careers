@@ -154,11 +154,11 @@ export default function decorate(block) {
           const divToMove = contentElement.closest('div');
           divToMove.classList.add('tab-title', `tab-navbar-element-${rowIndex}`);
           divToMove.setAttribute('role', 'tab');
+          let tabTitleClass = classes.hiddenTabTitle;
           if (rowIndex === 1) {
-            divToMove.classList.add(classes.activeTabTitle);
-          } else {
-            divToMove.classList.add(classes.hiddenTabTitle);
+            tabTitleClass = classes.activeTabTitle;
           }
+          divToMove.classList.add(tabTitleClass);
           tabTitles.appendChild(divToMove);
 
           divToMove.addEventListener('click', () => {
