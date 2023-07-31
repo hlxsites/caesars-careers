@@ -138,8 +138,7 @@ export default function decorate(block) {
   let tabsCount = 0;
   [...block.children].forEach((row, rowIndex) => {
     if (rowIndex > 0) {
-      row.classList.add('tab');
-      row.classList.add(`tab-content-${rowIndex}`);
+      row.classList.add('tab', `tab-content-${rowIndex}`);
       row.setAttribute('role', 'tabpanel');
       tabsCount += 1;
     }
