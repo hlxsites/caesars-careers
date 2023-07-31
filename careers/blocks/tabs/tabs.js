@@ -152,8 +152,7 @@ export default function decorate(block) {
       if (contentElement.innerHTML) {
         if (i === 0) {
           const divToMove = contentElement.closest('div');
-          divToMove.classList.add('tab-title');
-          divToMove.classList.add(`tab-navbar-element-${rowIndex}`);
+          divToMove.classList.add('tab-title', `tab-navbar-element-${rowIndex}`);
           divToMove.setAttribute('role', 'tab');
           if (rowIndex === 1) {
             divToMove.classList.add(classes.activeTabTitle);
