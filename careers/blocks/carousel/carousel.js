@@ -374,9 +374,8 @@ export default function decorate(block) {
     carousel.scrollLeft = prevScroll - walk;
   });
   carousel.addEventListener('touchmove', (e) => {
-    if (!isDown) {
-      return;
-    }
+    if (!isDown) return;
+
     const x = e.changedTouches[0].screenX - carousel.offsetLeft;
     const walk = (x - startX);
     carousel.scrollLeft = prevScroll - walk;
