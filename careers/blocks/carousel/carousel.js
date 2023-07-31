@@ -293,9 +293,7 @@ export default function decorate(block) {
   block.append(carousel);
 
   if (slides.length > 1) {
-    const prevBtn = buildNav(blockState, 'prev');
-    const nextBtn = buildNav(blockState, 'next');
-    block.append(prevBtn, nextBtn);
+    block.append(buildNav(blockState, 'prev'), buildNav(blockState, 'next'));
   }
 
   const mediaVideoWidthQueryMatcher = window.matchMedia('only screen and (max-width: 1170px)');
