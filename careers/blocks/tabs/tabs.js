@@ -223,5 +223,5 @@ export default function decorate(block) {
   mediaWidthChangeHandler(mediaWidthQueryMatcher);
   mediaWidthQueryMatcher.addEventListener('change', (event) => {
     mediaWidthChangeHandler(event);
-  });
+  }, { passive: true });
 }
