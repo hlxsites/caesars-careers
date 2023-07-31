@@ -155,7 +155,7 @@ function buildNav(blockState, navigationDirection) {
         : blockState.curSlide + 1;
     }
     scrollToSlide(e.target.closest('.carousel'), blockState, nextSlide);
-  });
+  }, { passive: true });
   return btn;
 }
 
