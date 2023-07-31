@@ -62,7 +62,7 @@ function showTab(block, rowIndex, overflowDetails = null) {
 
     const mediaWidthQueryMatcher = window.matchMedia(RESPONSIVE_MEDIA_QUERY);
     if (mediaWidthQueryMatcher.matches) {
-      // Desktop
+      // Desktop (no underflow/overflow movement to handle)
       if (tabToHideIndex > tabToShowIndex) { // slide out, then slide in
         tabToShow.classList.add(classes.tabSlideOut);
       } else if (tabToHideIndex < tabToShowIndex) { // slide in, then slide out
