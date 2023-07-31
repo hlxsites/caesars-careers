@@ -395,10 +395,10 @@ export default function decorate(block) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           startAutoScroll(block, blockState);
-          mediaVideoWidthQueryMatcher.addEventListener('change', mediaVideoWidthChangeHandler);
+          mediaVideoWidthQueryMatcher.addEventListener('change', mediaVideoWidthChangeHandler, { passive: true });
         } else {
           stopAutoScroll(blockState);
-          mediaVideoWidthQueryMatcher.removeEventListener('change', mediaVideoWidthChangeHandler);
+          mediaVideoWidthQueryMatcher.removeEventListener('change', mediaVideoWidthChangeHandler, { passive: true });
         }
       });
     }
@@ -415,7 +415,7 @@ export default function decorate(block) {
     } else {
       startAutoScroll(block, blockState);
     }
-  });
+  }, { passive: true });
 
   let resizeTimeout;
   window.addEventListener('resize', () => {
@@ -423,5 +423,5 @@ export default function decorate(block) {
     resizeTimeout = setTimeout(() => {
       scrollToSlide(block, blockState, blockState.firstVisibleSlide, 'instant');
     }, 500);
-  });
+  }, { passive: true });
 }
