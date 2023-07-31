@@ -9,6 +9,8 @@
  * - next and previous navigation buttons
  */
 
+import { createTag } from '../../scripts/scripts.js';
+
 const DEFAULT_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_ID_PREFIX = 'carousel-slide';
 const NAVIGATION_DIRECTION_PREV = 'prev';
@@ -139,8 +141,7 @@ function snapScroll(el, blockState, dir = 1) {
  * @return {HTMLDivElement} The resulting nav element
  */
 function buildNav(blockState, navigationDirection) {
-  const btn = document.createElement('div');
-  btn.classList.add('carousel-nav', `carousel-nav-${navigationDirection}`);
+  const btn = createTag('div', { class: `carousel-nav carousel-nav-${navigationDirection}` })
   btn.addEventListener('click', (e) => {
     stopAutoScroll(blockState);
     let nextSlide = blockState.firstVisibleSlide;
@@ -272,11 +273,10 @@ export default function decorate(block) {
     const foundLink = videoLink.href;
     if (foundLink && foundLink.endsWith('.mp4')) {
       const divToReplace = videoLink.closest('div');
-      const videoDiv = document.createElement('div');
+      const videoDiv = createTag('div', { class: 'carousel-video' });
       const videoElement = document.createElement('video');
 
       divToReplace.classList.add('carousel-alt-video');
-      videoDiv.classList.add('carousel-video');
 
       videoElement.muted = true;
       videoElement.innerHTML = `<source src="${foundLink}" type="video/mp4">`;
@@ -287,9 +287,7 @@ export default function decorate(block) {
     }
   });
 
-  const carousel = document.createElement('div');
-  carousel.classList.add('carousel-slide-container');
-
+  const carousel = createTag('div', { class: 'carousel-slide-container' });
   const slides = [...block.children];
   blockState.maxVisibleSlides = slides.length;
   const slidesToAdd = new Array(blockState.maxVisibleSlides);

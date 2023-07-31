@@ -1,3 +1,5 @@
+import { createTag } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
   const iconBlockChildren = [...block.children];
   if (!iconBlockChildren || iconBlockChildren.length < 1) return;
@@ -22,8 +24,7 @@ export default function decorate(block) {
         iconNodes.push(currentIconNode);
       }
 
-      currentIconNode = document.createElement('div');
-      currentIconNode.classList.add('icon-layout-element');
+      currentIconNode = createTag('div', { class: 'icon-layout-element' });
       currentIconNode.append(iconLayoutElement);
     } else if (currentIconNode) {
       // if not icon, add content as is to currently built icon node
