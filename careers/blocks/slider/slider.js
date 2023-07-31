@@ -97,11 +97,7 @@ export default function decorate(block) {
 
       if (ellipsisBuilder.lineCount > linesInCard) {
         const hasCloseButton = div.getElementsByClassName('close-button');
-        console.log(div)
-        console.log("div has close button: ", hasCloseButton);
         if(hasCloseButton.length === 0) {
-          console.log('Creating more>close button')
-
           const clickableCloseButton = document.createElement('span');
           const clickableEllipsis = document.createElement('span');
 
