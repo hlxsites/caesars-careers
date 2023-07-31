@@ -269,15 +269,12 @@ export default function decorate(block) {
     const foundLink = videoLink.href;
     if (foundLink && foundLink.endsWith('.mp4')) {
       const divToReplace = videoLink.closest('div');
-      const videoDiv = createTag('div', { class: 'carousel-video' });
       const videoElement = document.createElement('video');
-
-      divToReplace.classList.add('carousel-alt-video');
 
       videoElement.muted = true;
       videoElement.innerHTML = `<source src="${foundLink}" type="video/mp4">`;
 
-      videoDiv.appendChild(videoElement);
+      divToReplace.classList.add('carousel-alt-video');
       divToReplace.appendChild(videoElement);
       videoLink.remove();
     }
