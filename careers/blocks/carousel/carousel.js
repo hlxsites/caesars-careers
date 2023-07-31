@@ -141,7 +141,7 @@ function snapScroll(el, blockState, dir = 1) {
  * @return {HTMLDivElement} The resulting nav element
  */
 function buildNav(blockState, navigationDirection) {
-  const btn = createTag('div', { class: `carousel-nav carousel-nav-${navigationDirection}` })
+  const btn = createTag('div', { class: `carousel-nav carousel-nav-${navigationDirection}` });
   btn.addEventListener('click', (e) => {
     stopAutoScroll(blockState);
     let nextSlide = blockState.firstVisibleSlide;

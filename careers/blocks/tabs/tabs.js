@@ -1,3 +1,5 @@
+import { createTag } from '../../scripts/scripts.js';
+
 const MOVE_TABS_FORWARD = 1;
 const MOVE_TABS_BACK = -1;
 const RESPONSIVE_MEDIA_QUERY = 'only screen and (min-width: 768px)';
@@ -127,14 +129,11 @@ function showTitle(block, tabsCount, direction) {
 }
 
 export default function decorate(block) {
-  const tabTitles = document.createElement('div');
-  tabTitles.classList.add('tab-navbar');
+  const tabTitles = createTag('div', { class: 'tab-navbar' });
   tabTitles.setAttribute('role', 'tablist');
-
   block.prepend(tabTitles);
 
-  const tabsHolder = document.createElement('div');
-  tabsHolder.classList.add('tab-tabs-holder');
+  const tabsHolder = createTag('div', { class: 'tab-tabs-holder' });
 
   let tabsCount = 0;
   [...block.children].forEach((row, rowIndex) => {
@@ -192,8 +191,7 @@ export default function decorate(block) {
     if (event.matches === false) {
       const backButtons = block.getElementsByClassName('backward-tab-button');
       if (!backButtons || backButtons.length === 0) {
-        const backButton = document.createElement('div');
-        backButton.classList.add('backward-tab-button');
+        const backButton = createTag('div', { class: 'backward-tab-button' });
         tabTitles.prepend(backButton);
         backButton.addEventListener('click', () => {
           showTitle(block, tabsCount, MOVE_TABS_BACK);
@@ -201,8 +199,7 @@ export default function decorate(block) {
       }
       const forwardButtons = block.getElementsByClassName('forward-tab-button');
       if (!forwardButtons || forwardButtons.length === 0) {
-        const forwardButton = document.createElement('div');
-        forwardButton.classList.add('forward-tab-button');
+        const forwardButton = createTag('div', { class: 'forward-tab-button' });
         tabTitles.appendChild(forwardButton);
         forwardButton.addEventListener('click', () => {
           showTitle(block, tabsCount, MOVE_TABS_FORWARD);
