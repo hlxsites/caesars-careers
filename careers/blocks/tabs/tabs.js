@@ -193,7 +193,7 @@ export default function decorate(block) {
         tabTitles.prepend(backButton);
         backButton.addEventListener('click', () => {
           showTitle(block, tabsCount, MOVE_TABS_BACK);
-        });
+        }, { passive: true });
       }
       const forwardButtons = block.getElementsByClassName('forward-tab-button');
       if (!forwardButtons || forwardButtons.length === 0) {
@@ -201,7 +201,7 @@ export default function decorate(block) {
         tabTitles.appendChild(forwardButton);
         forwardButton.addEventListener('click', () => {
           showTitle(block, tabsCount, MOVE_TABS_FORWARD);
-        });
+        }, { passive: true });
       }
       const tabTitleToHide = block.getElementsByClassName('tab-title');
       [...tabTitleToHide].forEach((tab) => {
