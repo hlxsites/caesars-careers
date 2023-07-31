@@ -173,7 +173,6 @@ function buildSlide(blockState, slide, index) {
   if (index !== blockState.firstVisibleSlide) {
     slide.setAttribute('tabindex', '-1');
   }
-
   if (index === blockState.firstVisibleSlide
     || index === blockState.firstVisibleSlide + 1) {
     slide.querySelectorAll('img').forEach((image) => {
@@ -181,7 +180,6 @@ function buildSlide(blockState, slide, index) {
       image.fetchPriority = 'high';
     });
   }
-
   slide.classList.add('carousel-slide');
 
   if (slide.children.length === 3) {
