@@ -13,7 +13,7 @@ import {
   readBlockConfig,
 } from './lib-franklin.js';
 
-const LCP_BLOCKS = [ 'carousel' ]; // add your LCP blocks to the list
+const LCP_BLOCKS = ['carousel']; // add your LCP blocks to the list
 const ADDITIONAL_SCRIPT_IMPORT_DELAY_MS = 3000;
 
 /**
@@ -102,23 +102,10 @@ export function buildEllipsis(text, width, maxVisibleLines, suffix, options = {}
 }
 
 /**
- * Builds hero block and prepends to main in a new section.
- * @param {Element} main The container element
- */
-function buildHeroBlock() {
-}
-
-/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
-  try {
-    buildHeroBlock(main);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Auto Blocking failed', error);
-  }
+function buildAutoBlocks() {
 }
 
 /**
