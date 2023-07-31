@@ -154,7 +154,6 @@ function buildNav(blockState, navigationDirection) {
         ? blockState.maxVisibleSlides + 1
         : blockState.curSlide + 1;
     }
-
     scrollToSlide(e.target.closest('.carousel'), blockState, nextSlide);
   });
   return btn;
