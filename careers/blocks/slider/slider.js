@@ -202,8 +202,7 @@ export default function decorate(block) {
   function touchMove(event) {
     if (isDragging) {
       animationID = requestAnimationFrame(animation);
-      const currentPosition = getPositionX(event);
-      currentTranslate = prevTranslate + currentPosition - startPos;
+      currentTranslate = prevTranslate + getPositionX(event) - startPos;
     }
   }
 
