@@ -54,7 +54,7 @@
 
 .slider.block .card .short-description {
   padding: 16px 32px 16px 16px;
-  height: auto;
+  height: 180px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -90,9 +90,8 @@
 
 .slider:not(.flat) .card .button-container {
   text-align: right;
-  position: relative;
-
-  /* margin-top: 115px; */
+  position: absolute;
+  margin-top: 115px;
   margin-left: 280px;
 }
 
@@ -108,8 +107,7 @@
 .slider-container  .slider.block .card-wrapper .tall-card .button-container {
     margin-left: unset;
     width: 100%;
-    
-    /* padding-right: 6.5%; */
+    padding-right: 6.5%;
 }
 
 .slider-container  .slider.single:not(.teaser) .card-wrapper .tall-card .button-container {
@@ -231,7 +229,7 @@
     background: var(--static-color-white);
     position: relative;
     padding: 16px 32px 16px 16px;
-    height: auto;
+    height: 190px;
   }
 
   .slider.no-description .card .short-description {
