@@ -152,18 +152,17 @@ export default function decorate(block) {
       if (contentElement.innerHTML) {
         if (i === 0) {
           const divToMove = contentElement.closest('div');
-          divToMove.classList.add('tab-title', `tab-navbar-element-${rowIndex}`);
-          divToMove.setAttribute('role', 'tab');
           let tabTitleClass = classes.hiddenTabTitle;
           if (rowIndex === 1) {
             tabTitleClass = classes.activeTabTitle;
           }
-          divToMove.classList.add(tabTitleClass);
+          divToMove.classList.add('tab-title', `tab-navbar-element-${rowIndex}`, tabTitleClass);
+          divToMove.setAttribute('role', 'tab');
           tabTitles.appendChild(divToMove);
 
           divToMove.addEventListener('click', () => {
             showTab(block, rowIndex);
-          });
+          }, { passive: true });
         } else if (contentElement.children
           && contentElement.children.length > 0
           && contentElement.children[0].tagName === 'PICTURE') {
@@ -172,7 +171,6 @@ export default function decorate(block) {
           contentElement.closest('div').classList.add('tab-text');
         }
       } else {
-        // empty div, remove it
         contentElement.remove();
       }
     });
