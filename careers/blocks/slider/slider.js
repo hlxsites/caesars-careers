@@ -95,7 +95,7 @@ export default function decorate(block) {
         textOptions,
       );
 
-      if (ellipsisBuilder.lineCount > linesInCard) {
+      if (isADesktop() && ellipsisBuilder.lineCount > linesInCard) {
         const clickableCloseButton = document.createElement('span');
         const clickableEllipsis = document.createElement('span');
 
