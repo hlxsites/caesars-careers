@@ -365,9 +365,8 @@ export default function decorate(block) {
   carousel.addEventListener('touchend', movementEndEventHandler, { passive: true });
 
   carousel.addEventListener('mousemove', (e) => {
-    if (!isDown) {
-      return;
-    }
+    if (!isDown) return;
+
     e.preventDefault();
 
     const x = e.pageX - carousel.offsetLeft;
