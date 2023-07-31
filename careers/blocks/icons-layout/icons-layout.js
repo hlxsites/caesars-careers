@@ -3,7 +3,6 @@ import { createTag } from '../../scripts/scripts.js';
 export default function decorate(block) {
   const iconBlockChildren = [...block.children];
   if (!iconBlockChildren || iconBlockChildren.length < 1) return;
-
   const initialIconsDiv = iconBlockChildren[0];
   if (!initialIconsDiv
     || !initialIconsDiv.children
