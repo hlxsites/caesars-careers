@@ -40,8 +40,14 @@ const getYouTubeId = (href) => {
  * @param videoId The YouTube video id
  */
 const loadYouTubePlayer = (element, videoId) => {
+  const options = {
+    videoId,
+    playerVars: {
+      origin: window.location.origin,
+    },
+  };
   // eslint-disable-next-line no-new
-  new window.YT.Player(element, { videoId });
+  new window.YT.Player(element, options);
 };
 
 /**
