@@ -53,12 +53,12 @@ const buildVideoPlayer = (href) => {
   if (getVideoType(href) !== 'youtube') {
     return null;
   }
+
   const videoPlayer = createTag('div', { class: 'video-player' });
   // Create a YouTube compatible iFrame
   const videoId = getYouTubeId(href);
   videoPlayer.dataset.ytid = videoId;
   videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
-
   if (!window.YT) {
     pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild });
   } else {
