@@ -52,6 +52,7 @@ const buildVideoPlayer = (href) => {
   iframe.frameborder = 0;
   iframe.width = 640;
   iframe.height = 360;
+  iframe.type= 'text/html';
   iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
   iframe.title = 'YouTube video player';
   iframe.toggleAttribute('allowfullscreen');
