@@ -7,8 +7,8 @@ sampleRUM('cwv');
 
 // add more delayed functionality here
 // for YouTube videos
-if (document.querySelector('[data-ytid]')) {
-  loadScript('https://www.youtube.com/iframe_api', {
-    type: 'text/javascript',
-  });
-}
+// if (document.querySelector('[data-ytid]')) {
+//   loadScript('https://www.youtube.com/iframe_api', {
+//     type: 'text/javascript',
+//   });
+// }

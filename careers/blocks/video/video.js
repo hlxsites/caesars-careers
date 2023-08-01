@@ -55,22 +55,54 @@ const buildVideoPlayer = (href) => {
   }
 
   const videoPlayer = createTag('div', { class: 'video-player' });
-  // Create a YouTube compatible iFrame
-  const videoId = getYouTubeId(href);
-  videoPlayer.dataset.ytid = videoId;
-  videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
-  if (!window.YT) {
-    pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild });
-  } else {
-    loadYouTubePlayer(videoPlayer.firstElementChild, videoId);
+
+  const iframe = createTag('iframe', { class: 'yt-iframe' });
+  iframe.id = 'existing-iframe-example';
+  iframe.frameborder = 0;
+  iframe.width = 640;
+  iframe.height = 360;
+  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  iframe.title = "YouTube video player";
+  iframe.toggleAttribute('allowfullscreen');
+  iframe.src = 'https://www.youtube.com/embed/l4iGvndOpxA?enablejsapi=1';
+  console.log("iframe src: ", href)
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('existing-iframe-example', {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+    });
   }
-  if (!window.onYouTubeIframeAPIReady) {
-    // onYouTubeIframeAPIReady will load the video after the script is loaded
-    window.onYouTubeIframeAPIReady = () => {
-      pendingPlayers.forEach(({ id, element }) => loadYouTubePlayer(element, id));
-    };
+  function onPlayerReady(event) {
+    document.getElementById('existing-iframe-example').style.borderColor = '#FF6D00';
+  }
+  function changeBorderColor(playerStatus) {
+    var color;
+    if (playerStatus == -1) {
+      color = "#37474F"; // unstarted = gray
+    } else if (playerStatus == 0) {
+      color = "#FFFF00"; // ended = yellow
+    } else if (playerStatus == 1) {
+      color = "#33691E"; // playing = green
+    } else if (playerStatus == 2) {
+      color = "#DD2C00"; // paused = red
+    } else if (playerStatus == 3) {
+      color = "#AA00FF"; // buffering = purple
+    } else if (playerStatus == 5) {
+      color = "#FF6DOO"; // video cued = orange
+    }
+    if (color) {
+      document.getElementById('existing-iframe-example').style.borderColor = color;
+    }
+  }
+  function onPlayerStateChange(event) {
+    changeBorderColor(event.data);
   }
 
+  videoPlayer.append(iframe);
   return videoPlayer;
 };
 
