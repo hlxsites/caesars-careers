@@ -35,16 +35,6 @@ const getYouTubeId = (href) => {
 };
 
 /**
- * Create a new YT Player and store the result of its player ready event.
- * @param element iFrame element YouTube player will be attached to.
- * @param videoId The YouTube video id
- */
-const loadYouTubePlayer = (element, videoId) => {
-  // eslint-disable-next-line no-new
-  new window.YT.Player(element, { videoId });
-};
-
-/**
  * Display video within a modal overlay. Video can be served directly or via YouTube.
  * @param href
  * @return {HTMLElement}
@@ -56,51 +46,16 @@ const buildVideoPlayer = (href) => {
 
   const videoPlayer = createTag('div', { class: 'video-player' });
 
+  const iframeId = 'existing-youtube-iframe'
   const iframe = createTag('iframe', { class: 'yt-iframe' });
-  iframe.id = 'existing-iframe-example';
+  iframe.id = iframeId;
   iframe.frameborder = 0;
   iframe.width = 640;
   iframe.height = 360;
-  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-  iframe.title = "YouTube video player";
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  iframe.title = 'YouTube video player';
   iframe.toggleAttribute('allowfullscreen');
-  iframe.src = 'https://www.youtube.com/embed/l4iGvndOpxA?enablejsapi=1';
-  console.log("iframe src: ", href)
-
-  var player;
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('existing-iframe-example', {
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-    });
-  }
-  function onPlayerReady(event) {
-    document.getElementById('existing-iframe-example').style.borderColor = '#FF6D00';
-  }
-  function changeBorderColor(playerStatus) {
-    var color;
-    if (playerStatus == -1) {
-      color = "#37474F"; // unstarted = gray
-    } else if (playerStatus == 0) {
-      color = "#FFFF00"; // ended = yellow
-    } else if (playerStatus == 1) {
-      color = "#33691E"; // playing = green
-    } else if (playerStatus == 2) {
-      color = "#DD2C00"; // paused = red
-    } else if (playerStatus == 3) {
-      color = "#AA00FF"; // buffering = purple
-    } else if (playerStatus == 5) {
-      color = "#FF6DOO"; // video cued = orange
-    }
-    if (color) {
-      document.getElementById('existing-iframe-example').style.borderColor = color;
-    }
-  }
-  function onPlayerStateChange(event) {
-    changeBorderColor(event.data);
-  }
+  iframe.src = `https://www.youtube.com/embed/${getYouTubeId(href)}?enablejsapi=1`;
 
   videoPlayer.append(iframe);
   return videoPlayer;
