@@ -1,7 +1,6 @@
-import { buildEllipsis } from '../../scripts/scripts.js';
+import { buildEllipsis, createTag } from '../../scripts/scripts.js';
 
 let visibleSlides = 3;
-
 const DEFAULT_CONFIG = Object.freeze({
   maxlines: 3,
   ellipsis: '...more',
@@ -21,8 +20,7 @@ const setSliderPosition = (currentTranslate, slider) => {
 };
 
 export default function decorate(block) {
-  const cardWrapper = document.createElement('div');
-  cardWrapper.classList.add('card-wrapper');
+  const cardWrapper = createTag('div', { class: 'card-wrapper' });
 
   block.querySelectorAll('div.slider > div').forEach((div) => {
     block.classList.forEach((className) => {
@@ -44,19 +42,14 @@ export default function decorate(block) {
     const contentDivs = div.querySelectorAll(':scope > div:not(.card-image)');
     contentDivs[0].classList.add('short-description');
   });
-
   block.appendChild(cardWrapper);
 
   // add slider arrow buttons
   const slides = [...block.querySelectorAll('.card')];
   if (slides.length > visibleSlides) {
-    const arrowLeft = document.createElement('div');
-    arrowLeft.classList.add('slider-button', 'left');
-    block.appendChild(arrowLeft);
-
-    const arrowRight = document.createElement('div');
-    arrowRight.classList.add('slider-button', 'right');
-    block.appendChild(arrowRight);
+    const arrowLeft = createTag('div', { class: 'slider-button left' });
+    const arrowRight = createTag('div', { class: 'slider-button right' });
+    block.appendChild(arrowLeft, arrowRight);
   }
 
   const shortDescriptionDivs = block.querySelectorAll('.short-description');
@@ -70,62 +63,67 @@ export default function decorate(block) {
       if (entries.length > 1) return;
       if (!ellipsableText || !fullTextContent) return;
 
-      const textStyle = window.getComputedStyle(div);
-      const textOptions = {
-        font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
-        letterSpacing: `${textStyle.letterSpacing}`,
-      };
-
-      const displayBufferPixels = 16;
-      const textContentWidth = div.offsetWidth - displayBufferPixels;
-
-      let linesInCard = DEFAULT_CONFIG.maxlines;
       let hasButtons = false;
-      const buttonsInBlock = div.getElementsByClassName('button-container');
-      hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
-      if (hasButtons) {
-        linesInCard = Math.max(linesInCard - 1, 1);
-      }
+      if (isADesktop()) {
+        const textStyle = window.getComputedStyle(div);
+        const textOptions = {
+          font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
+          letterSpacing: `${textStyle.letterSpacing}`,
+        };
+        const displayBufferPixels = 16;
+        const textContentWidth = div.offsetWidth - displayBufferPixels;
 
-      const ellipsisBuilder = buildEllipsis(
-        fullTextContent,
-        textContentWidth,
-        linesInCard,
-        DEFAULT_CONFIG.ellipsis,
-        textOptions,
-      );
+        let linesInCard = DEFAULT_CONFIG.maxlines;
+        const buttonsInBlock = div.getElementsByClassName('button-container');
+        hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
+        if (hasButtons) {
+          linesInCard = Math.max(linesInCard - 1, 1);
+        }
 
-      if (ellipsisBuilder.lineCount > linesInCard) {
-        const clickableCloseButton = document.createElement('span');
-        const clickableEllipsis = document.createElement('span');
+        const ellipsisBuilder = buildEllipsis(
+          fullTextContent,
+          textContentWidth,
+          linesInCard,
+          DEFAULT_CONFIG.ellipsis,
+          textOptions,
+        );
+        if (ellipsisBuilder.lineCount > linesInCard) {
+          const hasCloseButton = div.getElementsByClassName('close-button');
+          if (hasCloseButton.length === 0) {
+            const clickableCloseButton = createTag('span', { class: 'close-button hidden-close-button' });
+            const clickableEllipsis = createTag('span', { class: 'clickable-ellipsis' });
 
-        clickableCloseButton.classList.add('hidden-close-button');
-        clickableEllipsis.classList.add('clickable-ellipsis');
+            clickableCloseButton.innerHTML = '';
+            clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
+            ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
 
-        clickableCloseButton.innerHTML = '';
-        clickableCloseButton.classList.add('close-button');
-        clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
-        ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
-
-        ellipsableText.append(clickableEllipsis);
-        div.append(clickableCloseButton);
-
-        ellipsableText.addEventListener('click', () => {
-          div.classList.add('extended-text');
+            ellipsableText.append(clickableEllipsis);
+            div.append(clickableCloseButton);
+            ellipsableText.addEventListener('click', () => {
+              div.classList.add('extended-text');
+              ellipsableText.innerHTML = `${fullTextContent}`;
+              clickableCloseButton.classList.remove('hidden-close-button');
+              clickableCloseButton.classList.add('active-close-button');
+            }, { passive: true });
+            clickableCloseButton.addEventListener('click', () => {
+              div.classList.remove('extended-text');
+              ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
+              ellipsableText.append(clickableEllipsis);
+              clickableCloseButton.classList.remove('active-close-button');
+              clickableCloseButton.classList.add('hidden-close-button');
+            }, { passive: true });
+          }
+        }
+      } else {
+        // on resize, make sure `more` and the button aren't there anymore for mobile
+        const buttonsInBlock = div.getElementsByClassName('close-button');
+        hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
+        if (hasButtons) {
+          [...buttonsInBlock][0].remove();
           ellipsableText.innerHTML = `${fullTextContent}`;
-          clickableCloseButton.classList.remove('hidden-close-button');
-          clickableCloseButton.classList.add('active-close-button');
-        });
-        clickableCloseButton.addEventListener('click', () => {
-          div.classList.remove('extended-text');
-          ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
-          ellipsableText.append(clickableEllipsis);
-          clickableCloseButton.classList.remove('active-close-button');
-          clickableCloseButton.classList.add('hidden-close-button');
-        });
+        }
       }
     });
-
     observer.observe(div);
   });
 
@@ -204,12 +202,11 @@ export default function decorate(block) {
   function touchMove(event) {
     if (isDragging) {
       animationID = requestAnimationFrame(animation);
-      const currentPosition = getPositionX(event);
-      currentTranslate = prevTranslate + currentPosition - startPos;
+      currentTranslate = prevTranslate + getPositionX(event) - startPos;
     }
   }
 
-  // Card slider animation
+  // Card slider animations
   slides.forEach((slide, index) => {
     const slideImage = slide.querySelector('img');
     slideImage?.addEventListener('dragstart', (e) => e.preventDefault());

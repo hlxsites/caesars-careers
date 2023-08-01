@@ -1,3 +1,7 @@
+.slider-wrapper {
+  padding: unset;
+}
+
 /* To prevent scrolling on the cards */
 .slider.block {
   overflow: hidden;
@@ -26,8 +30,7 @@
 }
 
 .slider .card {
-  flex: 1 0 100%;
-  width: 100%;
+  flex: 1 0 90%;
   cursor: grab;
   user-select: none;
 }
@@ -126,7 +129,6 @@
   line-height: 1.1;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .slider.block .card .short-description h5 {
@@ -137,7 +139,6 @@
   line-height: 1.25;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .slider.block .card .active-close-button {
@@ -209,8 +210,8 @@
 }
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-  .slider.block .card {
-    width: 100%;
+  .slider .card {
+    flex: 1 0 90%;
   }
 
   .slider.block.single:not(.teaser) .card .short-description {
@@ -219,6 +220,10 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .slider .card {
+    flex: 1 0 45%;
+  }
+
   .slider:not(.flat) .card .short-description {
     margin: -35px 15px 15px;
     background: var(--static-color-white);
@@ -311,6 +316,10 @@
 }
 
 @media only screen and (min-width: 1170px) {
+  .slider .card {
+    flex: 1 0 100%;
+  }
+
   .default-content-wrapper + .slider-wrapper {
     margin-top: 72px;
   }
