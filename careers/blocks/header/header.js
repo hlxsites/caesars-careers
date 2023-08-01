@@ -204,6 +204,7 @@ export default async function decorate(block) {
   });
   // eslint-disable-next-line no-underscore-dangle
   if (window.__userObj) userObj = window.__userObj;
+  // eslint-disable-next-line no-console
   console.debug(`User Object details: ${JSON.stringify(userObj)}`);
 
   // fetch global nav
