@@ -53,7 +53,6 @@ const buildVideoPlayer = (href) => {
   if (getVideoType(href) !== 'youtube') {
     return null;
   }
-
   const videoPlayer = createTag('div', { class: 'video-player' });
   // Create a YouTube compatible iFrame
   const videoId = getYouTubeId(href);
@@ -70,7 +69,6 @@ const buildVideoPlayer = (href) => {
       pendingPlayers.forEach(({ id, element }) => loadYouTubePlayer(element, id));
     };
   }
-
   return videoPlayer;
 };
 
