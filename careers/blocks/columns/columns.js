@@ -42,7 +42,7 @@ export default function decorate(block) {
         }
       };
       handleScreenChange(mqList);
-      mqList.addEventListener('change', handleScreenChange);
+      mqList.addEventListener('change', handleScreenChange, { passive: true });
     }
   }
 }

@@ -9,6 +9,8 @@
  * - next and previous navigation buttons
  */
 
+import { createTag } from '../../scripts/scripts.js';
+
 const DEFAULT_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_ID_PREFIX = 'carousel-slide';
 const NAVIGATION_DIRECTION_PREV = 'prev';
@@ -139,8 +141,7 @@ function snapScroll(el, blockState, dir = 1) {
  * @return {HTMLDivElement} The resulting nav element
  */
 function buildNav(blockState, navigationDirection) {
-  const btn = document.createElement('div');
-  btn.classList.add('carousel-nav', `carousel-nav-${navigationDirection}`);
+  const btn = createTag('div', { class: `carousel-nav carousel-nav-${navigationDirection}` });
   btn.addEventListener('click', (e) => {
     stopAutoScroll(blockState);
     let nextSlide = blockState.firstVisibleSlide;
@@ -153,9 +154,8 @@ function buildNav(blockState, navigationDirection) {
         ? blockState.maxVisibleSlides + 1
         : blockState.curSlide + 1;
     }
-
     scrollToSlide(e.target.closest('.carousel'), blockState, nextSlide);
-  });
+  }, { passive: true });
   return btn;
 }
 
@@ -172,7 +172,6 @@ function buildSlide(blockState, slide, index) {
   if (index !== blockState.firstVisibleSlide) {
     slide.setAttribute('tabindex', '-1');
   }
-
   if (index === blockState.firstVisibleSlide
     || index === blockState.firstVisibleSlide + 1) {
     slide.querySelectorAll('img').forEach((image) => {
@@ -180,7 +179,6 @@ function buildSlide(blockState, slide, index) {
       image.fetchPriority = 'high';
     });
   }
-
   slide.classList.add('carousel-slide');
 
   if (slide.children.length === 3) {
@@ -226,13 +224,11 @@ function addClones(element) {
   if (element.children.length < 2) return;
 
   const initialChildren = [...element.children];
-
   const cloneForBeginning = createClone(initialChildren[initialChildren.length - 1], 0);
   element.firstChild.before(cloneForBeginning);
   element.firstChild.querySelectorAll('img').forEach((image) => {
     image.loading = 'eager';
   });
-
   const cloneForEnd = createClone(initialChildren[0], initialChildren.length + 1);
   element.lastChild.after(cloneForEnd);
 }
@@ -272,24 +268,18 @@ export default function decorate(block) {
     const foundLink = videoLink.href;
     if (foundLink && foundLink.endsWith('.mp4')) {
       const divToReplace = videoLink.closest('div');
-      const videoDiv = document.createElement('div');
       const videoElement = document.createElement('video');
-
-      divToReplace.classList.add('carousel-alt-video');
-      videoDiv.classList.add('carousel-video');
 
       videoElement.muted = true;
       videoElement.innerHTML = `<source src="${foundLink}" type="video/mp4">`;
 
-      videoDiv.appendChild(videoElement);
+      divToReplace.classList.add('carousel-alt-video');
       divToReplace.appendChild(videoElement);
       videoLink.remove();
     }
   });
 
-  const carousel = document.createElement('div');
-  carousel.classList.add('carousel-slide-container');
-
+  const carousel = createTag('div', { class: 'carousel-slide-container' });
   const slides = [...block.children];
   blockState.maxVisibleSlides = slides.length;
   const slidesToAdd = new Array(blockState.maxVisibleSlides);
@@ -302,9 +292,7 @@ export default function decorate(block) {
   block.append(carousel);
 
   if (slides.length > 1) {
-    const prevBtn = buildNav(blockState, 'prev');
-    const nextBtn = buildNav(blockState, 'next');
-    block.append(prevBtn, nextBtn);
+    block.append(buildNav(blockState, 'prev'), buildNav(blockState, 'next'));
   }
 
   const mediaVideoWidthQueryMatcher = window.matchMedia('only screen and (max-width: 1170px)');
@@ -355,14 +343,14 @@ export default function decorate(block) {
 
   carousel.addEventListener('mouseenter', () => {
     stopAutoScroll(blockState);
-  });
+  }, { passive: true });
   carousel.addEventListener('mouseleave', () => {
     if (isDown) {
       snapScroll(carousel, blockState, carousel.scrollLeft > startScroll ? 1 : -1);
     }
     startAutoScroll(block, blockState);
     isDown = false;
-  });
+  }, { passive: true });
 
   const movementEndEventHandler = () => {
     if (isDown) {
@@ -374,9 +362,8 @@ export default function decorate(block) {
   carousel.addEventListener('touchend', movementEndEventHandler, { passive: true });
 
   carousel.addEventListener('mousemove', (e) => {
-    if (!isDown) {
-      return;
-    }
+    if (!isDown) return;
+
     e.preventDefault();
 
     const x = e.pageX - carousel.offsetLeft;
@@ -384,9 +371,8 @@ export default function decorate(block) {
     carousel.scrollLeft = prevScroll - walk;
   });
   carousel.addEventListener('touchmove', (e) => {
-    if (!isDown) {
-      return;
-    }
+    if (!isDown) return;
+
     const x = e.changedTouches[0].screenX - carousel.offsetLeft;
     const walk = (x - startX);
     carousel.scrollLeft = prevScroll - walk;
@@ -397,10 +383,10 @@ export default function decorate(block) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           startAutoScroll(block, blockState);
-          mediaVideoWidthQueryMatcher.addEventListener('change', mediaVideoWidthChangeHandler);
+          mediaVideoWidthQueryMatcher.addEventListener('change', mediaVideoWidthChangeHandler, { passive: true });
         } else {
           stopAutoScroll(blockState);
-          mediaVideoWidthQueryMatcher.removeEventListener('change', mediaVideoWidthChangeHandler);
+          mediaVideoWidthQueryMatcher.removeEventListener('change', mediaVideoWidthChangeHandler, { passive: true });
         }
       });
     }
@@ -417,7 +403,7 @@ export default function decorate(block) {
     } else {
       startAutoScroll(block, blockState);
     }
-  });
+  }, { passive: true });
 
   let resizeTimeout;
   window.addEventListener('resize', () => {
@@ -425,5 +411,5 @@ export default function decorate(block) {
     resizeTimeout = setTimeout(() => {
       scrollToSlide(block, blockState, blockState.firstVisibleSlide, 'instant');
     }, 500);
-  });
+  }, { passive: true });
 }
