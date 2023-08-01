@@ -58,6 +58,7 @@ const buildVideoPlayer = (href) => {
   const videoId = getYouTubeId(href);
   videoPlayer.dataset.ytid = videoId;
   videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
+
   if (!window.YT) {
     pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild });
   } else {
@@ -69,6 +70,7 @@ const buildVideoPlayer = (href) => {
       pendingPlayers.forEach(({ id, element }) => loadYouTubePlayer(element, id));
     };
   }
+
   return videoPlayer;
 };
 
