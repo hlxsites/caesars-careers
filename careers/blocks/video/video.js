@@ -58,7 +58,15 @@ const buildVideoPlayer = (href) => {
   // Create a YouTube compatible iFrame
   const videoId = getYouTubeId(href);
   videoPlayer.dataset.ytid = videoId;
-  videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
+  //videoPlayer.innerHTML = `<div id="ytFrame-${videoId}"></div>`;
+
+  const videoIframe = document.createElement('iframe');
+  videoIframe.classList.add('youtube-player-iframe');
+  videoIframe.setAttribute('allowfullscreen', '');
+  videoIframe.setAttribute('credentialless', '');
+  videoIframe.src = `https://www.youtube.com/embed/${videoId}`;
+  videoPlayer.append(videoIframe);
+
   if (!window.YT) {
     pendingPlayers.push({ id: videoId, element: videoPlayer.firstElementChild });
   } else {
@@ -67,6 +75,7 @@ const buildVideoPlayer = (href) => {
   if (!window.onYouTubeIframeAPIReady) {
     // onYouTubeIframeAPIReady will load the video after the script is loaded
     window.onYouTubeIframeAPIReady = () => {
+      console.log("HEY!")
       pendingPlayers.forEach(({ id, element }) => loadYouTubePlayer(element, id));
     };
   }
