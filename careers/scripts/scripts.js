@@ -15,7 +15,7 @@ import {
 
 const LCP_BLOCKS = ['carousel']; // add your LCP blocks to the list
 
-const ADDITIONAL_SCRIPT_IMPORT_DELAY_MS = 3000;
+const ADDITIONAL_SCRIPT_IMPORT_DELAY_MS = 5000;
 
 /**
  * Read and return a configuration object for a block that contains both config
