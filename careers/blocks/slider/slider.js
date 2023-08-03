@@ -64,63 +64,53 @@ export default function decorate(block) {
       if (!ellipsableText || !fullTextContent) return;
 
       let hasButtons = false;
-      if (isADesktop()) {
-        const textStyle = window.getComputedStyle(div);
-        const textOptions = {
-          font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
-          letterSpacing: `${textStyle.letterSpacing}`,
-        };
-        const displayBufferPixels = 16;
-        const textContentWidth = div.offsetWidth - displayBufferPixels;
+      const textStyle = window.getComputedStyle(div);
+      const textOptions = {
+        font: `${textStyle.fontWeight} ${textStyle.fontSize} ${textStyle.fontFamily}`,
+        letterSpacing: `${textStyle.letterSpacing}`,
+      };
+      const displayBufferPixels = 16;
+      const textContentWidth = div.offsetWidth - displayBufferPixels;
 
-        let linesInCard = DEFAULT_CONFIG.maxlines;
-        const buttonsInBlock = div.getElementsByClassName('button-container');
-        hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
-        if (hasButtons) {
-          linesInCard = Math.max(linesInCard - 1, 1);
-        }
+      let linesInCard = DEFAULT_CONFIG.maxlines;
+      const buttonsInBlock = div.getElementsByClassName('button-container');
+      hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
+      if (hasButtons) {
+        linesInCard = Math.max(linesInCard - 1, 1);
+      }
 
-        const ellipsisBuilder = buildEllipsis(
-          fullTextContent,
-          textContentWidth,
-          linesInCard,
-          DEFAULT_CONFIG.ellipsis,
-          textOptions,
-        );
-        if (ellipsisBuilder.lineCount > linesInCard) {
-          const hasCloseButton = div.getElementsByClassName('close-button');
-          if (hasCloseButton.length === 0) {
-            const clickableCloseButton = createTag('span', { class: 'close-button hidden-close-button' });
-            const clickableEllipsis = createTag('span', { class: 'clickable-ellipsis' });
+      const ellipsisBuilder = buildEllipsis(
+        fullTextContent,
+        textContentWidth,
+        linesInCard,
+        DEFAULT_CONFIG.ellipsis,
+        textOptions,
+      );
+      if (ellipsisBuilder.lineCount > linesInCard) {
+        const hasCloseButton = div.getElementsByClassName('close-button');
+        if (hasCloseButton.length === 0) {
+          const clickableCloseButton = createTag('span', { class: 'close-button hidden-close-button' });
+          const clickableEllipsis = createTag('span', { class: 'clickable-ellipsis' });
 
-            clickableCloseButton.innerHTML = '';
-            clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
+          clickableCloseButton.innerHTML = '';
+          clickableEllipsis.innerHTML = DEFAULT_CONFIG.ellipsis;
+          ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
+
+          ellipsableText.append(clickableEllipsis);
+          div.append(clickableCloseButton);
+          ellipsableText.addEventListener('click', () => {
+            div.classList.add('extended-text');
+            ellipsableText.innerHTML = `${fullTextContent}`;
+            clickableCloseButton.classList.remove('hidden-close-button');
+            clickableCloseButton.classList.add('active-close-button');
+          }, { passive: true });
+          clickableCloseButton.addEventListener('click', () => {
+            div.classList.remove('extended-text');
             ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
-
             ellipsableText.append(clickableEllipsis);
-            div.append(clickableCloseButton);
-            ellipsableText.addEventListener('click', () => {
-              div.classList.add('extended-text');
-              ellipsableText.innerHTML = `${fullTextContent}`;
-              clickableCloseButton.classList.remove('hidden-close-button');
-              clickableCloseButton.classList.add('active-close-button');
-            }, { passive: true });
-            clickableCloseButton.addEventListener('click', () => {
-              div.classList.remove('extended-text');
-              ellipsableText.innerHTML = `${ellipsisBuilder.shortText}`;
-              ellipsableText.append(clickableEllipsis);
-              clickableCloseButton.classList.remove('active-close-button');
-              clickableCloseButton.classList.add('hidden-close-button');
-            }, { passive: true });
-          }
-        }
-      } else {
-        // on resize, make sure `more` and the button aren't there anymore for mobile
-        const buttonsInBlock = div.getElementsByClassName('close-button');
-        hasButtons = buttonsInBlock && buttonsInBlock.length > 0;
-        if (hasButtons) {
-          [...buttonsInBlock][0].remove();
-          ellipsableText.innerHTML = `${fullTextContent}`;
+            clickableCloseButton.classList.remove('active-close-button');
+            clickableCloseButton.classList.add('hidden-close-button');
+          }, { passive: true });
         }
       }
     });
