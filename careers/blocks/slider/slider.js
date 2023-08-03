@@ -49,7 +49,7 @@ export default function decorate(block) {
   if (slides.length > visibleSlides) {
     const arrowLeft = createTag('div', { class: 'slider-button left' });
     const arrowRight = createTag('div', { class: 'slider-button right' });
-    block.appendChild(arrowLeft, arrowRight);
+    block.append(arrowLeft, arrowRight);
   }
 
   const shortDescriptionDivs = block.querySelectorAll('.short-description');
