@@ -295,6 +295,36 @@ main .button-container > a.primary::after {
   margin-bottom: 2px;
 }
 
+main .no-link-button {
+  border: none;
+}
+
+main .no-link-button .button-container > strong > a.primary {
+  border: unset;
+  border-radius: unset;
+  background-color: unset;
+  color: var(--button-color);
+  text-transform: unset;
+  text-align: unset;
+  padding: unset;
+  overflow: unset;
+  min-width: unset;
+}
+
+main .no-link-button  a.button:any-link {
+  line-height: unset;
+  vertical-align: unset;
+  letter-spacing: unset;
+  text-transform: unset;
+  height: unset;
+}
+
+main .no-link-button .button-container > strong > a.primary:hover,
+main .no-link-button .button-container > strong > a.primary:active {
+  transition: unset;
+  box-shadow: unset;
+}
+
 main blockquote {
   font-style: italic;
   margin: 3rem;
@@ -469,6 +499,10 @@ main .section.compact > div:last-of-type {
 
 main .default-content-wrapper p+.button-container {
   margin-top: -50px;
+}
+
+main .no-link-button > div > p+.button-container{
+  margin-top: unset;
 }
 
 main .section.is-hero > div:last-of-type {
@@ -717,7 +751,7 @@ main .section.is-hero .button-container > em > a.secondary {
   main .section.is-hero h1 {
     font-size: var(--heading-font-size-xxl);
   }
-  
+
   main .section.video-background h1 {
     padding-top: 48px;
     margin-top: 175px;
