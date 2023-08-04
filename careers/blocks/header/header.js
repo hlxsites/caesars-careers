@@ -1,6 +1,6 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
 // import { getMetadata, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { loadScript } from '../../scripts/scripts.js';
+// import { loadScript } from '../../scripts/scripts.js';
 
 const screenConfig = Object.freeze({
   tablet: {
@@ -189,7 +189,7 @@ export default async function decorate(block) {
   block.textContent = '';
   let globalNav;
   let globalNavSections;
-  let userObj;
+  // let userObj;
   // let globalNavLogin;
   // let globalNavLogo;
   const globalNavDesktop = document.createElement('div');
@@ -197,15 +197,16 @@ export default async function decorate(block) {
   const globalNavSection = document.createElement('div');
   globalNavSection.classList.add('global-nav-section');
   const currentPage = encodeURIComponent(window.location.pathname);
+
   // Load the global galaxy script
-  const datetimeStamp = Date.now();
-  loadScript(`/a/security/js/login_galaxy.js?cachebuster=${datetimeStamp}`, {
-    type: 'text/javascript',
-  });
+  // const datetimeStamp = Date.now();
+  // loadScript(`/a/security/js/login_galaxy.js?cachebuster=${datetimeStamp}`, {
+  //   type: 'text/javascript',
+  // });
   // eslint-disable-next-line no-underscore-dangle
-  if (window.__userObj) userObj = window.__userObj;
-  // eslint-disable-next-line no-console
-  console.debug(`User Object details: ${JSON.stringify(userObj)}`);
+  // if (window.__userObj) userObj = window.__userObj;
+  // // eslint-disable-next-line no-console
+  // console.debug(`User Object details: ${JSON.stringify(userObj)}`);
 
   // fetch global nav
   if (window.location.host.endsWith('caesars.com')) {
