@@ -20,8 +20,8 @@ const GLOBAL_HEADER_JSON = '/content/empire/en/jcr:content/root/header.model.jso
 const GLOBAL_HEADER_JSON_LOCAL = '/careers/scripts/resources/header.model.json';
 const GLOBAL_HEADER_LOGO_LOCAL = '/careers/icons/caesars-global-logo.svg';
 // const GLOBAL_HEADER_SIGN_IN = '/fragments/header/sign-in';
-const DESKTOP_SIGN_IN_TEXT = 'Sign In';
-const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
+// const DESKTOP_SIGN_IN_TEXT = 'Sign In';
+// const MOBILE_SIGN_IN_TEXT = 'Sign Up / Sign In';
 
 async function createGlobalNavLogo(logoFileReference) {
   // Add logo
@@ -196,7 +196,7 @@ export default async function decorate(block) {
   globalNavDesktop.classList.add('global-nav-desktop');
   const globalNavSection = document.createElement('div');
   globalNavSection.classList.add('global-nav-section');
-  const currentPage = encodeURIComponent(window.location.pathname);
+  // const currentPage = encodeURIComponent(window.location.pathname);
 
   // Load the global galaxy script
   // const datetimeStamp = Date.now();
@@ -245,17 +245,17 @@ export default async function decorate(block) {
       globalNavTitle.addEventListener('click', () => {
         toggleNavSectionTitles(globalNavTitle, globalNavSections);
       });
-      // user account
-      const userAccount = document.createElement('div');
-      userAccount.classList.add('user-account');
-      // get current relative path to send as the forwardUrl
-      const signIn = document.createElement('a');
-      signIn.classList.add('sign-in');
-      signIn.setAttribute('aria-label', `${DESKTOP_SIGN_IN_TEXT}`);
-      signIn.href = `https://www.caesars.com/myrewards/profile/signin/?forwardUrl=${currentPage}`;
-      signIn.innerHTML = `${DESKTOP_SIGN_IN_TEXT}`;
-      userAccount.appendChild(signIn);
-      globalNavDesktop.appendChild(userAccount);
+      // // user account
+      // const userAccount = document.createElement('div');
+      // userAccount.classList.add('user-account');
+      // // get current relative path to send as the forwardUrl
+      // const signIn = document.createElement('a');
+      // signIn.classList.add('sign-in');
+      // signIn.setAttribute('aria-label', `${DESKTOP_SIGN_IN_TEXT}`);
+      // signIn.href = `https://www.caesars.com/myrewards/profile/signin/?forwardUrl=${currentPage}`;
+      // signIn.innerHTML = `${DESKTOP_SIGN_IN_TEXT}`;
+      // userAccount.appendChild(signIn);
+      // globalNavDesktop.appendChild(userAccount);
     }
     if (globalNavJson.logoFileReference) {
       globalNavDesktop.prepend(await createGlobalNavLogo(globalNavJson.logoFileReference));
@@ -314,16 +314,16 @@ export default async function decorate(block) {
       });
       if (globalNavSections) navSections.append(globalNavSections);
 
-      const userAccountMobile = document.createElement('div');
-      userAccountMobile.classList.add('user-account-mobile');
-      const signInMobile = document.createElement('div');
-      signInMobile.classList.add('sign-in');
-      const signInLink = document.createElement('a');
-      signInLink.href = `https://www.caesars.com/myrewards/profile/signin/?forwardUrl=${currentPage}`;
-      signInLink.textContent = `${MOBILE_SIGN_IN_TEXT}`;
-      signInMobile.appendChild(signInLink);
-      userAccountMobile.append(signInMobile);
-      navSections.prepend(userAccountMobile);
+      // const userAccountMobile = document.createElement('div');
+      // userAccountMobile.classList.add('user-account-mobile');
+      // const signInMobile = document.createElement('div');
+      // signInMobile.classList.add('sign-in');
+      // const signInLink = document.createElement('a');
+      // signInLink.href = `https://www.caesars.com/myrewards/profile/signin/?forwardUrl=${currentPage}`;
+      // signInLink.textContent = `${MOBILE_SIGN_IN_TEXT}`;
+      // signInMobile.appendChild(signInLink);
+      // userAccountMobile.append(signInMobile);
+      // navSections.prepend(userAccountMobile);
     }
 
     // hamburger for mobile
