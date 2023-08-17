@@ -9,9 +9,11 @@ const adobeLaunchDev = 'https://assets.adobedtm.com/6a2d3120441b/542932800399/la
 const adobeLaunchStage = 'https://assets.adobedtm.com/6a2d3120441b/542932800399/launch-EN2a6f725268ea4ce5be8f4ae9f41c2ee7-staging.min.js';
 const adobeLaunchProd = 'https://assets.adobedtm.com/6a2d3120441b/542932800399/launch-ENc8ccf2ef24a24a7a93d1dfb757ad2f96.min.js';
 
-if (window.location.host.startsWith('localhost')) {
+if (window.location.host.startsWith('localhost')
+    || window.location.host.endsWith('.page')) {
   loadScript(adobeLaunchDev);
-} else if (window.location.host.endsWith('.page') || window.location.host.endsWith('.live')) {
+} else if (window.location.host.endsWith('.live')
+            || window.location.host.startsWith('stage')) {
   loadScript(adobeLaunchStage);
 } else if (window.location.host.endsWith('caesars.com')) {
   loadScript(adobeLaunchProd);
