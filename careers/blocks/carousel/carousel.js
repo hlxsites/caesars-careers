@@ -172,13 +172,6 @@ function buildSlide(blockState, slide, index) {
   if (index !== blockState.firstVisibleSlide) {
     slide.setAttribute('tabindex', '-1');
   }
-  if (index === blockState.firstVisibleSlide
-    || index === blockState.firstVisibleSlide + 1) {
-    slide.querySelectorAll('img').forEach((image) => {
-      image.loading = 'eager';
-      image.fetchPriority = 'high';
-    });
-  }
   slide.classList.add('carousel-slide');
 
   if (slide.children.length === 3) {
@@ -412,4 +405,22 @@ export default function decorate(block) {
       scrollToSlide(block, blockState, blockState.firstVisibleSlide, 'instant');
     }, 500);
   }, { passive: true });
+
+  // set first two "raw" slides images to eager loading
+  const slidesContainer = block.querySelector('.carousel-slide-container');
+  const slidesArray = [...slidesContainer.children];
+  if (slidesArray.length >= 1) {
+    const firstSlide = slidesArray[0];
+    firstSlide.querySelectorAll('img').forEach((image) => {
+      image.loading = 'eager';
+      image.fetchPriority = 'high';
+    });
+  }
+  if (slidesArray.length >= 2) {
+    const secondSlide = slidesArray[1];
+    secondSlide.querySelectorAll('img').forEach((image) => {
+      image.loading = 'eager';
+      image.fetchPriority = 'high';
+    });
+  }
 }
