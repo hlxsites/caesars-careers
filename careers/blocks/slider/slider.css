@@ -171,6 +171,7 @@
   width: 100%;
   object-fit: cover;
   aspect-ratio: 3/2;
+  max-height: 230px;
 }
 
 .slider.flat .card img {
@@ -216,6 +217,10 @@
 
   .slider.block.single:not(.teaser) .card .short-description {
     height: 380px;
+  }
+
+  .slider.block .card img {
+    max-height: 250px;
   }
 }
 
