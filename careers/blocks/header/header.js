@@ -64,7 +64,7 @@ async function createGlobalNavLogo(logoFileReference) {
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
-    const nav = document.getElementById('nav');
+    const nav = document.getElementById('navigation');
     const navSections = nav.querySelector('.nav-sections');
     const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
     if (navSectionExpanded && screenConfig.smallDesktop.media.matches) {
@@ -274,7 +274,7 @@ export default async function decorate(block) {
 
     // decorate nav DOM
     const nav = document.createElement('nav');
-    nav.id = 'nav';
+    nav.id = 'navigation';
     nav.innerHTML = html;
 
     const classes = ['brand', 'sections', 'tools'];
