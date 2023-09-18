@@ -51,6 +51,8 @@ function makeImagesLoadEager(containerSlide) {
  */
 function adaptCarouselImageSizes(originalImageElement, targetWidth) {
   const onlyImage = originalImageElement.querySelector('img');
+  if (!onlyImage) return;
+
   const optimizedImage = createOptimizedPicture(onlyImage.src, '', false, [{ width: targetWidth }]);
   onlyImage.closest('picture').replaceWith(optimizedImage);
 }
