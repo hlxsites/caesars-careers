@@ -298,7 +298,9 @@ export default async function decorate(block) {
       newDiv.appendChild(localNavTitle);
       while (navSections.hasChildNodes()) newDiv.appendChild(navSections.firstChild);
       newDiv.setAttribute('aria-expanded', true);
-
+      newDiv.setAttribute('aria-controls', 'navlinks');
+      const navLinkUl = newDiv.querySelector('ul');
+      if (navLinkUl) navLinkUl.setAttribute('id', 'navlinks');
       // highlight current nav item if on same page
       const navLinks = newDiv.querySelectorAll('a');
       if (navLinks.length > 0) {
