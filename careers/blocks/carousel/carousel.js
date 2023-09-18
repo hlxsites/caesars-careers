@@ -39,6 +39,13 @@ function makeImagesLoadEager(containerSlide) {
   containerSlide.querySelectorAll('img').forEach((image) => {
     image.loading = 'eager';
     image.fetchPriority = 'high';
+
+    const headerPreload = createTag('link', {});
+    headerPreload.rel="preload";
+    headerPreload.fetchPriority="high";
+    headerPreload.as="image";
+    headerPreload.href=image.src;
+    document.head.append(headerPreload)
   });
 }
 
