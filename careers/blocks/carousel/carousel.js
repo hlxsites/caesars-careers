@@ -176,7 +176,7 @@ function buildSlide(blockState, slide, index) {
     || index === blockState.firstVisibleSlide + 1) {
     slide.querySelectorAll('img').forEach((image) => {
       //image.loading = 'eager';
-      //image.fetchPriority = 'high';
+      image.fetchPriority = 'high';
     });
   }
   slide.classList.add('carousel-slide');
