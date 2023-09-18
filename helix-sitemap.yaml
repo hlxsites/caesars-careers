@@ -1,0 +1,6 @@
+ sitemaps:
+   caesars-careers:
+     origin: https://www.caesars.com
+     source: /careers/query-index.json
+     destination: /careers/sitemap.xml
+     lastmod: YYYY-MM-DD
