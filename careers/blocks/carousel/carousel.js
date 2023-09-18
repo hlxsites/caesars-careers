@@ -442,7 +442,7 @@ export default function decorate(block) {
     mediaWidthChangeHandler(event);
   }, { passive: true });
 
-  // set first two "raw" slides images to eager loading
+  // set first two "real" slides images to eager loading
   const slidesContainer = block.querySelector('.carousel-slide-container');
   const slidesArray = [...slidesContainer.children];
   if (slidesArray.length >= 1) {
