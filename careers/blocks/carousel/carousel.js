@@ -32,6 +32,17 @@ class CarouselState {
 }
 
 /**
+ * Make images from a slide load eagerly
+ * @param {*} containerSlide Slide containing the images to load eager
+ */
+function makeImagesLoadEager(containerSlide) {
+  containerSlide.querySelectorAll('img').forEach((image) => {
+    image.loading = 'eager';
+    image.fetchPriority = 'high';
+  });
+}
+
+/**
  * Clear any active scroll intervals
  * @param blockState Current block state
  */
@@ -410,17 +421,9 @@ export default function decorate(block) {
   const slidesContainer = block.querySelector('.carousel-slide-container');
   const slidesArray = [...slidesContainer.children];
   if (slidesArray.length >= 1) {
-    const firstSlide = slidesArray[0];
-    firstSlide.querySelectorAll('img').forEach((image) => {
-      image.loading = 'eager';
-      image.fetchPriority = 'high';
-    });
+    makeImagesLoadEager(slidesArray[0]);
   }
   if (slidesArray.length >= 2) {
-    const secondSlide = slidesArray[1];
-    secondSlide.querySelectorAll('img').forEach((image) => {
-      image.loading = 'eager';
-      image.fetchPriority = 'high';
-    });
+    makeImagesLoadEager(slidesArray[1]);
   }
 }
