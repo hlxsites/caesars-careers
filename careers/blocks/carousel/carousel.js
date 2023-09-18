@@ -44,6 +44,11 @@ function makeImagesLoadEager(containerSlide) {
   });
 }
 
+/**
+ * Adapt image sizes (width) to display screen
+ * @param {*} originalImageElement Original image element
+ * @param {*} targetWidth Target width for the image
+ */
 function adaptCarouselImageSizes(originalImageElement, targetWidth) {
   const onlyImage = originalImageElement.querySelector('img');
   const optimizedImage = createOptimizedPicture(onlyImage.src, '', false, [{ width: targetWidth }]);
