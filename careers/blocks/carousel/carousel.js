@@ -10,12 +10,14 @@
  */
 
 import { createTag } from '../../scripts/scripts.js';
+import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
 const DEFAULT_SCROLL_INTERVAL_MS = 5000;
 const SLIDE_ID_PREFIX = 'carousel-slide';
 const NAVIGATION_DIRECTION_PREV = 'prev';
 const NAVIGATION_DIRECTION_NEXT = 'next';
 const SLIDE_ANIMATION_DURATION_MS = 640;
+const RESPONSIVE_MEDIA_QUERY = 'only screen and (max-width: 768px)';
 
 const DEFAULT_CONFIG = Object.freeze({
   interval: DEFAULT_SCROLL_INTERVAL_MS,
@@ -40,6 +42,12 @@ function makeImagesLoadEager(containerSlide) {
     image.loading = 'eager';
     image.fetchPriority = 'high';
   });
+}
+
+function adaptCarouselImageSizes(originalImageElement, targetWidth) {
+  const onlyImage = originalImageElement.querySelector('img');
+  const optimizedImage = createOptimizedPicture(onlyImage.src, '', false, [{ width: targetWidth }]);
+  onlyImage.closest('picture').replaceWith(optimizedImage);
 }
 
 /**
@@ -196,7 +204,8 @@ function buildSlide(blockState, slide, index) {
   } else {
     // image or video and text
     if (!slide.children[0].classList.contains('carousel-alt-video')) {
-      slide.children[0].classList.add('carousel-only-image');
+      const onlyPicture = slide.children[0];
+      onlyPicture.classList.add('carousel-only-image');
     }
     slide.children[1].classList.add('carousel-text');
   }
@@ -230,9 +239,6 @@ function addClones(element) {
   const initialChildren = [...element.children];
   const cloneForBeginning = createClone(initialChildren[initialChildren.length - 1], 0);
   element.firstChild.before(cloneForBeginning);
-  element.firstChild.querySelectorAll('img').forEach((image) => {
-    image.loading = 'eager';
-  });
   const cloneForEnd = createClone(initialChildren[0], initialChildren.length + 1);
   element.lastChild.after(cloneForEnd);
 }
@@ -417,7 +423,26 @@ export default function decorate(block) {
     }, 500);
   }, { passive: true });
 
-  // set first two "raw" slides images to eager loading
+  const mediaWidthQueryMatcher = window.matchMedia(RESPONSIVE_MEDIA_QUERY);
+  const mediaWidthChangeHandler = (event) => {
+    if (event.matches === true) {
+      const allCarouselImages = block.getElementsByClassName('carousel-only-image');
+      [...allCarouselImages].forEach((image) => {
+        adaptCarouselImageSizes(image, '1200');
+      });
+    } else {
+      const allCarouselImages = block.getElementsByClassName('carousel-only-image');
+      [...allCarouselImages].forEach((image) => {
+        adaptCarouselImageSizes(image, '1600');
+      });
+    }
+  };
+  mediaWidthChangeHandler(mediaWidthQueryMatcher);
+  mediaWidthQueryMatcher.addEventListener('change', (event) => {
+    mediaWidthChangeHandler(event);
+  }, { passive: true });
+
+  // set first two "real" slides images to eager loading
   const slidesContainer = block.querySelector('.carousel-slide-container');
   const slidesArray = [...slidesContainer.children];
   if (slidesArray.length >= 1) {
