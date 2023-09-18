@@ -283,8 +283,9 @@ export default async function decorate(block) {
       if (section) section.classList.add(`nav-${c}`);
     });
 
-    // Remove the text in the link
+    // Remove the text in the link and add aria-label
     nav.querySelector('.nav-brand a').innerHTML = '';
+    nav.querySelector('.nav-brand a').setAttribute('aria-label', 'Caesars Careers');
 
     const navSections = nav.querySelector('.nav-sections');
     if (navSections) {
