@@ -64,7 +64,7 @@ async function createGlobalNavLogo(logoFileReference) {
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
-    const nav = document.getElementById('nav');
+    const nav = document.getElementById('navigation');
     const navSections = nav.querySelector('.nav-sections');
     const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
     if (navSectionExpanded && screenConfig.smallDesktop.media.matches) {
@@ -274,7 +274,7 @@ export default async function decorate(block) {
 
     // decorate nav DOM
     const nav = document.createElement('nav');
-    nav.id = 'nav';
+    nav.id = 'navigation';
     nav.innerHTML = html;
 
     const classes = ['brand', 'sections', 'tools'];
@@ -283,8 +283,9 @@ export default async function decorate(block) {
       if (section) section.classList.add(`nav-${c}`);
     });
 
-    // Remove the text in the link
+    // Remove the text in the link and add aria-label
     nav.querySelector('.nav-brand a').innerHTML = '';
+    nav.querySelector('.nav-brand a').setAttribute('aria-label', 'Caesars Careers');
 
     const navSections = nav.querySelector('.nav-sections');
     if (navSections) {
@@ -329,7 +330,7 @@ export default async function decorate(block) {
     // hamburger for mobile
     const hamburger = document.createElement('div');
     hamburger.classList.add('nav-hamburger');
-    hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
+    hamburger.innerHTML = `<button type="button" aria-controls="navigation" aria-label="Open navigation">
         <span class="nav-hamburger-icon"></span>
       </button>`;
     hamburger.addEventListener('click', () => toggleMenu(nav, navSections));

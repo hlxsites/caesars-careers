@@ -152,5 +152,10 @@ export default async function decorate(block) {
     globalfooter.firstElementChild.classList.add('global-footer-content');
     const globalFooterLinks = globalfooter.querySelector('.global-footer-content > div > div');
     globalFooterLinks.classList.add('global-footer-links');
+    const globalFooterLinkTags = globalFooterLinks.querySelectorAll('a');
+    globalFooterLinkTags.forEach((link) => {
+      const label = link.href.split('https://www.caesars.com/')[1];
+      link.setAttribute('aria-label', label);
+    });
   }
 }
