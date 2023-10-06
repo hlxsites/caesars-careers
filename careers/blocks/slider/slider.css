@@ -116,22 +116,23 @@
   top: auto;
 }
 
+.slider.block .extended-text h3 {
+  display: none;
+}
+
 .slider.block .extended-text h4 {
   display: none;
 }
 
-.slider.block .extended-text h5 {
-  display: none;
-}
-
-.slider.block .card .short-description h4 {
+.slider.block .card .short-description h3 {
   text-transform: uppercase;
   line-height: 1.1;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 22px;
 }
 
-.slider.block .card .short-description h5 {
+.slider.block .card .short-description h4 {
   opacity: .7;
   font-size: var(--body-font-size-xs);
   font-weight: var(--emphasized-font-weight);
