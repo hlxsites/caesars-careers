@@ -43,7 +43,7 @@
   color: var(--static-color-white);
 }
 
-.featured-card.block .featured-card-content h4 {
+.featured-card.block .featured-card-content h3 {
   text-transform: uppercase;
   padding-top: var(--layout-size-m);
   padding-bottom: var(--layout-size-m);
@@ -76,7 +76,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .featured-card.block .featured-card-content h4 {
+  .featured-card.block .featured-card-content h3 {
     font-size: 36px;
   }
 
@@ -112,7 +112,7 @@
   }
 
   .featured-card-text > p,
-  .featured-card-text > h4 {
+  .featured-card-text > h3 {
     padding-left: var(--layout-size-xl);
     padding-right: var(--layout-size-xl);
   }
