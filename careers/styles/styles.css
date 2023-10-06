@@ -543,7 +543,7 @@ main .section.is-hero.left-aligned h1 {
   margin-left: 20%;
 }
 
-main .section.is-hero h4 {
+main .section.is-hero h2 {
   font-style: normal;
   text-align: center;
   text-shadow: 0 2px 4px rgb(0 0 0 / 50%);

@@ -18,7 +18,7 @@
   text-align: center;
 }
 
-.icons-layout.block h4 {
+.icons-layout.block h3 {
   text-align: center;
   font-weight: var(--emphasized-block-font-weight);
   font-size: var(--heading-font-size-l);
@@ -52,7 +52,7 @@
     padding: var(--layout-size-xs);
   }
 
-  .icons-layout.block h4 {
+  .icons-layout.block h3 {
     font-size: var(--heading-font-size-teaser);
   }
 }
