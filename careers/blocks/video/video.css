@@ -26,7 +26,7 @@
   margin: 0;
 }
 
-.video.block .video-poster h4 {
+.video.block .video-poster h3 {
   margin: 300px 0 0 16px;
 }
 
@@ -52,7 +52,7 @@
     max-height: var(--video-height-m);
   }
 
-  .video.block .video-poster h4 {
+  .video.block .video-poster h3 {
     margin: 394px 0 0 16px;
   }
 }
@@ -72,7 +72,7 @@
     max-height: var(--video-height-l);
   }
 
-  .video.block .video-poster h4 {
+  .video.block .video-poster h3 {
     margin: 502px 0 0 16px;
   }
 }
@@ -92,7 +92,7 @@
     max-height: var(--video-height-xl);
   }
 
-  .video.block .video-poster h4 {
+  .video.block .video-poster h3 {
     margin: 500px 0 0 16px;
   }
 }
